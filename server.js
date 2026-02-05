@@ -658,6 +658,154 @@ app.get('/v1/models', auth.authMiddleware(db), apiRateLimit, async (req, res) =>
   }
 });
 
+// === Admin Routes ===
+
+const ADMIN_KEY = process.env.ADMIN_KEY || 'admin_changeme_in_production';
+
+function adminAuth(req, res, next) {
+  const key = req.headers['x-admin-key'] || req.query.key;
+  if (key !== ADMIN_KEY) {
+    return res.status(401).json({ error: 'Unauthorized' });
+  }
+  next();
+}
+
+app.get('/admin/stats', adminAuth, async (req, res) => {
+  try {
+    const allUsers = db.users ? 
+      (() => { const stmt = require('./lib/database').db.prepare('SELECT * FROM users'); const rows = []; while(stmt.step()) rows.push(stmt.getAsObject()); stmt.free(); return rows; })() 
+      : [];
+    
+    const allUsage = db.usage ? 
+      (() => { const stmt = require('./lib/database').db.prepare('SELECT * FROM usage'); const rows = []; while(stmt.step()) rows.push(stmt.getAsObject()); stmt.free(); return rows; })()
+      : [];
+    
+    const today = new Date().toISOString().split('T')[0];
+    const todayUsers = allUsers.filter(u => u.created_at && u.created_at.startsWith(today));
+    const todayUsage = allUsage.filter(u => u.date === today).reduce((sum, u) => sum + (u.query_count || 0), 0);
+    const totalUsage = allUsage.reduce((sum, u) => sum + (u.query_count || 0), 0);
+    
+    const activeTrials = allUsers.filter(u => {
+      if (u.subscription_status !== 'trialing') return false;
+      if (!u.trial_ends_at) return false;
+      return new Date(u.trial_ends_at) > new Date();
+    });
+    
+    res.json({
+      overview: {
+        totalUsers: allUsers.length,
+        signupsToday: todayUsers.length,
+        activeTrials: activeTrials.length,
+        totalApiCalls: totalUsage,
+        apiCallsToday: todayUsage,
+      },
+      recentUsers: allUsers.slice(-10).reverse().map(u => ({
+        id: u.id,
+        email: u.email,
+        status: u.subscription_status,
+        tier: u.subscription_tier,
+        createdAt: u.created_at,
+        trialEndsAt: u.trial_ends_at,
+      })),
+      timestamp: new Date().toISOString(),
+    });
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+app.get('/admin/users', adminAuth, async (req, res) => {
+  try {
+    const stmt = require('./lib/database').db.prepare('SELECT id, email, subscription_status, subscription_tier, trial_ends_at, created_at, signup_ip FROM users ORDER BY id DESC');
+    const rows = [];
+    while(stmt.step()) rows.push(stmt.getAsObject());
+    stmt.free();
+    res.json({ users: rows, total: rows.length });
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+app.get('/admin/usage', adminAuth, async (req, res) => {
+  try {
+    const stmt = require('./lib/database').db.prepare('SELECT u.*, us.email FROM usage u JOIN users us ON u.user_id = us.id ORDER BY u.date DESC, u.query_count DESC LIMIT 100');
+    const rows = [];
+    while(stmt.step()) rows.push(stmt.getAsObject());
+    stmt.free();
+    res.json({ usage: rows });
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+// Simple HTML dashboard
+app.get('/admin', adminAuth, (req, res) => {
+  res.send(`
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SavvyLLM Admin</title>
+  <style>
+    body { font-family: -apple-system, sans-serif; max-width: 1000px; margin: 50px auto; padding: 20px; background: #f5f5f5; }
+    h1 { color: #1a1a2e; }
+    .card { background: white; padding: 20px; border-radius: 8px; margin: 15px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+    .stat { display: inline-block; margin-right: 40px; }
+    .stat-value { font-size: 2rem; font-weight: bold; color: #00d9ff; }
+    .stat-label { color: #666; }
+    table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+    th, td { text-align: left; padding: 10px; border-bottom: 1px solid #eee; }
+    th { background: #f8f9fa; }
+    .refresh { background: #00d9ff; color: #1a1a2e; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <h1>🎯 SavvyLLM Admin Dashboard</h1>
+  <button class="refresh" onclick="loadStats()">Refresh</button>
+  
+  <div class="card" id="overview">Loading...</div>
+  
+  <div class="card">
+    <h3>Recent Users</h3>
+    <table id="users-table">
+      <tr><th>ID</th><th>Email</th><th>Status</th><th>Tier</th><th>Created</th></tr>
+    </table>
+  </div>
+  
+  <script>
+    const key = new URLSearchParams(window.location.search).get('key');
+    
+    async function loadStats() {
+      const res = await fetch('/admin/stats?key=' + key);
+      const data = await res.json();
+      
+      document.getElementById('overview').innerHTML = \`
+        <div class="stat"><div class="stat-value">\${data.overview.totalUsers}</div><div class="stat-label">Total Users</div></div>
+        <div class="stat"><div class="stat-value">\${data.overview.signupsToday}</div><div class="stat-label">Signups Today</div></div>
+        <div class="stat"><div class="stat-value">\${data.overview.activeTrials}</div><div class="stat-label">Active Trials</div></div>
+        <div class="stat"><div class="stat-value">\${data.overview.totalApiCalls}</div><div class="stat-label">Total API Calls</div></div>
+        <div class="stat"><div class="stat-value">\${data.overview.apiCallsToday}</div><div class="stat-label">Calls Today</div></div>
+      \`;
+      
+      const tbody = data.recentUsers.map(u => \`
+        <tr>
+          <td>\${u.id}</td>
+          <td>\${u.email}</td>
+          <td>\${u.status}</td>
+          <td>\${u.tier}</td>
+          <td>\${new Date(u.createdAt).toLocaleString()}</td>
+        </tr>
+      \`).join('');
+      document.getElementById('users-table').innerHTML = '<tr><th>ID</th><th>Email</th><th>Status</th><th>Tier</th><th>Created</th></tr>' + tbody;
+    }
+    
+    loadStats();
+    setInterval(loadStats, 30000);
+  </script>
+</body>
+</html>
+  `);
+});
+
 // === Start ===
 async function start() {
   // Initialize database first
