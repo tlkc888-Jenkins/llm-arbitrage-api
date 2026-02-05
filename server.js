@@ -255,13 +255,22 @@ app.post('/auth/signup', async (req, res) => {
     // Track IP
     db.antiAbuse.trackIpSignup(ip);
     
-    // Create Stripe customer
+    // Create Stripe customer (if Stripe is configured)
     let stripeCustomerId = null;
+    let setupUrl = null;
     if (process.env.STRIPE_SECRET_KEY) {
       try {
         const customer = await billing.createCustomer(email, { userId: String(userId) });
         stripeCustomerId = customer.id;
         db.users.updateStripe(userId, stripeCustomerId);
+        
+        // Create setup session for card collection (required but not charged during trial)
+        const setupSession = await billing.createSetupSession({
+          customerId: stripeCustomerId,
+          successUrl: `${BASE_URL}/setup-complete`,
+          cancelUrl: `${BASE_URL}/setup-cancel`,
+        });
+        setupUrl = setupSession.url;
       } catch (e) {
         console.error('Stripe customer creation failed:', e.message);
       }
@@ -284,6 +293,8 @@ app.post('/auth/signup', async (req, res) => {
       apiKey, // Only shown once!
       trialEndsAt: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
       stripeCustomerId,
+      setupUrl, // Redirect here to add card (optional during trial, required after)
+      note: setupUrl ? 'Add your card to continue after trial' : 'Card setup available when billing is enabled',
     });
     
   } catch (e) {
