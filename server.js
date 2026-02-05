@@ -659,7 +659,17 @@ app.get('/v1/models', auth.authMiddleware(db), apiRateLimit, async (req, res) =>
 });
 
 // === Start ===
-app.listen(PORT, () => {
-  console.log(`SavvyLLM API running on http://localhost:${PORT}`);
+async function start() {
+  // Initialize database first
+  await db.initDb();
+  console.log('Database initialized');
+  
+  // Pre-warm pricing cache
   loadPricingCache().catch(console.error);
-});
+  
+  app.listen(PORT, () => {
+    console.log(`SavvyLLM API running on http://localhost:${PORT}`);
+  });
+}
+
+start().catch(console.error);
