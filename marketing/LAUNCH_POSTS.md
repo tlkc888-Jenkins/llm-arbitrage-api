@@ -1,4 +1,4 @@
-# SavvyLLM Launch Posts
+# AutropicAI Launch Posts
 
 Ready-to-post content for launch day.
 
@@ -6,15 +6,15 @@ Ready-to-post content for launch day.
 
 ## Hacker News — Show HN
 
-**Title:** Show HN: SavvyLLM – Find the cheapest LLM for any task (800+ models)
+**Title:** Show HN: AutropicAI – Find the cheapest LLM for any task (800+ models)
 
 **Body:**
 
 Hey HN,
 
-I built SavvyLLM because I was tired of overpaying for LLM API calls. There are 800+ models out there ranging from $0.01 to $60 per million tokens, but most developers just pick GPT-4 and call it a day.
+I built AutropicAI because I was tired of overpaying for LLM API calls. There are 800+ models out there ranging from $0.01 to $60 per million tokens, but most developers just pick GPT-4 and call it a day.
 
-SavvyLLM is an API that analyzes your task and instantly recommends the cheapest model that can handle it. The key difference from services like OpenRouter: we don't proxy your calls. We just give you the recommendation — you call the provider directly with your own keys.
+AutropicAI is an API that analyzes your task and instantly recommends the cheapest model that can handle it. The key difference from services like OpenRouter: we don't proxy your calls. We just give you the recommendation — you call the provider directly with your own keys.
 
 **How it works:**
 - POST your prompt (or task description) to /v1/classify
@@ -23,7 +23,7 @@ SavvyLLM is an API that analyzes your task and instantly recommends the cheapest
 
 **Example:**
 ```
-curl -X POST https://api.savvyllm.ai/v1/classify \
+curl -X POST https://tryautropic.com/v1/classify \
   -d '{"prompt": "Summarize this article in 3 bullet points"}'
 
 # Returns: tier=simple, model=groq/llama-3.1-8b, cost=$0.05/1M
@@ -47,7 +47,7 @@ Would love feedback from anyone dealing with LLM costs at scale.
 
 **Description:**
 
-🔍 **What is SavvyLLM?**
+🔍 **What is AutropicAI?**
 An API that instantly finds the cheapest LLM model for your task from 800+ options across all major providers.
 
 💡 **Why we built it**
@@ -71,11 +71,11 @@ Unlike routing services (OpenRouter, etc.), we don't proxy your calls or take a 
 
 Hey Product Hunt! 👋
 
-I built SavvyLLM after watching my LLM bills climb while knowing cheaper alternatives existed. The problem? Who has time to compare 800 models?
+I built AutropicAI after watching my LLM bills climb while knowing cheaper alternatives existed. The problem? Who has time to compare 800 models?
 
 The "aha moment" was realizing most routing services want to become your new middleman. But all I wanted was someone to tell me: "for this task, use this model."
 
-So that's what SavvyLLM does. Advisory, not proxy. You keep your direct relationships with OpenAI, Anthropic, whoever. We just help you pick smarter.
+So that's what AutropicAI does. Advisory, not proxy. You keep your direct relationships with OpenAI, Anthropic, whoever. We just help you pick smarter.
 
 Happy to answer any questions about the tech, pricing model, or roadmap!
 
@@ -103,7 +103,7 @@ Comparing models, checking benchmarks, tracking price changes...
 Who has bandwidth for that when you're trying to ship?
 
 **Tweet 4:**
-So I built @SavvyLLM.
+So I built AutropicAI.
 
 One API call → cheapest model for your task.
 
@@ -130,7 +130,7 @@ Example:
 Task: "Summarize this article"
 
 GPT-4: $30/million tokens
-SavvyLLM pick: $0.05/million tokens
+AutropicAI pick: $0.05/million tokens
 
 Same quality. 600x cheaper.
 
@@ -144,7 +144,7 @@ We advise on calls (flat $25.95/mo).
 
 At $500/mo LLM spend:
 - OpenRouter: $27.50 fee
-- SavvyLLM: $25.95 fee
+- AutropicAI: $25.95 fee
 
 The more you spend, the more you save with us.
 
@@ -158,10 +158,7 @@ Pricing:
 No credit card to start.
 
 **Tweet 9:**
-Try it now: https://api.savvyllm.ai
-
-Docs: [link]
-GitHub: [link]
+Try it now: https://tryautropic.com
 
 Built for developers who'd rather spend money on features than overpay for inference.
 
@@ -179,18 +176,18 @@ Hey r/LocalLLaMA,
 
 I know this sub is mostly about running models locally, but for those times when you need a hosted API (rate limits, specific models, etc.), I built something that might help.
 
-**SavvyLLM** is an API that compares 800+ hosted models and instantly tells you the cheapest one for your task.
+**AutropicAI** is an API that compares 800+ hosted models and instantly tells you the cheapest one for your task.
 
 Quick example:
 - Task: "Summarize this article"
 - Default choice: GPT-4 at $30/M tokens
-- SavvyLLM pick: Groq's Llama 3.1 at $0.05/M tokens
+- AutropicAI pick: Groq's Llama 3.1 at $0.05/M tokens
 
 Same output quality for simple tasks, 600x cheaper.
 
 It's not a router/proxy — we don't touch your API calls. Just recommendations, then you call providers directly with your own keys.
 
-30-day free trial if anyone wants to try: [link]
+30-day free trial if anyone wants to try: https://tryautropic.com
 
 Would love feedback from this community on the task classification logic or model recommendations.
 
@@ -198,11 +195,11 @@ Would love feedback from this community on the task classification logic or mode
 
 ### r/SideProject
 
-**Title:** Launched SavvyLLM — helps developers find the cheapest LLM API for any task
+**Title:** Launched AutropicAI — helps developers find the cheapest LLM API for any task
 
 **Body:**
 
-**What I built:** SavvyLLM — an API that compares 800+ LLM models and recommends the cheapest one for your task.
+**What I built:** AutropicAI — an API that compares 800+ LLM models and recommends the cheapest one for your task.
 
 **Why:** I was overpaying for LLM APIs by using GPT-4 for everything. Turns out there are models 100x cheaper that work fine for simple tasks.
 
@@ -228,13 +225,13 @@ Would appreciate any feedback on positioning, pricing, or features!
 
 ## LinkedIn Post
 
-🚀 Just launched SavvyLLM — helping developers stop overpaying for LLM APIs.
+🚀 Just launched AutropicAI — helping developers stop overpaying for LLM APIs.
 
 The problem: There are 800+ AI models available, with prices ranging from $0.01 to $60 per million tokens. But most teams just default to GPT-4 for everything.
 
 The result? Paying 100x more than necessary for simple tasks.
 
-SavvyLLM fixes this with one API call:
+AutropicAI fixes this with one API call:
 → Analyze your task complexity
 → Search 800+ models  
 → Return the cheapest capable option
@@ -242,7 +239,7 @@ SavvyLLM fixes this with one API call:
 
 Unlike routing services, we're not a middleman. No proxy, no markup, no lock-in. Just intelligence.
 
-Free trial at savvyllm.ai
+Free trial at https://tryautropic.com
 
 #AI #LLM #DevTools #Startup
 
@@ -254,12 +251,12 @@ Hey everyone! 👋
 
 Just launched something that might help if you're working with LLM APIs:
 
-**SavvyLLM** — an API that finds the cheapest model for any task from 800+ options.
+**AutropicAI** — an API that finds the cheapest model for any task from 800+ options.
 
 Unlike OpenRouter (which proxies your calls at 5.5%), we just give recommendations. You call providers directly with your own keys.
 
 Example: Asked to summarize an article, it might recommend Groq's Llama at $0.05/M instead of GPT-4 at $30/M — 600x cheaper, same quality for that task.
 
-30-day free trial: [link]
+30-day free trial: https://tryautropic.com
 
 Would love feedback from anyone dealing with LLM costs!

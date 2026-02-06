@@ -1,14 +1,14 @@
-# SavvyLLM API
+# AutropicAI API
 
 **You're paying Opus prices for extraction tasks. That's dumb. We fix it for $10/mo.**
 
-SavvyLLM tells your agent which LLM to use for each task. 800+ models indexed. One API call before each LLM call. Your agent saves money automatically.
+AutropicAI tells your agent which LLM to use for each task. 800+ models indexed. One API call before each LLM call. Your agent saves money automatically.
 
 Built for agents doing 100+ LLM calls/day who are bleeding money on model selection.
 
-## Why SavvyLLM?
+## Why AutropicAI?
 
-| Feature | OpenRouter | SavvyLLM |
+| Feature | OpenRouter | AutropicAI |
 |---------|------------|----------|
 | Model | Proxy (routes your calls) | Advisory (recommends, you call direct) |
 | Pricing | 5.5% of usage | Flat subscription |
@@ -27,7 +27,7 @@ Built for agents doing 100+ LLM calls/day who are bleeding money on model select
 ### 1. Sign Up
 
 ```bash
-curl -X POST https://api.savvyllm.ai/auth/signup \
+curl -X POST https://tryautropic.com/auth/signup \
   -H "Content-Type: application/json" \
   -d '{"email": "you@example.com", "password": "your-password"}'
 ```
@@ -35,7 +35,7 @@ curl -X POST https://api.savvyllm.ai/auth/signup \
 Response includes your API key (save it — only shown once!):
 ```json
 {
-  "apiKey": "svl_live_abc123...",
+  "apiKey": "atp_live_abc123...",
   "trialEndsAt": "2026-03-07T00:00:00.000Z"
 }
 ```
@@ -43,8 +43,8 @@ Response includes your API key (save it — only shown once!):
 ### 2. Find the Cheapest Model
 
 ```bash
-curl https://api.savvyllm.ai/v1/cheapest?tier=standard \
-  -H "Authorization: Bearer svl_live_abc123..."
+curl https://tryautropic.com/v1/cheapest?tier=standard \
+  -H "Authorization: Bearer atp_live_abc123..."
 ```
 
 ```json
@@ -65,8 +65,8 @@ curl https://api.savvyllm.ai/v1/cheapest?tier=standard \
 ### 3. Classify Your Task
 
 ```bash
-curl -X POST https://api.savvyllm.ai/v1/classify \
-  -H "Authorization: Bearer svl_live_abc123..." \
+curl -X POST https://tryautropic.com/v1/classify \
+  -H "Authorization: Bearer atp_live_abc123..." \
   -H "Content-Type: application/json" \
   -d '{"prompt": "Write a Python function to sort a list"}'
 ```

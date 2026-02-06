@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * SavvyLLM API — Find the cheapest LLM for your task
+ * AutropicAI API — Find the cheapest LLM for your task
  * 
  * Includes: Auth, Stripe billing, API keys, usage tracking, anti-abuse
  */
@@ -171,7 +171,7 @@ app.use((req, res, next) => {
 
 app.get('/', (req, res) => {
   res.json({
-    name: 'SavvyLLM API',
+    name: 'AutropicAI API',
     version: '0.2.0',
     tagline: 'Find the cheapest LLM for your task',
     endpoints: {
@@ -747,7 +747,7 @@ app.get('/admin', adminAuth, (req, res) => {
 <!DOCTYPE html>
 <html>
 <head>
-  <title>SavvyLLM Admin</title>
+  <title>AutropicAI Admin</title>
   <style>
     body { font-family: -apple-system, sans-serif; max-width: 1000px; margin: 50px auto; padding: 20px; background: #f5f5f5; }
     h1 { color: #1a1a2e; }
@@ -767,7 +767,7 @@ app.get('/admin', adminAuth, (req, res) => {
   </style>
 </head>
 <body>
-  <h1>🎯 SavvyLLM Admin Dashboard</h1>
+  <h1>🎯 AutropicAI Admin Dashboard</h1>
   <button class="refresh" onclick="loadStats()">Refresh</button>
   
   <div class="card" id="overview">Loading...</div>
@@ -842,7 +842,7 @@ async function start() {
   loadPricingCache().catch(console.error);
   
   app.listen(PORT, () => {
-    console.log(`SavvyLLM API running on http://localhost:${PORT}`);
+    console.log(`AutropicAI API running on http://localhost:${PORT}`);
   });
 }
 
