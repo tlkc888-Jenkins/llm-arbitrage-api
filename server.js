@@ -672,13 +672,8 @@ function adminAuth(req, res, next) {
 
 app.get('/admin/stats', adminAuth, async (req, res) => {
   try {
-    const allUsers = db.users ? 
-      (() => { const stmt = require('./lib/database').db.prepare('SELECT * FROM users'); const rows = []; while(stmt.step()) rows.push(stmt.getAsObject()); stmt.free(); return rows; })() 
-      : [];
-    
-    const allUsage = db.usage ? 
-      (() => { const stmt = require('./lib/database').db.prepare('SELECT * FROM usage'); const rows = []; while(stmt.step()) rows.push(stmt.getAsObject()); stmt.free(); return rows; })()
-      : [];
+    const allUsers = db.query('SELECT * FROM users');
+    const allUsage = db.query('SELECT * FROM usage');
     
     const today = new Date().toISOString().split('T')[0];
     const todayUsers = allUsers.filter(u => u.created_at && u.created_at.startsWith(today));
@@ -716,10 +711,7 @@ app.get('/admin/stats', adminAuth, async (req, res) => {
 
 app.get('/admin/users', adminAuth, async (req, res) => {
   try {
-    const stmt = require('./lib/database').db.prepare('SELECT id, email, subscription_status, subscription_tier, trial_ends_at, created_at, signup_ip FROM users ORDER BY id DESC');
-    const rows = [];
-    while(stmt.step()) rows.push(stmt.getAsObject());
-    stmt.free();
+    const rows = db.query('SELECT id, email, subscription_status, subscription_tier, trial_ends_at, created_at, signup_ip FROM users ORDER BY id DESC');
     res.json({ users: rows, total: rows.length });
   } catch (e) {
     res.status(500).json({ error: e.message });
@@ -728,10 +720,7 @@ app.get('/admin/users', adminAuth, async (req, res) => {
 
 app.get('/admin/usage', adminAuth, async (req, res) => {
   try {
-    const stmt = require('./lib/database').db.prepare('SELECT u.*, us.email FROM usage u JOIN users us ON u.user_id = us.id ORDER BY u.date DESC, u.query_count DESC LIMIT 100');
-    const rows = [];
-    while(stmt.step()) rows.push(stmt.getAsObject());
-    stmt.free();
+    const rows = db.query('SELECT u.*, us.email FROM usage u JOIN users us ON u.user_id = us.id ORDER BY u.date DESC, u.query_count DESC LIMIT 100');
     res.json({ usage: rows });
   } catch (e) {
     res.status(500).json({ error: e.message });
