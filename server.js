@@ -71,6 +71,11 @@ const PROVIDER_ENDPOINTS = {
 let pricingCache = null;
 let cacheLoadedAt = null;
 
+// === Anonymous Usage Counter (in-memory, resets on deploy) ===
+let anonymousApiCalls = 0;
+let apiCallsThisSession = 0;
+const sessionStartTime = new Date().toISOString();
+
 async function loadPricingCache() {
   const now = Date.now();
   if (pricingCache && cacheLoadedAt && (now - cacheLoadedAt) < CACHE_TTL_MS) {
@@ -591,6 +596,10 @@ app.get('/v1/cheapest', apiRateLimit, async (req, res) => {
   const start = Date.now();
   
   try {
+    // Always count API calls
+    anonymousApiCalls++;
+    apiCallsThisSession++;
+    
     // Track usage if authenticated (optional)
     const apiKey = req.headers.authorization?.replace('Bearer ', '');
     if (apiKey) {
@@ -725,6 +734,10 @@ app.get('/admin/stats', adminAuth, async (req, res) => {
         activeTrials: activeTrials.length,
         totalApiCalls: totalUsage,
         apiCallsToday: todayUsage,
+        // Anonymous/public API usage (since last deploy)
+        anonymousCalls: anonymousApiCalls,
+        sessionCalls: apiCallsThisSession,
+        sessionStarted: sessionStartTime,
       },
       revenue: {
         paidUsers: paidUsers.length,
@@ -821,11 +834,11 @@ app.get('/admin', adminAuth, (req, res) => {
       
       document.getElementById('overview').innerHTML = \`
         <div class="section-title">📊 Overview</div>
-        <div class="stat"><div class="stat-value">\${data.overview.totalUsers}</div><div class="stat-label">Total Users</div></div>
-        <div class="stat"><div class="stat-value">\${data.overview.signupsToday}</div><div class="stat-label">Signups Today</div></div>
+        <div class="stat"><div class="stat-value">\${data.overview.totalUsers}</div><div class="stat-label">Signed Up Users</div></div>
+        <div class="stat"><div class="stat-value">\${data.overview.anonymousCalls || 0}</div><div class="stat-label">Public API Calls (this session)</div></div>
+        <div class="stat"><div class="stat-value">\${data.overview.totalApiCalls}</div><div class="stat-label">Auth API Calls</div></div>
         <div class="stat"><div class="stat-value">\${data.overview.activeTrials}</div><div class="stat-label">Active Trials</div></div>
-        <div class="stat"><div class="stat-value">\${data.overview.totalApiCalls}</div><div class="stat-label">Total API Calls</div></div>
-        <div class="stat"><div class="stat-value">\${data.overview.apiCallsToday}</div><div class="stat-label">Calls Today</div></div>
+        <p style="color:#666;font-size:0.8rem;">Session started: \${data.overview.sessionStarted || 'N/A'}</p>
       \`;
       
       document.getElementById('revenue').innerHTML = \`
