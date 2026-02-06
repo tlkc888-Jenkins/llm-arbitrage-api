@@ -22,6 +22,27 @@ Built for agents doing 100+ LLM calls/day who are bleeding money on model select
 - **Starter**: $9.95/mo — 5,000 queries
 - **Pro**: $25.95/mo — Unlimited
 
+## MCP Server (For AI Agents)
+
+Add AutropicAI to Claude Desktop or any MCP-compatible agent:
+
+```json
+{
+  "mcpServers": {
+    "autropicai": {
+      "command": "npx",
+      "args": ["github:tlkc888-Jenkins/autropicai-mcp"]
+    }
+  }
+}
+```
+
+Your agent gets a `get_cheapest_model` tool — ask it to find the cheapest model for any task.
+
+**GitHub:** https://github.com/tlkc888-Jenkins/autropicai-mcp
+
+---
+
 ## Quick Start
 
 ### 1. Sign Up

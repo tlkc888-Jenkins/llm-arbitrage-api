@@ -169,26 +169,74 @@ app.use((req, res, next) => {
 
 // === Public Routes ===
 
-app.get('/', (req, res) => {
+app.get('/', async (req, res) => {
+  // Show live example data on landing page
+  let exampleModels = [];
+  try {
+    const cache = await loadPricingCache();
+    const simple = filterModelsByTier(cache.models, 'simple').slice(0, 3);
+    exampleModels = simple.map(m => ({
+      provider: m.provider,
+      model: m.model,
+      cost: `$${m.inputCostPer1m}/$${m.outputCostPer1m} per 1M tokens`
+    }));
+  } catch (e) { /* ignore */ }
+  
   res.json({
-    name: 'AutropicAI API',
-    version: '0.2.0',
-    tagline: 'Find the cheapest LLM for your task',
+    name: 'AutropicAI',
+    tagline: 'Find the cheapest LLM for any task',
+    version: '0.3.0',
+    
+    // Show value immediately
+    example: {
+      description: 'Cheapest models for simple tasks RIGHT NOW:',
+      models: exampleModels,
+      note: 'Compare to GPT-4o at $5/$15 per 1M tokens',
+      tryIt: 'GET /v1/cheapest?tier=simple (no signup required!)',
+    },
+    
+    // API is FREE
+    pricing: {
+      api: 'FREE - No signup required',
+      note: 'Just call the endpoints. Sign up only if you want to track usage.',
+    },
+    
+    // Endpoints
     endpoints: {
-      auth: { signup: 'POST /auth/signup', login: 'POST /auth/login' },
-      api: {
-        cheapest: 'GET /v1/cheapest',
+      public: {
+        cheapest: 'GET /v1/cheapest?tier=simple|standard|complex|max',
+        tiers: 'GET /v1/tiers',
+        health: 'GET /health',
+      },
+      withSignup: {
         classify: 'POST /v1/classify',
         models: 'GET /v1/models',
-        tiers: 'GET /v1/tiers',
+        usage: 'GET /account/usage',
       },
-      account: { me: 'GET /account/me', keys: 'GET /account/keys', usage: 'GET /account/usage' },
+      auth: {
+        signup: 'POST /auth/signup (free, no card required)',
+        login: 'POST /auth/login',
+      },
     },
-    pricing: {
-      trial: '30 days free',
-      starter: '$9.95/mo - 5,000 queries',
-      pro: '$25.95/mo - unlimited',
+    
+    // For agents
+    mcp: {
+      description: 'MCP server for Claude Desktop and AI agents',
+      install: 'npx github:tlkc888-Jenkins/autropicai-mcp',
+      config: {
+        mcpServers: {
+          autropicai: {
+            command: 'npx',
+            args: ['github:tlkc888-Jenkins/autropicai-mcp']
+          }
+        }
+      }
     },
+    
+    links: {
+      github: 'https://github.com/tlkc888-Jenkins/autropicai-mcp',
+      company: 'https://autropic.com',
+    }
   });
 });
 
@@ -255,27 +303,6 @@ app.post('/auth/signup', async (req, res) => {
     // Track IP
     db.antiAbuse.trackIpSignup(ip);
     
-    // Create Stripe customer (if Stripe is configured)
-    let stripeCustomerId = null;
-    let setupUrl = null;
-    if (process.env.STRIPE_SECRET_KEY) {
-      try {
-        const customer = await billing.createCustomer(email, { userId: String(userId) });
-        stripeCustomerId = customer.id;
-        db.users.updateStripe(userId, stripeCustomerId);
-        
-        // Create setup session for card collection (required but not charged during trial)
-        const setupSession = await billing.createSetupSession({
-          customerId: stripeCustomerId,
-          successUrl: `${BASE_URL}/setup-complete`,
-          cancelUrl: `${BASE_URL}/setup-cancel`,
-        });
-        setupUrl = setupSession.url;
-      } catch (e) {
-        console.error('Stripe customer creation failed:', e.message);
-      }
-    }
-    
     // Generate API key
     const apiKey = auth.generateApiKey();
     const keyHash = auth.hashApiKey(apiKey);
@@ -286,15 +313,16 @@ app.post('/auth/signup', async (req, res) => {
     const token = auth.generateToken(userId, email);
     
     res.status(201).json({
-      message: 'Account created',
+      message: 'Account created - API is FREE!',
       userId,
       email,
       token,
       apiKey, // Only shown once!
-      trialEndsAt: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
-      stripeCustomerId,
-      setupUrl, // Redirect here to add card (optional during trial, required after)
-      note: setupUrl ? 'Add your card to continue after trial' : 'Card setup available when billing is enabled',
+      note: 'No payment required. API is free to use. Your API key lets us track your usage.',
+      quickStart: {
+        example: `curl "https://tryautropic.com/v1/cheapest?tier=simple" -H "Authorization: Bearer ${apiKey}"`,
+        noAuthExample: 'curl "https://tryautropic.com/v1/cheapest?tier=simple" (also works without auth!)',
+      }
     });
     
   } catch (e) {
@@ -559,24 +587,20 @@ app.post('/webhooks/stripe', async (req, res) => {
 
 const apiRateLimit = antiAbuse.rateLimitMiddleware(100, 60000); // 100 req/min
 
-app.get('/v1/cheapest', auth.authMiddleware(db), apiRateLimit, async (req, res) => {
+app.get('/v1/cheapest', apiRateLimit, async (req, res) => {
   const start = Date.now();
   
   try {
-    // Track usage
-    db.usage.increment(req.user.id);
-    
-    // Check usage limits
-    const monthlyUsage = db.usage.getThisMonth(req.user.id);
-    const limit = billing.getTierLimit(req.user.tier);
-    
-    if (limit !== Infinity && monthlyUsage > limit) {
-      return res.status(429).json({
-        error: 'Monthly query limit exceeded',
-        usage: monthlyUsage,
-        limit,
-        upgradeUrl: `${BASE_URL}/billing/checkout`,
-      });
+    // Track usage if authenticated (optional)
+    const apiKey = req.headers.authorization?.replace('Bearer ', '');
+    if (apiKey) {
+      try {
+        const keyHash = auth.hashApiKey(apiKey);
+        const keyRecord = db.apiKeys.getByHash(keyHash);
+        if (keyRecord) {
+          db.usage.increment(keyRecord.user_id);
+        }
+      } catch (e) { /* ignore auth errors for public endpoint */ }
     }
     
     const tier = req.query.tier || 'standard';
