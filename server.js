@@ -686,6 +686,14 @@ app.get('/admin/stats', adminAuth, async (req, res) => {
       return new Date(u.trial_ends_at) > new Date();
     });
     
+    // Paid user stats
+    const paidUsers = allUsers.filter(u => u.subscription_status === 'active');
+    const starterUsers = paidUsers.filter(u => u.subscription_tier === 'starter');
+    const proUsers = paidUsers.filter(u => u.subscription_tier === 'pro');
+    
+    // MRR calculation
+    const mrr = (starterUsers.length * 9.95) + (proUsers.length * 25.95);
+    
     res.json({
       overview: {
         totalUsers: allUsers.length,
@@ -693,6 +701,12 @@ app.get('/admin/stats', adminAuth, async (req, res) => {
         activeTrials: activeTrials.length,
         totalApiCalls: totalUsage,
         apiCallsToday: todayUsage,
+      },
+      revenue: {
+        paidUsers: paidUsers.length,
+        starterTier: starterUsers.length,
+        proTier: proUsers.length,
+        mrr: mrr.toFixed(2),
       },
       recentUsers: allUsers.slice(-10).reverse().map(u => ({
         id: u.id,
@@ -738,13 +752,18 @@ app.get('/admin', adminAuth, (req, res) => {
     body { font-family: -apple-system, sans-serif; max-width: 1000px; margin: 50px auto; padding: 20px; background: #f5f5f5; }
     h1 { color: #1a1a2e; }
     .card { background: white; padding: 20px; border-radius: 8px; margin: 15px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-    .stat { display: inline-block; margin-right: 40px; }
+    .stat { display: inline-block; margin-right: 40px; margin-bottom: 15px; }
     .stat-value { font-size: 2rem; font-weight: bold; color: #00d9ff; }
+    .stat-value.money { color: #22c55e; }
     .stat-label { color: #666; }
+    .section-title { margin: 0 0 15px 0; color: #1a1a2e; font-size: 1rem; text-transform: uppercase; letter-spacing: 1px; }
     table { width: 100%; border-collapse: collapse; margin-top: 15px; }
     th, td { text-align: left; padding: 10px; border-bottom: 1px solid #eee; }
     th { background: #f8f9fa; }
     .refresh { background: #00d9ff; color: #1a1a2e; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; }
+    .status-active { color: #22c55e; font-weight: bold; }
+    .status-trialing { color: #3b82f6; }
+    .status-canceled { color: #ef4444; }
   </style>
 </head>
 <body>
@@ -752,6 +771,8 @@ app.get('/admin', adminAuth, (req, res) => {
   <button class="refresh" onclick="loadStats()">Refresh</button>
   
   <div class="card" id="overview">Loading...</div>
+  
+  <div class="card" id="revenue">Loading revenue...</div>
   
   <div class="card">
     <h3>Recent Users</h3>
@@ -763,11 +784,19 @@ app.get('/admin', adminAuth, (req, res) => {
   <script>
     const key = new URLSearchParams(window.location.search).get('key');
     
+    function statusClass(status) {
+      if (status === 'active') return 'status-active';
+      if (status === 'trialing') return 'status-trialing';
+      if (status === 'canceled') return 'status-canceled';
+      return '';
+    }
+    
     async function loadStats() {
       const res = await fetch('/admin/stats?key=' + key);
       const data = await res.json();
       
       document.getElementById('overview').innerHTML = \`
+        <div class="section-title">📊 Overview</div>
         <div class="stat"><div class="stat-value">\${data.overview.totalUsers}</div><div class="stat-label">Total Users</div></div>
         <div class="stat"><div class="stat-value">\${data.overview.signupsToday}</div><div class="stat-label">Signups Today</div></div>
         <div class="stat"><div class="stat-value">\${data.overview.activeTrials}</div><div class="stat-label">Active Trials</div></div>
@@ -775,11 +804,19 @@ app.get('/admin', adminAuth, (req, res) => {
         <div class="stat"><div class="stat-value">\${data.overview.apiCallsToday}</div><div class="stat-label">Calls Today</div></div>
       \`;
       
+      document.getElementById('revenue').innerHTML = \`
+        <div class="section-title">💰 Revenue</div>
+        <div class="stat"><div class="stat-value money">$\${data.revenue.mrr}</div><div class="stat-label">MRR</div></div>
+        <div class="stat"><div class="stat-value">\${data.revenue.paidUsers}</div><div class="stat-label">Paid Users</div></div>
+        <div class="stat"><div class="stat-value">\${data.revenue.starterTier}</div><div class="stat-label">Starter ($9.95)</div></div>
+        <div class="stat"><div class="stat-value">\${data.revenue.proTier}</div><div class="stat-label">Pro ($25.95)</div></div>
+      \`;
+      
       const tbody = data.recentUsers.map(u => \`
         <tr>
           <td>\${u.id}</td>
           <td>\${u.email}</td>
-          <td>\${u.status}</td>
+          <td class="\${statusClass(u.status)}">\${u.status}</td>
           <td>\${u.tier}</td>
           <td>\${new Date(u.createdAt).toLocaleString()}</td>
         </tr>
