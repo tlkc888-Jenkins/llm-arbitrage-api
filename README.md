@@ -1,8 +1,10 @@
 # SavvyLLM API
 
-**Find the cheapest LLM for your task — without another middleman.**
+**You're paying Opus prices for extraction tasks. That's dumb. We fix it for $10/mo.**
 
-SavvyLLM is the intelligence layer for LLM cost optimization. We analyze your task, recommend the most cost-effective model from 800+ options, and you call the provider directly. No proxy, no markup, no lock-in.
+SavvyLLM tells your agent which LLM to use for each task. 800+ models indexed. One API call before each LLM call. Your agent saves money automatically.
+
+Built for agents doing 100+ LLM calls/day who are bleeding money on model selection.
 
 ## Why SavvyLLM?
 

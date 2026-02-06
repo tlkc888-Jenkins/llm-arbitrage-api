@@ -27,6 +27,12 @@
             margin-bottom: 20px;
             font-weight: 700;
         }
+        .hero .tagline {
+            font-size: 1.5rem;
+            color: #00d9ff;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
         .hero p {
             font-size: 1.3rem;
             opacity: 0.9;
@@ -215,8 +221,9 @@
 <body>
     <section class="hero">
         <div class="container">
-            <h1>Stop Overpaying for LLMs</h1>
-            <p>Find the cheapest model for any task. One API call. 800+ models. No middleman.</p>
+            <p class="tagline">You're paying Opus prices for extraction tasks. That's dumb.</p>
+            <h1>We fix it for $10/mo.</h1>
+            <p>One API call tells your agent which model to use. 800+ models indexed. You save money on every call.</p>
             <a href="#pricing" class="cta-button">Start Free Trial</a>
             <div class="hero-stats">
                 <div class="stat">
@@ -237,10 +244,10 @@
 
     <section class="problem">
         <div class="container">
-            <h2>The Problem</h2>
+            <h2>The Agent Cost Problem</h2>
             <div class="problem-box">
-                <p><strong>You're probably using GPT-4 for tasks GPT-3.5 could handle.</strong></p>
-                <p style="margin-top: 15px;">And paying 20x more than you need to. There are 800+ models with prices ranging from $0.01 to $60/M tokens. Who has time to compare them all?</p>
+                <p><strong>Your agent makes 500 calls/day. Most are simple tasks.</strong></p>
+                <p style="margin-top: 15px;">But it's using Claude Opus for everything — extractions, formatting, simple Q&A. That's $15/1M tokens when $0.10/1M would do. Multiply by thousands of calls. You're bleeding money.</p>
             </div>
         </div>
     </section>
@@ -267,12 +274,12 @@
                 </div>
             </div>
             <div class="code-example">
-                <span class="code-comment"># Find the cheapest model for your task</span><br>
-                curl -X POST https://api.savvyllm.ai/v1/classify \<br>
-                &nbsp;&nbsp;-H <span class="code-string">"Authorization: Bearer svl_live_..."</span> \<br>
-                &nbsp;&nbsp;-d <span class="code-string">'{"prompt": "Summarize this article"}'</span><br><br>
-                <span class="code-comment"># Response: groq/llama-3.1-8b at $0.05/M</span><br>
-                <span class="code-comment"># vs GPT-4 at $30/M = 600x cheaper!</span>
+                <span class="code-comment"># In your agent loop, before each LLM call:</span><br>
+                best = requests.get(<span class="code-string">"https://tryautropic.com/v1/cheapest?tier=simple"</span>).json()<br>
+                model = best[<span class="code-string">"recommendations"</span>][0][<span class="code-string">"model"</span>]<br><br>
+                <span class="code-comment"># Returns: gemini-flash at $0.075/M</span><br>
+                <span class="code-comment"># Instead of: claude-opus at $15/M</span><br>
+                <span class="code-comment"># Savings: 200x per call 💰</span>
             </div>
         </div>
     </section>
