@@ -76,6 +76,27 @@ let anonymousApiCalls = 0;
 let apiCallsThisSession = 0;
 const sessionStartTime = new Date().toISOString();
 
+// === Request Log (in-memory, last 200 requests) ===
+const requestLog = [];
+const MAX_LOG_SIZE = 200;
+
+function logRequest(req, extra = {}) {
+  const entry = {
+    timestamp: new Date().toISOString(),
+    ip: req.headers['x-forwarded-for']?.split(',')[0]?.trim() || req.socket?.remoteAddress || 'unknown',
+    method: req.method,
+    path: req.path,
+    query: req.query,
+    userAgent: req.headers['user-agent'] || 'unknown',
+    referer: req.headers['referer'] || null,
+    ...extra
+  };
+  requestLog.unshift(entry);
+  if (requestLog.length > MAX_LOG_SIZE) {
+    requestLog.pop();
+  }
+}
+
 async function loadPricingCache() {
   const now = Date.now();
   if (pricingCache && cacheLoadedAt && (now - cacheLoadedAt) < CACHE_TTL_MS) {
@@ -600,6 +621,9 @@ app.get('/v1/cheapest', apiRateLimit, async (req, res) => {
     anonymousApiCalls++;
     apiCallsThisSession++;
     
+    // Log the request
+    logRequest(req, { endpoint: 'cheapest', tier: req.query.tier || 'standard' });
+    
     // Track usage if authenticated (optional)
     const apiKey = req.headers.authorization?.replace('Bearer ', '');
     if (apiKey) {
@@ -776,6 +800,16 @@ app.get('/admin/usage', adminAuth, async (req, res) => {
   } catch (e) {
     res.status(500).json({ error: e.message });
   }
+});
+
+app.get('/admin/requests', adminAuth, async (req, res) => {
+  const limit = Math.min(parseInt(req.query.limit) || 50, MAX_LOG_SIZE);
+  res.json({ 
+    requests: requestLog.slice(0, limit),
+    total: requestLog.length,
+    maxSize: MAX_LOG_SIZE,
+    note: 'In-memory log, resets on deploy'
+  });
 });
 
 // Simple HTML dashboard
