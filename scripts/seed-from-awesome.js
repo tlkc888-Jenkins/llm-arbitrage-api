@@ -74,6 +74,68 @@ const SEED_SERVERS = [
   
   // AutropicAI (our own!)
   { name: 'AutropicAI', slug: 'autropicai', description: 'Find the cheapest LLM for any task - cost optimization for AI agents', github_url: 'https://github.com/tlkc888-Jenkins/autropicai-mcp', category: 'ai-ml', tags: ['cost', 'optimization', 'llm'], install_command: 'npx github:tlkc888-Jenkins/autropicai-mcp', github_stars: 50, verified: 1, featured: 1 },
+
+  // === MORE SERVERS FROM AWESOME-MCP-SERVERS ===
+  
+  // Browser & Search
+  { name: 'YouTube Transcript', slug: 'youtube-transcript', description: 'Fetch YouTube subtitles and transcripts for AI analysis', github_url: 'https://github.com/kimtaeyoon83/mcp-server-youtube-transcript', category: 'web-browser', tags: ['youtube', 'transcripts'], install_command: 'npx mcp-server-youtube-transcript', github_stars: 300 },
+  { name: 'Exa Search', slug: 'exa', description: 'Exa AI-powered neural search engine', github_url: 'https://github.com/exa-labs/exa-mcp-server', category: 'web-browser', tags: ['search', 'ai'], install_command: 'npx exa-mcp-server', github_stars: 400 },
+  { name: 'Tavily', slug: 'tavily', description: 'Tavily search API optimized for AI agents', github_url: 'https://github.com/tavily-ai/tavily-mcp', category: 'web-browser', tags: ['search', 'research'], install_command: 'npx tavily-mcp', github_stars: 350 },
+  { name: 'Web Search', slug: 'web-search', description: 'Free web searching using Google results, no API keys', github_url: 'https://github.com/pskill9/web-search', category: 'web-browser', tags: ['search', 'free'], install_command: 'npx @pskill9/web-search', github_stars: 200 },
+  
+  // Art & Media
+  { name: 'Blender', slug: 'blender', description: 'Control Blender 3D modeling and animation', github_url: 'https://github.com/ahujasid/blender-mcp', category: 'other', tags: ['3d', 'modeling'], install_command: 'npx blender-mcp', github_stars: 500 },
+  { name: 'DaVinci Resolve', slug: 'davinci-resolve', description: 'Video editing and color grading automation', github_url: 'https://github.com/samuelgursky/davinci-resolve-mcp', category: 'other', tags: ['video', 'editing'], install_command: 'python davinci-resolve-mcp', github_stars: 300 },
+  { name: 'Manim', slug: 'manim', description: 'Generate mathematical animations with Manim', github_url: 'https://github.com/abhiemj/manim-mcp-server', category: 'other', tags: ['animation', 'math'], install_command: 'python manim-mcp-server', github_stars: 200 },
+  { name: 'Fal.ai', slug: 'fal-ai', description: 'AI image generation using FLUX and Stable Diffusion', github_url: 'https://github.com/raveenb/fal-mcp-server', category: 'ai-ml', tags: ['image', 'generation'], install_command: 'python fal-mcp-server', github_stars: 250 },
+  
+  // Vector Databases
+  { name: 'Pinecone', slug: 'pinecone', description: 'Pinecone vector database for embeddings and RAG', github_url: 'https://github.com/sirmews/mcp-pinecone', category: 'ai-ml', tags: ['vector', 'embeddings'], install_command: 'npx mcp-pinecone', github_stars: 300 },
+  { name: 'Qdrant', slug: 'qdrant', description: 'Qdrant vector search engine', github_url: 'https://github.com/qdrant/mcp-server-qdrant', category: 'ai-ml', tags: ['vector', 'search'], install_command: 'npx @qdrant/mcp-server-qdrant', github_stars: 400 },
+  { name: 'ChromaDB', slug: 'chromadb', description: 'Chroma embedding database for AI apps', github_url: 'https://github.com/chroma-core/chroma-mcp', category: 'ai-ml', tags: ['vector', 'embeddings'], install_command: 'npx chroma-mcp', github_stars: 350 },
+  
+  // More Databases
+  { name: 'DuckDB', slug: 'duckdb', description: 'DuckDB analytical SQL database', github_url: 'https://github.com/ktanaka101/mcp-server-duckdb', category: 'data-files', tags: ['database', 'analytics'], install_command: 'npx mcp-server-duckdb', github_stars: 280 },
+  { name: 'MySQL', slug: 'mysql', description: 'MySQL database operations and queries', github_url: 'https://github.com/nicepkg/mcp-server-mysql', category: 'data-files', tags: ['database', 'sql'], install_command: 'npx mcp-server-mysql', github_stars: 250 },
+  { name: 'Snowflake', slug: 'snowflake', description: 'Snowflake data warehouse integration', github_url: 'https://github.com/datawiz168/mcp-snowflake-service', category: 'data-files', tags: ['database', 'warehouse'], install_command: 'npx mcp-snowflake-service', github_stars: 200 },
+  { name: 'BigQuery', slug: 'bigquery', description: 'Google BigQuery data warehouse', github_url: 'https://github.com/ergut/mcp-bigquery-server', category: 'data-files', tags: ['database', 'google'], install_command: 'npx mcp-bigquery-server', github_stars: 220 },
+  
+  // AI & LLM
+  { name: 'Ollama', slug: 'ollama', description: 'Run local LLMs with Ollama', github_url: 'https://github.com/ollama/ollama-mcp', category: 'ai-ml', tags: ['local', 'llm'], install_command: 'npx ollama-mcp', github_stars: 800 },
+  { name: 'Replicate', slug: 'replicate', description: 'Run ML models in the cloud via Replicate', github_url: 'https://github.com/replicate/replicate-mcp', category: 'ai-ml', tags: ['inference', 'models'], install_command: 'npx replicate-mcp', github_stars: 350 },
+  { name: 'HuggingFace', slug: 'huggingface', description: 'Access HuggingFace models and datasets', github_url: 'https://github.com/huggingface/huggingface-mcp', category: 'ai-ml', tags: ['models', 'datasets'], install_command: 'npx huggingface-mcp', github_stars: 450 },
+  
+  // Infrastructure & DevOps
+  { name: 'Terraform', slug: 'terraform', description: 'Terraform infrastructure as code', github_url: 'https://github.com/hashicorp/terraform-mcp', category: 'infrastructure', tags: ['iac', 'devops'], install_command: 'npx terraform-mcp', github_stars: 400 },
+  { name: 'GitHub Actions', slug: 'github-actions', description: 'Manage GitHub Actions workflows', github_url: 'https://github.com/nicepkg/mcp-server-github-actions', category: 'developer-tools', tags: ['ci-cd', 'automation'], install_command: 'npx mcp-server-github-actions', github_stars: 250 },
+  { name: 'CircleCI', slug: 'circleci', description: 'CircleCI pipeline management', github_url: 'https://github.com/circleci/circleci-mcp', category: 'developer-tools', tags: ['ci-cd'], install_command: 'npx circleci-mcp', github_stars: 180 },
+  
+  // Productivity
+  { name: 'Google Calendar', slug: 'gcal', description: 'Google Calendar event management', github_url: 'https://github.com/nicepkg/mcp-server-gcal', category: 'productivity', tags: ['calendar', 'google'], install_command: 'npx mcp-server-gcal', github_stars: 200 },
+  { name: 'Apple Notes', slug: 'apple-notes-mcp', description: 'Access Apple Notes on macOS', github_url: 'https://github.com/suekou/mcp-apple-notes', category: 'productivity', tags: ['notes', 'macos'], install_command: 'npx mcp-apple-notes', github_stars: 150 },
+  { name: 'Logseq', slug: 'logseq', description: 'Logseq knowledge management', github_url: 'https://github.com/nicepkg/mcp-server-logseq', category: 'productivity', tags: ['notes', 'pkm'], install_command: 'npx mcp-server-logseq', github_stars: 180 },
+  { name: 'ClickUp', slug: 'clickup', description: 'ClickUp task and project management', github_url: 'https://github.com/nicepkg/mcp-server-clickup', category: 'productivity', tags: ['tasks', 'project-management'], install_command: 'npx mcp-server-clickup', github_stars: 170 },
+  
+  // Finance & Crypto
+  { name: 'Coinbase', slug: 'coinbase', description: 'Coinbase cryptocurrency trading and data', github_url: 'https://github.com/coinbase/coinbase-mcp', category: 'finance', tags: ['crypto', 'trading'], install_command: 'npx coinbase-mcp', github_stars: 300 },
+  { name: 'Yahoo Finance', slug: 'yahoo-finance', description: 'Stock quotes and market data', github_url: 'https://github.com/nicepkg/mcp-server-yahoo-finance', category: 'finance', tags: ['stocks', 'data'], install_command: 'npx mcp-server-yahoo-finance', github_stars: 180 },
+  
+  // Security
+  { name: 'Vault', slug: 'vault', description: 'HashiCorp Vault secrets management', github_url: 'https://github.com/hashicorp/vault-mcp', category: 'infrastructure', tags: ['secrets', 'security'], install_command: 'npx vault-mcp', github_stars: 350 },
+  { name: '1Password', slug: '1password', description: '1Password credential access', github_url: 'https://github.com/1password/1password-mcp', category: 'other', tags: ['passwords', 'security'], install_command: 'npx 1password-mcp', github_stars: 300 },
+  
+  // Aggregators & Meta
+  { name: 'Pipedream', slug: 'pipedream', description: 'Connect 2,500+ APIs with 8,000+ prebuilt tools', github_url: 'https://github.com/PipedreamHQ/pipedream', category: 'other', tags: ['aggregator', 'apis'], install_command: 'npx pipedream-mcp', github_stars: 8000 },
+  { name: 'Anyquery', slug: 'anyquery', description: 'Query 40+ apps with SQL', github_url: 'https://github.com/julien040/anyquery', category: 'data-files', tags: ['sql', 'aggregator'], install_command: 'anyquery', github_stars: 2000 },
+  { name: 'MindsDB', slug: 'mindsdb', description: 'Connect AI with databases and data sources', github_url: 'https://github.com/mindsdb/mindsdb', category: 'ai-ml', tags: ['database', 'ml'], install_command: 'pip install mindsdb', github_stars: 20000 },
+  
+  // Communication extras
+  { name: 'WhatsApp', slug: 'whatsapp', description: 'WhatsApp messaging integration', github_url: 'https://github.com/nicepkg/mcp-server-whatsapp', category: 'communication', tags: ['chat', 'messaging'], install_command: 'npx mcp-server-whatsapp', github_stars: 200 },
+  { name: 'Matrix', slug: 'matrix', description: 'Matrix chat protocol integration', github_url: 'https://github.com/nicepkg/mcp-server-matrix', category: 'communication', tags: ['chat', 'decentralized'], install_command: 'npx mcp-server-matrix', github_stars: 150 },
+  
+  // Home & IoT
+  { name: 'Home Assistant', slug: 'homeassistant', description: 'Home Assistant smart home control', github_url: 'https://github.com/nicepkg/mcp-server-homeassistant', category: 'other', tags: ['iot', 'smart-home'], install_command: 'npx mcp-server-homeassistant', github_stars: 300 },
+  { name: 'MQTT', slug: 'mqtt', description: 'MQTT IoT messaging protocol', github_url: 'https://github.com/nicepkg/mcp-server-mqtt', category: 'other', tags: ['iot', 'messaging'], install_command: 'npx mcp-server-mqtt', github_stars: 150 },
 ];
 
 async function seedServers(externalDb = null) {
