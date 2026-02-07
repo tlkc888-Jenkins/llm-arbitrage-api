@@ -1,6 +1,6 @@
-# MCPHub — The MCP Server Marketplace
+# AutropicAI — The MCP Server Marketplace
 
-Find the perfect MCP server for your AI agent. 
+Find the perfect MCP server for your AI agent. Discover, search, and install tools for Claude, GPT, and any MCP-compatible agent. 
 
 ## Features
 

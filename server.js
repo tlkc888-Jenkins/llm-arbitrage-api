@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * MCPHub — The MCP Server Marketplace
+ * AutropicAI — The MCP Server Marketplace
  */
 
 const express = require('express');
@@ -164,7 +164,7 @@ async function start() {
   console.log('Database initialized');
   
   app.listen(PORT, () => {
-    console.log(`MCPHub running on http://localhost:${PORT}`);
+    console.log(`AutropicAI running on http://localhost:${PORT}`);
   });
 }
 

@@ -1,7 +1,7 @@
 {
-  "name": "mcphub",
+  "name": "autropicai",
   "version": "1.0.0",
-  "description": "MCPHub — The MCP Server Marketplace",
+  "description": "AutropicAI — The MCP Server Marketplace",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",

@@ -1,8 +1,8 @@
-# Render Blueprint - MCPHub
+# Render Blueprint - AutropicAI
 
 services:
   - type: web
-    name: mcphub
+    name: autropicai
     runtime: node
     plan: free
     buildCommand: npm install && npm run seed
