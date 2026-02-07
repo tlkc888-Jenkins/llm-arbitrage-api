@@ -193,78 +193,10 @@ app.use((req, res, next) => {
   next();
 });
 
-// === Public Routes ===
+// Serve static landing page
+app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('/', async (req, res) => {
-  // Show live example data on landing page
-  let exampleModels = [];
-  try {
-    const cache = await loadPricingCache();
-    const simple = filterModelsByTier(cache.models, 'simple').slice(0, 3);
-    exampleModels = simple.map(m => ({
-      provider: m.provider,
-      model: m.model,
-      cost: `$${m.inputCostPer1m}/$${m.outputCostPer1m} per 1M tokens`
-    }));
-  } catch (e) { /* ignore */ }
-  
-  res.json({
-    name: 'AutropicAI',
-    tagline: 'Find the cheapest LLM for any task',
-    version: '0.3.0',
-    
-    // Show value immediately
-    example: {
-      description: 'Cheapest models for simple tasks RIGHT NOW:',
-      models: exampleModels,
-      note: 'Compare to GPT-4o at $5/$15 per 1M tokens',
-      tryIt: 'GET /v1/cheapest?tier=simple (no signup required!)',
-    },
-    
-    // API is FREE
-    pricing: {
-      api: 'FREE - No signup required',
-      note: 'Just call the endpoints. Sign up only if you want to track usage.',
-    },
-    
-    // Endpoints
-    endpoints: {
-      public: {
-        cheapest: 'GET /v1/cheapest?tier=simple|standard|complex|max',
-        tiers: 'GET /v1/tiers',
-        health: 'GET /health',
-      },
-      withSignup: {
-        classify: 'POST /v1/classify',
-        models: 'GET /v1/models',
-        usage: 'GET /account/usage',
-      },
-      auth: {
-        signup: 'POST /auth/signup (free, no card required)',
-        login: 'POST /auth/login',
-      },
-    },
-    
-    // For agents
-    mcp: {
-      description: 'MCP server for Claude Desktop and AI agents',
-      install: 'npx github:tlkc888-Jenkins/autropicai-mcp',
-      config: {
-        mcpServers: {
-          autropicai: {
-            command: 'npx',
-            args: ['github:tlkc888-Jenkins/autropicai-mcp']
-          }
-        }
-      }
-    },
-    
-    links: {
-      github: 'https://github.com/tlkc888-Jenkins/autropicai-mcp',
-      company: 'https://autropic.com',
-    }
-  });
-});
+// === Public Routes ===
 
 app.get('/health', async (req, res) => {
   try {
