@@ -167,9 +167,14 @@ async function start() {
   const count = db.servers.count();
   if (count === 0) {
     console.log('Database empty, seeding...');
-    const { seedServers } = require('./scripts/seed-from-awesome');
-    await seedServers();
-    console.log(`Seeded ${db.servers.count()} servers`);
+    try {
+      const { seedServers } = require('./scripts/seed-from-awesome');
+      const result = await seedServers(db);  // Pass db instance
+      console.log(`Seeded: added ${result.added}, skipped ${result.skipped}`);
+    } catch (e) {
+      console.error('Seed error:', e);
+    }
+    console.log(`Total servers: ${db.servers.count()}`);
   }
   
   app.listen(PORT, () => {

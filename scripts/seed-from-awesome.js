@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 /**
- * Seed MCPHub database from awesome-mcp-servers
+ * Seed AutropicAI database from awesome-mcp-servers
  * 
  * Run: npm run seed
  */
 
-const db = require('../lib/database');
+let db = require('../lib/database');
 
 // Curated list from awesome-mcp-servers + manual additions
 // Categories: data-files, developer-tools, communication, productivity, web-browser, ai-ml, finance, infrastructure, other
@@ -76,20 +76,23 @@ const SEED_SERVERS = [
   { name: 'AutropicAI', slug: 'autropicai', description: 'Find the cheapest LLM for any task - cost optimization for AI agents', github_url: 'https://github.com/tlkc888-Jenkins/autropicai-mcp', category: 'ai-ml', tags: ['cost', 'optimization', 'llm'], install_command: 'npx github:tlkc888-Jenkins/autropicai-mcp', github_stars: 50, verified: 1, featured: 1 },
 ];
 
-async function seedServers() {
+async function seedServers(externalDb = null) {
+  // Use passed db or module-level db
+  const database = externalDb || db;
+  
   let added = 0;
   let skipped = 0;
   
   for (const server of SEED_SERVERS) {
     try {
       // Check if already exists
-      const existing = db.servers.getBySlug(server.slug);
+      const existing = database.servers.getBySlug(server.slug);
       if (existing) {
         skipped++;
         continue;
       }
       
-      db.servers.create({
+      database.servers.create({
         ...server,
         status: 'approved'
       });
