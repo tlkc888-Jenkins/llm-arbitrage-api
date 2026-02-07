@@ -157,6 +157,32 @@ app.get('/search', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
+// Sitemap for SEO
+app.get('/sitemap.xml', (req, res) => {
+  const servers = db.servers.getAll({ limit: 1000 });
+  const categories = db.categories.getAll();
+  const baseUrl = 'https://tryautropic.com';
+  
+  let xml = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>${baseUrl}/</loc><priority>1.0</priority></url>
+  <url><loc>${baseUrl}/submit</loc><priority>0.7</priority></url>
+`;
+  
+  categories.forEach(cat => {
+    xml += `  <url><loc>${baseUrl}/category/${cat.slug}</loc><priority>0.8</priority></url>\n`;
+  });
+  
+  servers.forEach(s => {
+    xml += `  <url><loc>${baseUrl}/server/${s.slug}</loc><priority>0.6</priority></url>\n`;
+  });
+  
+  xml += '</urlset>';
+  
+  res.header('Content-Type', 'application/xml');
+  res.send(xml);
+});
+
 // === Start ===
 
 async function start() {
