@@ -1,21 +1,17 @@
 {
-  "name": "savvyllm-api",
-  "version": "0.2.0",
-  "description": "SavvyLLM - Find the cheapest LLM for your task",
+  "name": "mcphub",
+  "version": "1.0.0",
+  "description": "MCPHub — The MCP Server Marketplace",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
     "dev": "node --watch server.js",
-    "setup-db": "node scripts/setup-db.js"
+    "seed": "node scripts/seed-from-awesome.js"
   },
   "dependencies": {
     "express": "^4.18.2",
-    "stripe": "^14.0.0",
     "sql.js": "^1.10.0",
-    "bcryptjs": "^2.4.3",
-    "jsonwebtoken": "^9.0.2",
-    "uuid": "^9.0.0",
-    "validator": "^13.11.0"
+    "marked": "^12.0.0"
   },
   "engines": {
     "node": ">=18.0.0"

@@ -1,37 +1,5 @@
-# Dependencies
 node_modules/
-
-# Environment
 .env
-.env.local
-.env.*.local
-
-# Secrets (never commit!)
-SECRETS.md
-CREDENTIALS.md
-
-# Data files
-data/
-*.db
-*.db-journal
-*.db-wal
-*.db-shm
-pricing_cache.json
-
-# Logs
+data/*.db
 *.log
-npm-debug.log*
-
-# OS
 .DS_Store
-Thumbs.db
-
-# IDE
-.idea/
-.vscode/
-*.swp
-*.swo
-
-# Build
-dist/
-build/

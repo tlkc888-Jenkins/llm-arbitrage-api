@@ -1,31 +1,17 @@
-# Render Blueprint - SavvyLLM API
+# Render Blueprint - MCPHub
 
 services:
   - type: web
-    name: savvyllm-api
+    name: mcphub
     runtime: node
     plan: free
-    buildCommand: npm install
+    buildCommand: npm install && npm run seed
     startCommand: npm start
-    healthCheckPath: /health
+    healthCheckPath: /api/v1/stats
     envVars:
       - key: NODE_ENV
         value: production
       - key: PORT
         value: 8080
-      - key: BASE_URL
-        sync: false  # Set manually after deploy
-      - key: JWT_SECRET
+      - key: ADMIN_KEY
         generateValue: true
-      - key: STRIPE_SECRET_KEY
-        sync: false  # Set manually
-      - key: STRIPE_PUBLISHABLE_KEY
-        sync: false  # Set manually
-      - key: STRIPE_WEBHOOK_SECRET
-        sync: false  # Set manually
-      - key: STRIPE_PRICE_STARTER
-        sync: false  # Set manually
-      - key: STRIPE_PRICE_PRO
-        sync: false  # Set manually
-      - key: STRIPE_PRICE_OVERAGE
-        sync: false  # Set manually
