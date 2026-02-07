@@ -6,6 +6,7 @@
 const express = require('express');
 const path = require('path');
 const db = require('./lib/database');
+const analytics = require('./lib/analytics');
 
 const app = express();
 const PORT = process.env.PORT || 8080;
@@ -36,6 +37,12 @@ app.get('/api/v1/servers', (req, res) => {
     featured: featured === 'true'
   });
   
+  // Track searches (the valuable data!)
+  if (search) {
+    const source = req.headers['user-agent']?.includes('MCP') ? 'mcp' : 'api';
+    analytics.search(search, servers.length, req, source);
+  }
+  
   res.json({
     servers: servers.map(s => ({
       ...s,
@@ -54,6 +61,10 @@ app.get('/api/v1/servers/:slug', (req, res) => {
   
   // Increment view count
   db.servers.incrementViews(server.id);
+  
+  // Track view (valuable data!)
+  const source = req.headers['user-agent']?.includes('MCP') ? 'mcp' : 'api';
+  analytics.view(req.params.slug, req, source);
   
   res.json({
     ...server,
@@ -85,6 +96,9 @@ app.post('/api/v1/submit', (req, res) => {
     submitter_email: email,
     notes
   });
+  
+  // Track submission
+  analytics.submit(github_url, req);
   
   res.status(201).json({ message: 'Submission received! We\'ll review it soon.' });
 });
@@ -133,6 +147,16 @@ app.post('/api/admin/servers', adminAuth, (req, res) => {
   } catch (e) {
     res.status(400).json({ error: e.message });
   }
+});
+
+// Analytics status (admin)
+app.get('/api/admin/analytics', adminAuth, (req, res) => {
+  res.json({
+    configured: analytics.isConfigured(),
+    message: analytics.isConfigured() 
+      ? 'Analytics active — check Supabase for data'
+      : 'Add SUPABASE_URL and SUPABASE_KEY to enable analytics'
+  });
 });
 
 // === HTML Routes (SPA-style, serve index.html) ===
