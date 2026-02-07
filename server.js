@@ -213,19 +213,21 @@ async function start() {
   await db.initDb();
   console.log('Database initialized');
   
-  // Seed if empty (Render free tier has ephemeral disk)
-  const count = db.servers.count();
-  if (count === 0) {
-    console.log('Database empty, seeding...');
-    try {
-      const { seedServers } = require('./scripts/seed-from-awesome');
-      const result = await seedServers(db);  // Pass db instance
-      console.log(`Seeded: added ${result.added}, skipped ${result.skipped}`);
-    } catch (e) {
-      console.error('Seed error:', e);
+  // Seed on startup (Render free tier has ephemeral disk)
+  // Always run to add new servers while skipping existing ones
+  console.log('Checking for new servers to seed...');
+  try {
+    const { seedServers } = require('./scripts/seed-from-awesome');
+    const result = await seedServers(db);  // Pass db instance
+    if (result.added > 0) {
+      console.log(`Seeded: added ${result.added} new, skipped ${result.skipped} existing`);
+    } else {
+      console.log(`Database up to date: ${result.skipped} servers`);
     }
-    console.log(`Total servers: ${db.servers.count()}`);
+  } catch (e) {
+    console.error('Seed error:', e);
   }
+  console.log(`Total servers: ${db.servers.count()}`);
   
   app.listen(PORT, () => {
     console.log(`AutropicAI running on http://localhost:${PORT}`);
