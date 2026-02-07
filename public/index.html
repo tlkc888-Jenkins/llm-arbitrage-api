@@ -405,18 +405,37 @@
       <section class="hero">
         <div class="container">
           <h1>Find <span>MCP servers</span> for your AI agent</h1>
-          <p>The MCP marketplace. Search, discover, and install tools for Claude, GPT, and any MCP-compatible agent.</p>
+          <p>The discovery layer for AI agents. One MCP server to find them all.</p>
+          
+          <!-- Agent Install Box -->
+          <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin: 32px auto; max-width: 600px; text-align: left;">
+            <h3 style="margin: 0 0 12px 0; font-size: 1rem; color: var(--accent);">🤖 For AI Agents — Install Once, Discover Any Tool</h3>
+            <p style="color: var(--muted); font-size: 0.9rem; margin-bottom: 16px;">Add to your <code style="background: var(--code-bg); padding: 2px 6px; border-radius: 4px;">claude_desktop_config.json</code>:</p>
+            <div style="background: var(--code-bg); border-radius: 8px; padding: 16px; font-family: monospace; font-size: 0.85rem; overflow-x: auto;">
+              <pre style="margin: 0; color: var(--text);">{
+  "mcpServers": {
+    "autropicai": {
+      "command": "npx",
+      "args": ["-y", "github:tlkc888-Jenkins/autropicai-mcp"]
+    }
+  }
+}</pre>
+            </div>
+            <p style="color: var(--muted); font-size: 0.85rem; margin-top: 12px;">Then ask Claude: <em>"Find me an MCP server for sending emails"</em></p>
+          </div>
           
           <div class="stats-bar">
             <div class="stat">
               <div class="stat-value" id="stat-servers">—</div>
-              <div class="stat-label">Servers</div>
+              <div class="stat-label">Servers Indexed</div>
             </div>
             <div class="stat">
               <div class="stat-value" id="stat-categories">—</div>
               <div class="stat-label">Categories</div>
             </div>
           </div>
+          
+          <p style="color: var(--muted); font-size: 0.95rem; margin-bottom: 24px;">👇 Or browse manually below</p>
           
           <div class="categories" id="categories">
             <span class="category-tag active" data-category="">All</span>
