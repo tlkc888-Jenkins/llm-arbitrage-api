@@ -561,7 +561,7 @@
         }
         
         grid.innerHTML = data.servers.map(server => `
-          <div class="server-card">
+          <div class="server-card" data-slug="${server.slug}" style="cursor:pointer;">
             <h3>
               <a href="/server/${server.slug}">${server.name}</a>
               ${server.verified ? '<span class="verified-badge">VERIFIED</span>' : ''}
@@ -576,13 +576,13 @@
           </div>
         `).join('');
         
-        // Add click handlers
-        grid.querySelectorAll('.server-card h3 a').forEach(a => {
-          a.onclick = (e) => {
+        // Make whole card clickable
+        grid.querySelectorAll('.server-card').forEach(card => {
+          card.onclick = (e) => {
             e.preventDefault();
-            const slug = a.getAttribute('href').replace('/server/', '');
-            loadServerDetail(slug);
+            const slug = card.dataset.slug;
             history.pushState({}, '', `/server/${slug}`);
+            loadServerDetail(slug);
           };
         });
         
@@ -686,9 +686,11 @@
     // Handle back/forward
     window.addEventListener('popstate', route);
     
-    // Handle link clicks
+    // Handle link clicks (for nav links, not server cards)
     document.addEventListener('click', (e) => {
       const a = e.target.closest('a');
+      // Skip if inside a server-card (handled separately)
+      if (e.target.closest('.server-card')) return;
       if (a && a.href.startsWith(window.location.origin) && !a.target) {
         e.preventDefault();
         history.pushState({}, '', a.href);
