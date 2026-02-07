@@ -76,10 +76,7 @@ const SEED_SERVERS = [
   { name: 'AutropicAI', slug: 'autropicai', description: 'Find the cheapest LLM for any task - cost optimization for AI agents', github_url: 'https://github.com/tlkc888-Jenkins/autropicai-mcp', category: 'ai-ml', tags: ['cost', 'optimization', 'llm'], install_command: 'npx github:tlkc888-Jenkins/autropicai-mcp', github_stars: 50, verified: 1, featured: 1 },
 ];
 
-async function seed() {
-  await db.initDb();
-  console.log('Database initialized\n');
-  
+async function seedServers() {
   let added = 0;
   let skipped = 0;
   
@@ -97,14 +94,24 @@ async function seed() {
         status: 'approved'
       });
       added++;
-      console.log(`✓ Added: ${server.name}`);
     } catch (e) {
       console.error(`✗ Failed: ${server.name} - ${e.message}`);
     }
   }
   
-  console.log(`\nDone! Added ${added} servers, skipped ${skipped} existing.`);
-  console.log(`Total servers: ${db.servers.count()}`);
+  return { added, skipped };
 }
 
-seed().catch(console.error);
+// Export for use in server.js
+module.exports = { seedServers, SEED_SERVERS };
+
+// Run directly if called as script
+if (require.main === module) {
+  (async () => {
+    await db.initDb();
+    console.log('Database initialized\n');
+    const { added, skipped } = await seedServers();
+    console.log(`\nDone! Added ${added} servers, skipped ${skipped} existing.`);
+    console.log(`Total servers: ${db.servers.count()}`);
+  })().catch(console.error);
+}

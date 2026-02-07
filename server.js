@@ -163,8 +163,18 @@ async function start() {
   await db.initDb();
   console.log('Database initialized');
   
+  // Seed if empty (Render free tier has ephemeral disk)
+  const count = db.servers.count();
+  if (count === 0) {
+    console.log('Database empty, seeding...');
+    const { seedServers } = require('./scripts/seed-from-awesome');
+    await seedServers();
+    console.log(`Seeded ${db.servers.count()} servers`);
+  }
+  
   app.listen(PORT, () => {
     console.log(`AutropicAI running on http://localhost:${PORT}`);
+    console.log(`${db.servers.count()} MCP servers loaded`);
   });
 }
 
