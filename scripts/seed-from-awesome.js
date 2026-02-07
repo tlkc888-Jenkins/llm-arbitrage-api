@@ -1,11 +1,18 @@
 #!/usr/bin/env node
 /**
  * Seed AutropicAI database from awesome-mcp-servers
+ * Combined with expanded server list for 200+ servers
  * 
  * Run: npm run seed
  */
 
 let db = require('../lib/database');
+let expandedServers = [];
+try {
+  expandedServers = require('./expand-servers').EXPANDED_SERVERS || [];
+} catch (e) {
+  // expand-servers.js not available, continue with base list
+}
 
 // Curated list from awesome-mcp-servers + manual additions
 // Categories: data-files, developer-tools, communication, productivity, web-browser, ai-ml, finance, infrastructure, other
@@ -145,7 +152,10 @@ async function seedServers(externalDb = null) {
   let added = 0;
   let skipped = 0;
   
-  for (const server of SEED_SERVERS) {
+  // Combine base servers with expanded list
+  const allServers = [...SEED_SERVERS, ...expandedServers];
+  
+  for (const server of allServers) {
     try {
       // Check if already exists
       const existing = database.servers.getBySlug(server.slug);
@@ -164,7 +174,7 @@ async function seedServers(externalDb = null) {
     }
   }
   
-  return { added, skipped };
+  return { added, skipped, total: allServers.length };
 }
 
 // Export for use in server.js
