@@ -434,7 +434,9 @@ async function start() {
   
   app.listen(PORT, () => {
     console.log(`AutropicAI running on http://localhost:${PORT}`);
-    console.log(`${db.servers.count()} MCP servers loaded`);
+    console.log(`${db.servers.count()} MCP servers in directory`);
+    console.log(`${hostedMcp.listHostedServers().length} hosted MCP servers`);
+    console.log(`Supabase analytics: ${usageTracker.isSupabaseConfigured() ? '✓ connected' : '✗ not configured'}`);
   });
 }
 

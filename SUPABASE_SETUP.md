@@ -1,110 +1,117 @@
-# Supabase Setup for Analytics
+# Supabase Setup for AutropicAI
 
-## 1. Create Supabase Project
+## 1. Create Project
 
-1. Go to https://supabase.com
-2. Create new project (free tier is fine)
-3. Note your project URL and anon key
+Go to [supabase.com](https://supabase.com) → New Project
+
+- Name: `autropicai`
+- Database password: (save this)
+- Region: Pick closest to users
 
 ## 2. Create Analytics Table
 
-Go to SQL Editor in Supabase and run:
+Go to SQL Editor → New Query → Run this:
 
 ```sql
--- Analytics table for tracking usage
+-- Analytics events table
 CREATE TABLE analytics (
   id BIGSERIAL PRIMARY KEY,
   created_at TIMESTAMPTZ DEFAULT NOW(),
-  
-  -- Event info
-  event_type TEXT NOT NULL,  -- 'search', 'view', 'mcp_call', 'submit'
-  query TEXT,                -- search term or github url
-  server_slug TEXT,          -- which server was viewed
-  category TEXT,             -- category filter used
-  source TEXT,               -- 'web', 'api', 'mcp'
-  results_count INTEGER,     -- how many results returned
-  
-  -- User info (privacy-safe)
-  ip_hash TEXT,              -- hashed IP for uniqueness
-  user_agent TEXT,           -- browser/client info
-  referer TEXT,              -- where they came from
-  
-  -- Extra data
-  extra JSONB                -- any additional context
+  event_type TEXT NOT NULL,
+  query TEXT,
+  server_slug TEXT,
+  tool_name TEXT,
+  source TEXT DEFAULT 'api',
+  results_count INTEGER,
+  ip_hash TEXT,
+  user_agent TEXT,
+  referer TEXT,
+  extra JSONB
 );
 
 -- Index for common queries
-CREATE INDEX idx_analytics_created_at ON analytics(created_at DESC);
 CREATE INDEX idx_analytics_event_type ON analytics(event_type);
+CREATE INDEX idx_analytics_created_at ON analytics(created_at DESC);
 CREATE INDEX idx_analytics_query ON analytics(query) WHERE query IS NOT NULL;
+CREATE INDEX idx_analytics_server ON analytics(server_slug) WHERE server_slug IS NOT NULL;
 
--- Enable Row Level Security (but allow inserts from API)
+-- Enable Row Level Security (but allow inserts from service key)
 ALTER TABLE analytics ENABLE ROW LEVEL SECURITY;
 
--- Policy: Allow inserts from anon key (our API)
-CREATE POLICY "Allow anonymous inserts" ON analytics
-  FOR INSERT TO anon
-  WITH CHECK (true);
+-- Allow inserts from service role
+CREATE POLICY "Allow service inserts" ON analytics
+  FOR INSERT WITH CHECK (true);
 
--- Policy: Only authenticated users can read (for dashboard later)
-CREATE POLICY "Authenticated users can read" ON analytics
-  FOR SELECT TO authenticated
-  USING (true);
+-- Allow reads from service role  
+CREATE POLICY "Allow service reads" ON analytics
+  FOR SELECT USING (true);
 ```
 
-## 3. Add Environment Variables
+## 3. Get API Keys
 
-In Render dashboard, add:
+Go to Settings → API:
 
-- `SUPABASE_URL` = your project URL (e.g., https://xxx.supabase.co)
-- `SUPABASE_KEY` = your anon/public key
+- **Project URL**: `https://xxxxx.supabase.co`
+- **anon/public key**: The `anon` key (safe to expose)
+- **service_role key**: The secret key (use this for server)
 
-## 4. Verify
+## 4. Add to Render
 
-After deploying, make a search on tryautropic.com, then check Supabase:
+Go to Render Dashboard → autropicai → Environment:
 
+```
+SUPABASE_URL=https://xxxxx.supabase.co
+SUPABASE_KEY=your_service_role_key_here
+```
+
+Then redeploy.
+
+## 5. Verify
+
+After deploy, check logs. You should see:
+```
+✓ Supabase analytics connected
+```
+
+Then query the table:
 ```sql
 SELECT * FROM analytics ORDER BY created_at DESC LIMIT 10;
 ```
 
-## Data We're Collecting
+## Useful Queries
 
-| Event Type | What It Tells Us |
-|------------|------------------|
-| `search` | What agents/users need — market demand signal |
-| `view` | Which servers are popular — partnership opportunities |
-| `mcp_call` | Agent usage of our MCP server — product validation |
-| `submit` | New servers being built — ecosystem growth |
-
-## Example Queries
-
+**Most searched queries:**
 ```sql
--- Top search queries this week
 SELECT query, COUNT(*) as count 
 FROM analytics 
-WHERE event_type = 'search' 
-  AND created_at > NOW() - INTERVAL '7 days'
+WHERE event_type = 'discover' AND query IS NOT NULL
 GROUP BY query 
 ORDER BY count DESC 
 LIMIT 20;
+```
 
--- Most viewed servers
-SELECT server_slug, COUNT(*) as views
+**Most used tools:**
+```sql
+SELECT server_slug, tool_name, COUNT(*) as count
 FROM analytics
-WHERE event_type = 'view'
-GROUP BY server_slug
-ORDER BY views DESC
-LIMIT 20;
+WHERE event_type = 'tool_call'
+GROUP BY server_slug, tool_name
+ORDER BY count DESC;
+```
 
--- Daily active users (unique IP hashes)
-SELECT DATE(created_at) as day, COUNT(DISTINCT ip_hash) as users
+**Daily active users (by IP hash):**
+```sql
+SELECT DATE(created_at) as day, COUNT(DISTINCT ip_hash) as unique_users
 FROM analytics
-WHERE created_at > NOW() - INTERVAL '30 days'
 GROUP BY DATE(created_at)
 ORDER BY day DESC;
+```
 
--- MCP vs Web usage
-SELECT source, COUNT(*) as count
+**Hourly traffic:**
+```sql
+SELECT DATE_TRUNC('hour', created_at) as hour, COUNT(*) as events
 FROM analytics
-GROUP BY source;
+WHERE created_at > NOW() - INTERVAL '24 hours'
+GROUP BY hour
+ORDER BY hour;
 ```
