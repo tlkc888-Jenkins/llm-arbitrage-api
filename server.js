@@ -200,6 +200,119 @@ app.get('/api/v1/hosted', (req, res) => {
   });
 });
 
+// === DISCOVER ENDPOINT — The agent on-ramp ===
+
+// Simple keyword matching for discovery
+function matchScore(query, text) {
+  if (!text) return 0;
+  const q = query.toLowerCase().split(/\s+/);
+  const t = text.toLowerCase();
+  return q.filter(word => t.includes(word)).length;
+}
+
+// GET /discover?q=send+email — Returns best tool for the job
+app.get('/discover', (req, res) => {
+  const query = req.query.q || req.query.query || '';
+  if (!query) {
+    return res.json({
+      error: 'Missing query. Usage: GET /discover?q=send+email',
+      examples: [
+        '/discover?q=current+time',
+        '/discover?q=generate+uuid',
+        '/discover?q=fetch+webpage',
+        '/discover?q=store+data'
+      ]
+    });
+  }
+  
+  usageTracker.trackView(`/discover?q=${encodeURIComponent(query)}`, req);
+  
+  // Search hosted servers first (instant access)
+  const hosted = hostedMcp.listHostedServers();
+  const hostedMatches = hosted.map(server => {
+    const toolNames = server.tools.join(' ');
+    const score = matchScore(query, server.name + ' ' + server.description + ' ' + toolNames);
+    return { ...server, score, type: 'hosted' };
+  }).filter(s => s.score > 0).sort((a, b) => b.score - a.score);
+  
+  // Search directory too
+  const directory = db.servers.getAll({ search: query, limit: 5 });
+  const directoryMatches = directory.map(s => ({
+    slug: s.slug,
+    name: s.name,
+    description: s.description,
+    github_url: s.github_url,
+    install_command: s.install_command,
+    type: 'directory',
+    score: matchScore(query, s.name + ' ' + s.description)
+  }));
+  
+  const baseUrl = `${req.protocol}://${req.get('host')}`;
+  
+  // Best hosted match = instant solution
+  if (hostedMatches.length > 0) {
+    const best = hostedMatches[0];
+    return res.json({
+      found: true,
+      instant: true,
+      query,
+      recommendation: {
+        server: best.name,
+        description: best.description,
+        endpoint: `${baseUrl}/mcp/${best.slug}/tools/call`,
+        tools: best.tools,
+        usage: {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: { name: best.tools[0], arguments: {} },
+          example: `curl -X POST ${baseUrl}/mcp/${best.slug}/tools/call -H "Content-Type: application/json" -d '{"name":"${best.tools[0]}","arguments":{}}'`
+        }
+      },
+      alternatives: {
+        hosted: hostedMatches.slice(1, 3),
+        directory: directoryMatches.slice(0, 3)
+      }
+    });
+  }
+  
+  // No hosted match, suggest from directory
+  if (directoryMatches.length > 0) {
+    const best = directoryMatches[0];
+    return res.json({
+      found: true,
+      instant: false,
+      query,
+      recommendation: {
+        server: best.name,
+        description: best.description,
+        github_url: best.github_url,
+        install_command: best.install_command,
+        note: 'This server requires local installation. Use the install_command or visit github_url.'
+      },
+      alternatives: {
+        directory: directoryMatches.slice(1, 5)
+      },
+      tip: 'Want instant access? Check our hosted servers: GET /api/v1/hosted'
+    });
+  }
+  
+  // Nothing found
+  res.json({
+    found: false,
+    query,
+    message: 'No matching tools found. Try different keywords.',
+    available_hosted: hosted.map(h => ({ name: h.name, description: h.description })),
+    search_directory: `${baseUrl}/api/v1/servers?search=${encodeURIComponent(query)}`
+  });
+});
+
+// POST /discover — Same but accepts JSON body
+app.post('/discover', express.json(), (req, res) => {
+  req.query.q = req.body.query || req.body.q || req.body.need;
+  req.url = `/discover?q=${encodeURIComponent(req.query.q || '')}`;
+  app.handle(req, res);
+});
+
 // Usage stats (protected)
 app.get('/api/v1/hosted/stats', (req, res) => {
   // Simple auth - check admin key
