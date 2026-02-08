@@ -314,14 +314,21 @@ app.post('/discover', express.json(), (req, res) => {
 });
 
 // Usage stats (protected)
-app.get('/api/v1/hosted/stats', (req, res) => {
+app.get('/api/v1/hosted/stats', async (req, res) => {
   // Simple auth - check admin key
   const authKey = req.headers['authorization']?.replace('Bearer ', '') || req.query.key;
   if (authKey !== ADMIN_KEY) {
     return res.status(401).json({ error: 'Unauthorized. Provide admin key.' });
   }
   
-  res.json(usageTracker.getStats());
+  const inMemory = usageTracker.getStats();
+  const persisted = await usageTracker.getPersistedStats();
+  
+  res.json({
+    inMemory,
+    persisted,
+    supabaseConfigured: usageTracker.isSupabaseConfigured(),
+  });
 });
 
 // Provision a hosted server (returns endpoint info)
