@@ -183,9 +183,12 @@ app.get('/search', (req, res) => {
 
 // === Hosted MCP Servers (Runtime Provision) ===
 const hostedMcp = require('./lib/hosted-mcp');
+const usageTracker = require('./lib/usage-tracker');
 
 // List available hosted servers
 app.get('/api/v1/hosted', (req, res) => {
+  usageTracker.trackView('/api/v1/hosted', req);
+  
   const servers = hostedMcp.listHostedServers();
   res.json({
     description: 'Hosted MCP servers available for instant use. No installation required.',
@@ -197,8 +200,21 @@ app.get('/api/v1/hosted', (req, res) => {
   });
 });
 
+// Usage stats (protected)
+app.get('/api/v1/hosted/stats', (req, res) => {
+  // Simple auth - check admin key
+  const authKey = req.headers['authorization']?.replace('Bearer ', '') || req.query.key;
+  if (authKey !== ADMIN_KEY) {
+    return res.status(401).json({ error: 'Unauthorized. Provide admin key.' });
+  }
+  
+  res.json(usageTracker.getStats());
+});
+
 // Provision a hosted server (returns endpoint info)
 app.get('/api/v1/provision/:slug', (req, res) => {
+  usageTracker.trackView(`/api/v1/provision/${req.params.slug}`, req);
+  
   const server = hostedMcp.getHostedServer(req.params.slug);
   if (!server) {
     return res.status(404).json({ error: 'Server not found. Use GET /api/v1/hosted to list available servers.' });
@@ -243,10 +259,10 @@ app.post('/mcp/:slug/tools/call', async (req, res) => {
     return res.status(400).json({ error: 'Missing "name" field for tool' });
   }
   
-  const result = await hostedMcp.executeTool(req.params.slug, name, args || {});
+  // Track this call
+  usageTracker.trackCall(req.params.slug, name, req);
   
-  // Track usage for analytics
-  analytics.search(`hosted:${req.params.slug}:${name}`, 1, req, 'mcp');
+  const result = await hostedMcp.executeTool(req.params.slug, name, args || {});
   
   res.json({
     tool: name,
