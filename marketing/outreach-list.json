@@ -1,0 +1,824 @@
+{
+  "generated": "2026-02-08T12:32:51.328Z",
+  "totalAuthors": 56,
+  "totalRepos": 91,
+  "targets": [
+    {
+      "author": "modelcontextprotocol",
+      "profileUrl": "https://github.com/modelcontextprotocol",
+      "repos": [
+        {
+          "url": "https://github.com/modelcontextprotocol/servers/tree/main/src/filesystem",
+          "repo": "servers"
+        },
+        {
+          "url": "https://github.com/modelcontextprotocol/servers/tree/main/src/github",
+          "repo": "servers"
+        },
+        {
+          "url": "https://github.com/modelcontextprotocol/servers/tree/main/src/gitlab",
+          "repo": "servers"
+        },
+        {
+          "url": "https://github.com/modelcontextprotocol/servers/tree/main/src/gdrive",
+          "repo": "servers"
+        },
+        {
+          "url": "https://github.com/modelcontextprotocol/servers/tree/main/src/postgres",
+          "repo": "servers"
+        },
+        {
+          "url": "https://github.com/modelcontextprotocol/servers/tree/main/src/slack",
+          "repo": "servers"
+        },
+        {
+          "url": "https://github.com/modelcontextprotocol/servers/tree/main/src/memory",
+          "repo": "servers"
+        },
+        {
+          "url": "https://github.com/modelcontextprotocol/servers/tree/main/src/puppeteer",
+          "repo": "servers"
+        },
+        {
+          "url": "https://github.com/modelcontextprotocol/servers/tree/main/src/brave-search",
+          "repo": "servers"
+        },
+        {
+          "url": "https://github.com/modelcontextprotocol/servers/tree/main/src/google-maps",
+          "repo": "servers"
+        },
+        {
+          "url": "https://github.com/modelcontextprotocol/servers/tree/main/src/fetch",
+          "repo": "servers"
+        },
+        {
+          "url": "https://github.com/modelcontextprotocol/servers/tree/main/src/sqlite",
+          "repo": "servers"
+        },
+        {
+          "url": "https://github.com/modelcontextprotocol/servers/tree/main/src/sentry",
+          "repo": "servers"
+        },
+        {
+          "url": "https://github.com/modelcontextprotocol/servers/tree/main/src/time",
+          "repo": "servers"
+        },
+        {
+          "url": "https://github.com/modelcontextprotocol/servers/tree/main/src/sequentialthinking",
+          "repo": "servers"
+        },
+        {
+          "url": "https://github.com/modelcontextprotocol/servers/tree/main/src/everything",
+          "repo": "servers"
+        },
+        {
+          "url": "https://github.com/modelcontextprotocol/servers/tree/main/src/everart",
+          "repo": "servers"
+        }
+      ],
+      "repoCount": 17,
+      "priority": "high"
+    },
+    {
+      "author": "nicepkg",
+      "profileUrl": "https://github.com/nicepkg",
+      "repos": [
+        {
+          "url": "https://github.com/nicepkg/mcp-server-telegram",
+          "repo": "mcp-server-telegram"
+        },
+        {
+          "url": "https://github.com/nicepkg/mcp-server-browserbase",
+          "repo": "mcp-server-browserbase"
+        },
+        {
+          "url": "https://github.com/nicepkg/mcp-server-redis",
+          "repo": "mcp-server-redis"
+        },
+        {
+          "url": "https://github.com/nicepkg/mcp-server-mysql",
+          "repo": "mcp-server-mysql"
+        },
+        {
+          "url": "https://github.com/nicepkg/mcp-server-github-actions",
+          "repo": "mcp-server-github-actions"
+        },
+        {
+          "url": "https://github.com/nicepkg/mcp-server-gcal",
+          "repo": "mcp-server-gcal"
+        },
+        {
+          "url": "https://github.com/nicepkg/mcp-server-logseq",
+          "repo": "mcp-server-logseq"
+        },
+        {
+          "url": "https://github.com/nicepkg/mcp-server-clickup",
+          "repo": "mcp-server-clickup"
+        },
+        {
+          "url": "https://github.com/nicepkg/mcp-server-yahoo-finance",
+          "repo": "mcp-server-yahoo-finance"
+        },
+        {
+          "url": "https://github.com/nicepkg/mcp-server-whatsapp",
+          "repo": "mcp-server-whatsapp"
+        },
+        {
+          "url": "https://github.com/nicepkg/mcp-server-matrix",
+          "repo": "mcp-server-matrix"
+        },
+        {
+          "url": "https://github.com/nicepkg/mcp-server-homeassistant",
+          "repo": "mcp-server-homeassistant"
+        },
+        {
+          "url": "https://github.com/nicepkg/mcp-server-mqtt",
+          "repo": "mcp-server-mqtt"
+        }
+      ],
+      "repoCount": 13,
+      "priority": "high"
+    },
+    {
+      "author": "v-3",
+      "profileUrl": "https://github.com/v-3",
+      "repos": [
+        {
+          "url": "https://github.com/v-3/notion-server",
+          "repo": "notion-server"
+        },
+        {
+          "url": "https://github.com/v-3/discord-server",
+          "repo": "discord-server"
+        },
+        {
+          "url": "https://github.com/v-3/gcal-server",
+          "repo": "gcal-server"
+        },
+        {
+          "url": "https://github.com/v-3/airtable-server",
+          "repo": "airtable-server"
+        },
+        {
+          "url": "https://github.com/v-3/trello-server",
+          "repo": "trello-server"
+        }
+      ],
+      "repoCount": 5,
+      "priority": "high"
+    },
+    {
+      "author": "aws",
+      "profileUrl": "https://github.com/aws",
+      "repos": [
+        {
+          "url": "https://github.com/aws/aws-mcp-server",
+          "repo": "aws-mcp-server"
+        },
+        {
+          "url": "https://github.com/aws/mcp-server-aws",
+          "repo": "mcp-server-aws"
+        }
+      ],
+      "repoCount": 2,
+      "priority": "high"
+    },
+    {
+      "author": "atlassian",
+      "profileUrl": "https://github.com/atlassian",
+      "repos": [
+        {
+          "url": "https://github.com/atlassian/mcp-server-jira",
+          "repo": "mcp-server-jira"
+        },
+        {
+          "url": "https://github.com/atlassian/mcp-server-confluence",
+          "repo": "mcp-server-confluence"
+        }
+      ],
+      "repoCount": 2,
+      "priority": "high"
+    },
+    {
+      "author": "hashicorp",
+      "profileUrl": "https://github.com/hashicorp",
+      "repos": [
+        {
+          "url": "https://github.com/hashicorp/terraform-mcp",
+          "repo": "terraform-mcp"
+        },
+        {
+          "url": "https://github.com/hashicorp/vault-mcp",
+          "repo": "vault-mcp"
+        }
+      ],
+      "repoCount": 2,
+      "priority": "high"
+    },
+    {
+      "author": "MindscapeHQ",
+      "profileUrl": "https://github.com/MindscapeHQ",
+      "repos": [
+        {
+          "url": "https://github.com/MindscapeHQ/mcp-server-raygun",
+          "repo": "mcp-server-raygun"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal"
+    },
+    {
+      "author": "jerhadf",
+      "profileUrl": "https://github.com/jerhadf",
+      "repos": [
+        {
+          "url": "https://github.com/jerhadf/linear-mcp-server",
+          "repo": "linear-mcp-server"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal"
+    },
+    {
+      "author": "abhiz123",
+      "profileUrl": "https://github.com/abhiz123",
+      "repos": [
+        {
+          "url": "https://github.com/abhiz123/todoist-mcp-server",
+          "repo": "todoist-mcp-server"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal"
+    },
+    {
+      "author": "EnesCinr",
+      "profileUrl": "https://github.com/EnesCinr",
+      "repos": [
+        {
+          "url": "https://github.com/EnesCinr/twitter-mcp",
+          "repo": "twitter-mcp"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal"
+    },
+    {
+      "author": "executeautomation",
+      "profileUrl": "https://github.com/executeautomation",
+      "repos": [
+        {
+          "url": "https://github.com/executeautomation/mcp-playwright",
+          "repo": "mcp-playwright"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal"
+    },
+    {
+      "author": "mendableai",
+      "profileUrl": "https://github.com/mendableai",
+      "repos": [
+        {
+          "url": "https://github.com/mendableai/firecrawl-mcp-server",
+          "repo": "firecrawl-mcp-server"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal"
+    },
+    {
+      "author": "mzxrai",
+      "profileUrl": "https://github.com/mzxrai",
+      "repos": [
+        {
+          "url": "https://github.com/mzxrai/mcp-openai",
+          "repo": "mcp-openai"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal"
+    },
+    {
+      "author": "anthropics",
+      "profileUrl": "https://github.com/anthropics",
+      "repos": [
+        {
+          "url": "https://github.com/anthropics/anthropic-mcp",
+          "repo": "anthropic-mcp"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal"
+    },
+    {
+      "author": "ckreiling",
+      "profileUrl": "https://github.com/ckreiling",
+      "repos": [
+        {
+          "url": "https://github.com/ckreiling/mcp-server-docker",
+          "repo": "mcp-server-docker"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal"
+    },
+    {
+      "author": "strowk",
+      "profileUrl": "https://github.com/strowk",
+      "repos": [
+        {
+          "url": "https://github.com/strowk/mcp-k8s-go",
+          "repo": "mcp-k8s-go"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal"
+    },
+    {
+      "author": "cloudflare",
+      "profileUrl": "https://github.com/cloudflare",
+      "repos": [
+        {
+          "url": "https://github.com/cloudflare/mcp-server-cloudflare",
+          "repo": "mcp-server-cloudflare"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal"
+    },
+    {
+      "author": "stripe",
+      "profileUrl": "https://github.com/stripe",
+      "repos": [
+        {
+          "url": "https://github.com/stripe/mcp-server-stripe",
+          "repo": "mcp-server-stripe"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal"
+    },
+    {
+      "author": "plaid",
+      "profileUrl": "https://github.com/plaid",
+      "repos": [
+        {
+          "url": "https://github.com/plaid/mcp-server-plaid",
+          "repo": "mcp-server-plaid"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal"
+    },
+    {
+      "author": "e2b-dev",
+      "profileUrl": "https://github.com/e2b-dev",
+      "repos": [
+        {
+          "url": "https://github.com/e2b-dev/mcp-server",
+          "repo": "mcp-server"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal"
+    },
+    {
+      "author": "MarkusPfworring",
+      "profileUrl": "https://github.com/MarkusPfworring",
+      "repos": [
+        {
+          "url": "https://github.com/MarkusPfworring/obsidian-mcp",
+          "repo": "obsidian-mcp"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal"
+    },
+    {
+      "author": "suekou",
+      "profileUrl": "https://github.com/suekou",
+      "repos": [
+        {
+          "url": "https://github.com/suekou/mcp-apple-notes",
+          "repo": "mcp-apple-notes"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal"
+    },
+    {
+      "author": "supabase",
+      "profileUrl": "https://github.com/supabase",
+      "repos": [
+        {
+          "url": "https://github.com/supabase/mcp-server-supabase",
+          "repo": "mcp-server-supabase"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal"
+    },
+    {
+      "author": "mongodb",
+      "profileUrl": "https://github.com/mongodb",
+      "repos": [
+        {
+          "url": "https://github.com/mongodb/mcp-server-mongodb",
+          "repo": "mcp-server-mongodb"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal"
+    },
+    {
+      "author": "elastic",
+      "profileUrl": "https://github.com/elastic",
+      "repos": [
+        {
+          "url": "https://github.com/elastic/mcp-server-elasticsearch",
+          "repo": "mcp-server-elasticsearch"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal"
+    },
+    {
+      "author": "neo4j",
+      "profileUrl": "https://github.com/neo4j",
+      "repos": [
+        {
+          "url": "https://github.com/neo4j/mcp-neo4j",
+          "repo": "mcp-neo4j"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal"
+    },
+    {
+      "author": "asana",
+      "profileUrl": "https://github.com/asana",
+      "repos": [
+        {
+          "url": "https://github.com/asana/mcp-server-asana",
+          "repo": "mcp-server-asana"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal"
+    },
+    {
+      "author": "vercel",
+      "profileUrl": "https://github.com/vercel",
+      "repos": [
+        {
+          "url": "https://github.com/vercel/mcp-server-vercel",
+          "repo": "mcp-server-vercel"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal"
+    },
+    {
+      "author": "netlify",
+      "profileUrl": "https://github.com/netlify",
+      "repos": [
+        {
+          "url": "https://github.com/netlify/mcp-server-netlify",
+          "repo": "mcp-server-netlify"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal"
+    },
+    {
+      "author": "heroku",
+      "profileUrl": "https://github.com/heroku",
+      "repos": [
+        {
+          "url": "https://github.com/heroku/mcp-server-heroku",
+          "repo": "mcp-server-heroku"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal"
+    },
+    {
+      "author": "google",
+      "profileUrl": "https://github.com/google",
+      "repos": [
+        {
+          "url": "https://github.com/google/mcp-server-gcp",
+          "repo": "mcp-server-gcp"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal"
+    },
+    {
+      "author": "microsoft",
+      "profileUrl": "https://github.com/microsoft",
+      "repos": [
+        {
+          "url": "https://github.com/microsoft/mcp-server-azure",
+          "repo": "mcp-server-azure"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal"
+    },
+    {
+      "author": "tlkc888-Jenkins",
+      "profileUrl": "https://github.com/tlkc888-Jenkins",
+      "repos": [
+        {
+          "url": "https://github.com/tlkc888-Jenkins/autropicai-mcp",
+          "repo": "autropicai-mcp"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal"
+    },
+    {
+      "author": "kimtaeyoon83",
+      "profileUrl": "https://github.com/kimtaeyoon83",
+      "repos": [
+        {
+          "url": "https://github.com/kimtaeyoon83/mcp-server-youtube-transcript",
+          "repo": "mcp-server-youtube-transcript"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal"
+    },
+    {
+      "author": "exa-labs",
+      "profileUrl": "https://github.com/exa-labs",
+      "repos": [
+        {
+          "url": "https://github.com/exa-labs/exa-mcp-server",
+          "repo": "exa-mcp-server"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal"
+    },
+    {
+      "author": "tavily-ai",
+      "profileUrl": "https://github.com/tavily-ai",
+      "repos": [
+        {
+          "url": "https://github.com/tavily-ai/tavily-mcp",
+          "repo": "tavily-mcp"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal"
+    },
+    {
+      "author": "pskill9",
+      "profileUrl": "https://github.com/pskill9",
+      "repos": [
+        {
+          "url": "https://github.com/pskill9/web-search",
+          "repo": "web-search"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal"
+    },
+    {
+      "author": "ahujasid",
+      "profileUrl": "https://github.com/ahujasid",
+      "repos": [
+        {
+          "url": "https://github.com/ahujasid/blender-mcp",
+          "repo": "blender-mcp"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal"
+    },
+    {
+      "author": "samuelgursky",
+      "profileUrl": "https://github.com/samuelgursky",
+      "repos": [
+        {
+          "url": "https://github.com/samuelgursky/davinci-resolve-mcp",
+          "repo": "davinci-resolve-mcp"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal"
+    },
+    {
+      "author": "abhiemj",
+      "profileUrl": "https://github.com/abhiemj",
+      "repos": [
+        {
+          "url": "https://github.com/abhiemj/manim-mcp-server",
+          "repo": "manim-mcp-server"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal"
+    },
+    {
+      "author": "raveenb",
+      "profileUrl": "https://github.com/raveenb",
+      "repos": [
+        {
+          "url": "https://github.com/raveenb/fal-mcp-server",
+          "repo": "fal-mcp-server"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal"
+    },
+    {
+      "author": "sirmews",
+      "profileUrl": "https://github.com/sirmews",
+      "repos": [
+        {
+          "url": "https://github.com/sirmews/mcp-pinecone",
+          "repo": "mcp-pinecone"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal"
+    },
+    {
+      "author": "qdrant",
+      "profileUrl": "https://github.com/qdrant",
+      "repos": [
+        {
+          "url": "https://github.com/qdrant/mcp-server-qdrant",
+          "repo": "mcp-server-qdrant"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal"
+    },
+    {
+      "author": "chroma-core",
+      "profileUrl": "https://github.com/chroma-core",
+      "repos": [
+        {
+          "url": "https://github.com/chroma-core/chroma-mcp",
+          "repo": "chroma-mcp"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal"
+    },
+    {
+      "author": "ktanaka101",
+      "profileUrl": "https://github.com/ktanaka101",
+      "repos": [
+        {
+          "url": "https://github.com/ktanaka101/mcp-server-duckdb",
+          "repo": "mcp-server-duckdb"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal"
+    },
+    {
+      "author": "datawiz168",
+      "profileUrl": "https://github.com/datawiz168",
+      "repos": [
+        {
+          "url": "https://github.com/datawiz168/mcp-snowflake-service",
+          "repo": "mcp-snowflake-service"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal"
+    },
+    {
+      "author": "ergut",
+      "profileUrl": "https://github.com/ergut",
+      "repos": [
+        {
+          "url": "https://github.com/ergut/mcp-bigquery-server",
+          "repo": "mcp-bigquery-server"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal"
+    },
+    {
+      "author": "ollama",
+      "profileUrl": "https://github.com/ollama",
+      "repos": [
+        {
+          "url": "https://github.com/ollama/ollama-mcp",
+          "repo": "ollama-mcp"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal"
+    },
+    {
+      "author": "replicate",
+      "profileUrl": "https://github.com/replicate",
+      "repos": [
+        {
+          "url": "https://github.com/replicate/replicate-mcp",
+          "repo": "replicate-mcp"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal"
+    },
+    {
+      "author": "huggingface",
+      "profileUrl": "https://github.com/huggingface",
+      "repos": [
+        {
+          "url": "https://github.com/huggingface/huggingface-mcp",
+          "repo": "huggingface-mcp"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal"
+    },
+    {
+      "author": "circleci",
+      "profileUrl": "https://github.com/circleci",
+      "repos": [
+        {
+          "url": "https://github.com/circleci/circleci-mcp",
+          "repo": "circleci-mcp"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal"
+    },
+    {
+      "author": "coinbase",
+      "profileUrl": "https://github.com/coinbase",
+      "repos": [
+        {
+          "url": "https://github.com/coinbase/coinbase-mcp",
+          "repo": "coinbase-mcp"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal"
+    },
+    {
+      "author": "1password",
+      "profileUrl": "https://github.com/1password",
+      "repos": [
+        {
+          "url": "https://github.com/1password/1password-mcp",
+          "repo": "1password-mcp"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal"
+    },
+    {
+      "author": "PipedreamHQ",
+      "profileUrl": "https://github.com/PipedreamHQ",
+      "repos": [
+        {
+          "url": "https://github.com/PipedreamHQ/pipedream",
+          "repo": "pipedream"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal"
+    },
+    {
+      "author": "julien040",
+      "profileUrl": "https://github.com/julien040",
+      "repos": [
+        {
+          "url": "https://github.com/julien040/anyquery",
+          "repo": "anyquery"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal"
+    },
+    {
+      "author": "mindsdb",
+      "profileUrl": "https://github.com/mindsdb",
+      "repos": [
+        {
+          "url": "https://github.com/mindsdb/mindsdb",
+          "repo": "mindsdb"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal"
+    }
+  ],
+  "emailTemplate": {
+    "subject": "Your MCP server \"[SERVER_NAME]\" - free hosted version?",
+    "body": "Hi [Author Name],\n\nI found your MCP server \"[SERVER_NAME]\" and added it to the AutropicAI directory (https://tryautropic.com/servers/[server-slug]).\n\nQuick offer: We're building hosted MCP infrastructure so developers can try tools instantly without installing anything. Would you be interested in having \"[SERVER_NAME]\" hosted on our platform? \n\nWhat you'd get:\n- Zero-install instant access for users (just an API call)\n- Usage analytics (see how people use your tool)\n- More visibility in our directory\n\nIt's free - we're trying to make MCP more accessible.\n\nIf interested, just reply and I'll set it up. And if you'd be open to adding a \"Try it on AutropicAI\" badge to your README, that would help us out too.\n\nEither way, thanks for building cool MCP tools!\n\nBest,\nJenkins\nAutropicAI\nhttps://tryautropic.com\n\nP.S. Your server page: https://tryautropic.com/servers/[server-slug]"
+  },
+  "badgeTemplate": "[![Try on AutropicAI](https://img.shields.io/badge/Try_on-AutropicAI-764ba2?style=for-the-badge)](https://tryautropic.com/servers/[server-slug])"
+}

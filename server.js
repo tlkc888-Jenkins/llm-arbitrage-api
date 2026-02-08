@@ -391,6 +391,41 @@ app.post('/mcp/:slug/tools/call', async (req, res) => {
   });
 });
 
+// === SEO Pages (Programmatic) ===
+const seoPages = require('./lib/seo-pages');
+
+// Individual server pages
+app.get('/servers/:slug', (req, res) => {
+  const server = db.servers.getBySlug(req.params.slug);
+  if (!server) {
+    return res.status(404).send('Server not found. <a href="/">Browse all servers</a>');
+  }
+  
+  // Track view
+  db.servers.incrementViews(server.id);
+  
+  const html = seoPages.generateServerPage(server);
+  res.send(html);
+});
+
+// Category pages
+app.get('/category/:slug', (req, res) => {
+  const categories = db.categories.getAll();
+  const category = categories.find(c => c.slug === req.params.slug);
+  
+  if (!category && req.params.slug !== 'all') {
+    return res.status(404).send('Category not found. <a href="/">Browse all servers</a>');
+  }
+  
+  const servers = category 
+    ? db.servers.getAll({ category: category.name, limit: 500 })
+    : db.servers.getAll({ limit: 500 });
+  
+  const cat = category || { name: 'All', slug: 'all', icon: '📦' };
+  const html = seoPages.generateCategoryPage(cat, servers);
+  res.send(html);
+});
+
 // Sitemap for SEO
 app.get('/sitemap.xml', (req, res) => {
   const servers = db.servers.getAll({ limit: 1000 });
@@ -408,7 +443,7 @@ app.get('/sitemap.xml', (req, res) => {
   });
   
   servers.forEach(s => {
-    xml += `  <url><loc>${baseUrl}/server/${s.slug}</loc><priority>0.6</priority></url>\n`;
+    xml += `  <url><loc>${baseUrl}/servers/${s.slug}</loc><priority>0.6</priority></url>\n`;
   });
   
   xml += '</urlset>';
