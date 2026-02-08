@@ -181,6 +181,80 @@ app.get('/search', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
+// === Hosted MCP Servers (Runtime Provision) ===
+const hostedMcp = require('./lib/hosted-mcp');
+
+// List available hosted servers
+app.get('/api/v1/hosted', (req, res) => {
+  const servers = hostedMcp.listHostedServers();
+  res.json({
+    description: 'Hosted MCP servers available for instant use. No installation required.',
+    servers,
+    usage: {
+      list_tools: 'GET /mcp/:slug/tools/list',
+      call_tool: 'POST /mcp/:slug/tools/call { "name": "tool_name", "arguments": {} }'
+    }
+  });
+});
+
+// Provision a hosted server (returns endpoint info)
+app.get('/api/v1/provision/:slug', (req, res) => {
+  const server = hostedMcp.getHostedServer(req.params.slug);
+  if (!server) {
+    return res.status(404).json({ error: 'Server not found. Use GET /api/v1/hosted to list available servers.' });
+  }
+  
+  const baseUrl = `${req.protocol}://${req.get('host')}`;
+  res.json({
+    provisioned: true,
+    server: server.name,
+    description: server.description,
+    endpoints: {
+      list_tools: `${baseUrl}/mcp/${req.params.slug}/tools/list`,
+      call_tool: `${baseUrl}/mcp/${req.params.slug}/tools/call`
+    },
+    tools: server.tools,
+    usage: {
+      example: `curl -X POST ${baseUrl}/mcp/${req.params.slug}/tools/call -H "Content-Type: application/json" -d '{"name": "${server.tools[0]?.name || 'tool_name'}", "arguments": {}}'`
+    }
+  });
+});
+
+// MCP-style tool listing
+app.get('/mcp/:slug/tools/list', (req, res) => {
+  const server = hostedMcp.getHostedServer(req.params.slug);
+  if (!server) {
+    return res.status(404).json({ error: 'Server not found' });
+  }
+  res.json({
+    tools: server.tools.map(t => ({
+      name: t.name,
+      description: t.description,
+      inputSchema: t.inputSchema
+    }))
+  });
+});
+
+// MCP-style tool execution
+app.post('/mcp/:slug/tools/call', async (req, res) => {
+  const { name, arguments: args } = req.body;
+  
+  if (!name) {
+    return res.status(400).json({ error: 'Missing "name" field for tool' });
+  }
+  
+  const result = await hostedMcp.executeTool(req.params.slug, name, args || {});
+  
+  // Track usage for analytics
+  analytics.search(`hosted:${req.params.slug}:${name}`, 1, req, 'mcp');
+  
+  res.json({
+    tool: name,
+    result,
+    _server: req.params.slug
+  });
+});
+
 // Sitemap for SEO
 app.get('/sitemap.xml', (req, res) => {
   const servers = db.servers.getAll({ limit: 1000 });
