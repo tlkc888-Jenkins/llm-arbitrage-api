@@ -10,8 +10,9 @@
   },
   "dependencies": {
     "express": "^4.18.2",
-    "sql.js": "^1.10.0",
-    "marked": "^12.0.0"
+    "marked": "^12.0.0",
+    "nodemailer": "^8.0.1",
+    "sql.js": "^1.10.0"
   },
   "engines": {
     "node": ">=18.0.0"
