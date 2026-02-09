@@ -3,25 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AutropicAI — The MCP Server Marketplace</title>
-  <meta name="description" content="Find the perfect MCP server for your AI agent. Discover, search, and install tools for Claude, GPT, and any MCP-compatible agent.">
+  <title>AutropicAI — Tool APIs for AI Agents</title>
+  <meta name="description" content="Instant tool APIs for AI agents. Weather, geocoding, web fetch — one HTTP call, zero setup. No API keys, no installation, just works.">
   
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://tryautropic.com/">
-  <meta property="og:title" content="AutropicAI — The MCP Server Marketplace">
-  <meta property="og:description" content="Search 231+ MCP servers for Claude, GPT, and any AI agent. One-click install, filter by category, submit your own.">
-  <meta property="og:image" content="https://og.tailgraph.com/og?fontFamily=Inter&title=AutropicAI&titleTailwind=text-white%20font-bold%20text-6xl&subtitle=The%20MCP%20Server%20Marketplace%20%E2%80%94%20231%2B%20servers%20for%20Claude%2C%20GPT%20%26%20AI%20agents&subtitleTailwind=text-gray-300%20text-2xl%20mt-4&bgTailwind=bg-gradient-to-br%20from-purple-900%20to-gray-900">
+  <meta property="og:title" content="AutropicAI — Tool APIs for AI Agents">
+  <meta property="og:description" content="Instant tools via HTTP. Weather, geocoding, web fetch — one call, zero setup. No API keys needed.">
+  <meta property="og:image" content="https://og.tailgraph.com/og?fontFamily=Inter&title=AutropicAI&titleTailwind=text-white%20font-bold%20text-6xl&subtitle=Tool%20APIs%20for%20AI%20Agents%20%E2%80%94%20One%20HTTP%20call%2C%20zero%20setup&subtitleTailwind=text-gray-300%20text-2xl%20mt-4&bgTailwind=bg-gradient-to-br%20from-purple-900%20to-gray-900">
   
   <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image">
   <meta property="twitter:url" content="https://tryautropic.com/">
-  <meta property="twitter:title" content="AutropicAI — The MCP Server Marketplace">
-  <meta property="twitter:description" content="Search 231+ MCP servers for Claude, GPT, and any AI agent. One-click install, filter by category, submit your own.">
-  <meta property="twitter:image" content="https://og.tailgraph.com/og?fontFamily=Inter&title=AutropicAI&titleTailwind=text-white%20font-bold%20text-6xl&subtitle=The%20MCP%20Server%20Marketplace%20%E2%80%94%20231%2B%20servers%20for%20Claude%2C%20GPT%20%26%20AI%20agents&subtitleTailwind=text-gray-300%20text-2xl%20mt-4&bgTailwind=bg-gradient-to-br%20from-purple-900%20to-gray-900">
+  <meta property="twitter:title" content="AutropicAI — Tool APIs for AI Agents">
+  <meta property="twitter:description" content="Instant tools via HTTP. Weather, geocoding, web fetch — one call, zero setup. No API keys needed.">
+  <meta property="twitter:image" content="https://og.tailgraph.com/og?fontFamily=Inter&title=AutropicAI&titleTailwind=text-white%20font-bold%20text-6xl&subtitle=Tool%20APIs%20for%20AI%20Agents%20%E2%80%94%20One%20HTTP%20call%2C%20zero%20setup&subtitleTailwind=text-gray-300%20text-2xl%20mt-4&bgTailwind=bg-gradient-to-br%20from-purple-900%20to-gray-900">
   
   <!-- Additional SEO -->
-  <meta name="keywords" content="MCP, Model Context Protocol, Claude, GPT, AI agents, MCP servers, AI tools, Anthropic">
+  <meta name="keywords" content="AI agent tools, agent APIs, LLM tools, AI infrastructure, tool APIs, Claude tools, GPT tools, LangChain tools, agent capabilities">
   <link rel="canonical" href="https://tryautropic.com/">
   
   <style>
@@ -409,7 +409,7 @@
     <div class="container">
       <a href="/" class="logo">🎯 Autropic<span>AI</span></a>
       <div class="search-box">
-        <input type="text" id="search-input" placeholder="Search MCP servers...">
+        <input type="text" id="search-input" placeholder="Search tools...">
       </div>
       <nav class="header-links">
         <a href="/submit">Submit Server</a>
@@ -423,38 +423,33 @@
     <div id="home-view">
       <section class="hero">
         <div class="container">
-          <h1>Find <span>MCP servers</span> for your AI agent</h1>
-          <p>The discovery layer for AI agents. One MCP server to find them all.</p>
+          <h1>Instant <span>tool APIs</span> for AI agents</h1>
+          <p>One HTTP call. Zero setup. Weather, geocoding, web fetch — just works.</p>
           
-          <!-- Agent Install Box -->
-          <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin: 32px auto; max-width: 600px; text-align: left;">
-            <h3 style="margin: 0 0 12px 0; font-size: 1rem; color: var(--accent);">🤖 For AI Agents — Install Once, Discover Any Tool</h3>
-            <p style="color: var(--muted); font-size: 0.9rem; margin-bottom: 16px;">Add to your <code style="background: var(--code-bg); padding: 2px 6px; border-radius: 4px;">claude_desktop_config.json</code>:</p>
+          <!-- Hosted APIs Box -->
+          <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin: 32px auto; max-width: 700px; text-align: left;">
+            <h3 style="margin: 0 0 12px 0; font-size: 1rem; color: var(--accent);">⚡ Try it now — no signup, no API key</h3>
             <div style="background: var(--code-bg); border-radius: 8px; padding: 16px; font-family: monospace; font-size: 0.85rem; overflow-x: auto;">
-              <pre style="margin: 0; color: var(--text);">{
-  "mcpServers": {
-    "autropicai": {
-      "command": "npx",
-      "args": ["-y", "github:tlkc888-Jenkins/autropicai-mcp"]
-    }
-  }
-}</pre>
+              <pre style="margin: 0; color: var(--text);">curl -X POST https://tryautropic.com/mcp/weather/tools/call \
+  -H "Content-Type: application/json" \
+  -d '{"name":"get_weather","arguments":{"location":"London"}}'</pre>
             </div>
-            <p style="color: var(--muted); font-size: 0.85rem; margin-top: 12px;">Then ask Claude: <em>"Find me an MCP server for sending emails"</em></p>
+            <p style="color: var(--muted); font-size: 0.85rem; margin-top: 12px;"><strong>8 hosted tools:</strong> weather, geo, time, fetch, calculator, memory, crypto, json</p>
+            <p style="color: var(--muted); font-size: 0.85rem; margin-top: 8px;">Works with LangChain, CrewAI, raw API calls — any agent that can make HTTP requests.</p>
           </div>
           
           <div class="stats-bar">
             <div class="stat">
-              <div class="stat-value" id="stat-servers">—</div>
-              <div class="stat-label">Servers Indexed</div>
+              <div class="stat-value">8</div>
+              <div class="stat-label">Hosted Tools</div>
             </div>
             <div class="stat">
-              <div class="stat-value" id="stat-categories">—</div>
-              <div class="stat-label">Categories</div>
+              <div class="stat-value" id="stat-servers">—</div>
+              <div class="stat-label">More in Directory</div>
             </div>
           </div>
           
-          <p style="color: var(--muted); font-size: 0.95rem; margin-bottom: 24px;">👇 Or browse manually below</p>
+          <p style="color: var(--muted); font-size: 0.95rem; margin-bottom: 24px;">👇 Browse all available tools below</p>
           
           <div class="categories" id="categories">
             <span class="category-tag active" data-category="">All</span>
