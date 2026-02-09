@@ -1,0 +1,1349 @@
+{
+  "generated": "2026-02-08T12:32:51.328Z",
+  "totalAuthors": 56,
+  "totalRepos": 91,
+  "targets": [
+    {
+      "author": "nicepkg",
+      "profileUrl": "https://github.com/nicepkg",
+      "repos": [
+        {
+          "url": "https://github.com/nicepkg/mcp-server-telegram",
+          "repo": "mcp-server-telegram"
+        },
+        {
+          "url": "https://github.com/nicepkg/mcp-server-browserbase",
+          "repo": "mcp-server-browserbase"
+        },
+        {
+          "url": "https://github.com/nicepkg/mcp-server-redis",
+          "repo": "mcp-server-redis"
+        },
+        {
+          "url": "https://github.com/nicepkg/mcp-server-mysql",
+          "repo": "mcp-server-mysql"
+        },
+        {
+          "url": "https://github.com/nicepkg/mcp-server-github-actions",
+          "repo": "mcp-server-github-actions"
+        },
+        {
+          "url": "https://github.com/nicepkg/mcp-server-gcal",
+          "repo": "mcp-server-gcal"
+        },
+        {
+          "url": "https://github.com/nicepkg/mcp-server-logseq",
+          "repo": "mcp-server-logseq"
+        },
+        {
+          "url": "https://github.com/nicepkg/mcp-server-clickup",
+          "repo": "mcp-server-clickup"
+        },
+        {
+          "url": "https://github.com/nicepkg/mcp-server-yahoo-finance",
+          "repo": "mcp-server-yahoo-finance"
+        },
+        {
+          "url": "https://github.com/nicepkg/mcp-server-whatsapp",
+          "repo": "mcp-server-whatsapp"
+        },
+        {
+          "url": "https://github.com/nicepkg/mcp-server-matrix",
+          "repo": "mcp-server-matrix"
+        },
+        {
+          "url": "https://github.com/nicepkg/mcp-server-homeassistant",
+          "repo": "mcp-server-homeassistant"
+        },
+        {
+          "url": "https://github.com/nicepkg/mcp-server-mqtt",
+          "repo": "mcp-server-mqtt"
+        }
+      ],
+      "repoCount": 13,
+      "priority": "high",
+      "github": {
+        "name": "nicepkg",
+        "email": "2214962083@qq.com",
+        "blog": "",
+        "twitter": null,
+        "bio": null,
+        "company": null,
+        "location": null,
+        "followers": 52,
+        "publicRepos": 11
+      }
+    },
+    {
+      "author": "v-3",
+      "profileUrl": "https://github.com/v-3",
+      "repos": [
+        {
+          "url": "https://github.com/v-3/notion-server",
+          "repo": "notion-server"
+        },
+        {
+          "url": "https://github.com/v-3/discord-server",
+          "repo": "discord-server"
+        },
+        {
+          "url": "https://github.com/v-3/gcal-server",
+          "repo": "gcal-server"
+        },
+        {
+          "url": "https://github.com/v-3/airtable-server",
+          "repo": "airtable-server"
+        },
+        {
+          "url": "https://github.com/v-3/trello-server",
+          "repo": "trello-server"
+        }
+      ],
+      "repoCount": 5,
+      "priority": "high",
+      "github": {
+        "name": "v-3",
+        "email": null,
+        "blog": "",
+        "twitter": null,
+        "bio": null,
+        "company": null,
+        "location": null,
+        "followers": 3,
+        "publicRepos": 8
+      }
+    },
+    {
+      "author": "aws",
+      "profileUrl": "https://github.com/aws",
+      "repos": [
+        {
+          "url": "https://github.com/aws/aws-mcp-server",
+          "repo": "aws-mcp-server"
+        },
+        {
+          "url": "https://github.com/aws/mcp-server-aws",
+          "repo": "mcp-server-aws"
+        }
+      ],
+      "repoCount": 2,
+      "priority": "high",
+      "github": {
+        "name": "Amazon Web Services",
+        "email": "open-source-github@amazon.com",
+        "blog": "https://amazon.com/aws",
+        "twitter": null,
+        "bio": null,
+        "company": null,
+        "location": "United States of America",
+        "followers": 14532,
+        "publicRepos": 531
+      }
+    },
+    {
+      "author": "atlassian",
+      "profileUrl": "https://github.com/atlassian",
+      "repos": [
+        {
+          "url": "https://github.com/atlassian/mcp-server-jira",
+          "repo": "mcp-server-jira"
+        },
+        {
+          "url": "https://github.com/atlassian/mcp-server-confluence",
+          "repo": "mcp-server-confluence"
+        }
+      ],
+      "repoCount": 2,
+      "priority": "high",
+      "github": {
+        "name": "Atlassian",
+        "email": "github@atlassian.com",
+        "blog": "https://atlassian.com/",
+        "twitter": null,
+        "bio": null,
+        "company": null,
+        "location": "Australia",
+        "followers": 1451,
+        "publicRepos": 381
+      }
+    },
+    {
+      "author": "hashicorp",
+      "profileUrl": "https://github.com/hashicorp",
+      "repos": [
+        {
+          "url": "https://github.com/hashicorp/terraform-mcp",
+          "repo": "terraform-mcp"
+        },
+        {
+          "url": "https://github.com/hashicorp/vault-mcp",
+          "repo": "vault-mcp"
+        }
+      ],
+      "repoCount": 2,
+      "priority": "high",
+      "github": {
+        "name": "HashiCorp",
+        "email": "hello@hashicorp.com",
+        "blog": "https://hashicorp.com",
+        "twitter": null,
+        "bio": "Consistent workflows to provision, secure, connect, and run any infrastructure for any application.",
+        "company": null,
+        "location": "San Francisco, CA",
+        "followers": 9939,
+        "publicRepos": 927
+      }
+    },
+    {
+      "author": "MindscapeHQ",
+      "profileUrl": "https://github.com/MindscapeHQ",
+      "repos": [
+        {
+          "url": "https://github.com/MindscapeHQ/mcp-server-raygun",
+          "repo": "mcp-server-raygun"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal",
+      "github": {
+        "name": "Raygun",
+        "email": null,
+        "blog": "https://raygun.com",
+        "twitter": null,
+        "bio": "We give developers the power to create perfect software experiences.",
+        "company": null,
+        "location": "Wellington, New Zealand",
+        "followers": 38,
+        "publicRepos": 61
+      }
+    },
+    {
+      "author": "jerhadf",
+      "profileUrl": "https://github.com/jerhadf",
+      "repos": [
+        {
+          "url": "https://github.com/jerhadf/linear-mcp-server",
+          "repo": "linear-mcp-server"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal",
+      "github": {
+        "name": "Jeremy Hadfield",
+        "email": null,
+        "blog": "",
+        "twitter": "jerhadf",
+        "bio": "learning! applied AI & product @ anthropic",
+        "company": "Anthropic",
+        "location": "New York City",
+        "followers": 41,
+        "publicRepos": 49
+      }
+    },
+    {
+      "author": "abhiz123",
+      "profileUrl": "https://github.com/abhiz123",
+      "repos": [
+        {
+          "url": "https://github.com/abhiz123/todoist-mcp-server",
+          "repo": "todoist-mcp-server"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal",
+      "github": {
+        "name": "Abhiram Nair",
+        "email": null,
+        "blog": "",
+        "twitter": null,
+        "bio": null,
+        "company": null,
+        "location": "Seattle, WA, USA",
+        "followers": 11,
+        "publicRepos": 21
+      }
+    },
+    {
+      "author": "EnesCinr",
+      "profileUrl": "https://github.com/EnesCinr",
+      "repos": [
+        {
+          "url": "https://github.com/EnesCinr/twitter-mcp",
+          "repo": "twitter-mcp"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal",
+      "github": {
+        "name": "Enes Çınar",
+        "email": null,
+        "blog": "",
+        "twitter": null,
+        "bio": null,
+        "company": null,
+        "location": null,
+        "followers": 51,
+        "publicRepos": 16
+      }
+    },
+    {
+      "author": "executeautomation",
+      "profileUrl": "https://github.com/executeautomation",
+      "repos": [
+        {
+          "url": "https://github.com/executeautomation/mcp-playwright",
+          "repo": "mcp-playwright"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal",
+      "github": {
+        "name": "ExecuteAutomation",
+        "email": null,
+        "blog": "https://www.executeautomation.com",
+        "twitter": "executeauto",
+        "bio": "ExecuteAutomation helps people to understand software, automation, IoT, cloud, testing and more..",
+        "company": "ExecuteAutomation",
+        "location": "Auckland, NZ",
+        "followers": 2008,
+        "publicRepos": 102
+      }
+    },
+    {
+      "author": "mendableai",
+      "profileUrl": "https://github.com/mendableai",
+      "repos": [
+        {
+          "url": "https://github.com/mendableai/firecrawl-mcp-server",
+          "repo": "firecrawl-mcp-server"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal",
+      "github": {
+        "name": "Mendable AI is now Firecrawl",
+        "email": null,
+        "blog": "https://github.com/firecrawl",
+        "twitter": null,
+        "bio": "New Repo - https://github.com/firecrawl",
+        "company": null,
+        "location": null,
+        "followers": 18,
+        "publicRepos": 0
+      }
+    },
+    {
+      "author": "mzxrai",
+      "profileUrl": "https://github.com/mzxrai",
+      "repos": [
+        {
+          "url": "https://github.com/mzxrai/mcp-openai",
+          "repo": "mcp-openai"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal",
+      "github": {
+        "name": "Matt May",
+        "email": null,
+        "blog": "",
+        "twitter": null,
+        "bio": "https://x.com/mzxrai",
+        "company": null,
+        "location": "Austin, TX",
+        "followers": 37,
+        "publicRepos": 25
+      }
+    },
+    {
+      "author": "anthropics",
+      "profileUrl": "https://github.com/anthropics",
+      "repos": [
+        {
+          "url": "https://github.com/anthropics/anthropic-mcp",
+          "repo": "anthropic-mcp"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal",
+      "github": {
+        "name": "Anthropic",
+        "email": null,
+        "blog": "https://anthropic.com",
+        "twitter": null,
+        "bio": null,
+        "company": null,
+        "location": "United States of America",
+        "followers": 25289,
+        "publicRepos": 67
+      }
+    },
+    {
+      "author": "ckreiling",
+      "profileUrl": "https://github.com/ckreiling",
+      "repos": [
+        {
+          "url": "https://github.com/ckreiling/mcp-server-docker",
+          "repo": "mcp-server-docker"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal",
+      "github": {
+        "name": "Christian Kreiling",
+        "email": null,
+        "blog": "",
+        "twitter": null,
+        "bio": null,
+        "company": null,
+        "location": null,
+        "followers": 13,
+        "publicRepos": 51
+      }
+    },
+    {
+      "author": "strowk",
+      "profileUrl": "https://github.com/strowk",
+      "repos": [
+        {
+          "url": "https://github.com/strowk/mcp-k8s-go",
+          "repo": "mcp-k8s-go"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal",
+      "github": {
+        "name": null,
+        "email": null,
+        "blog": "https://str4.io/about-me",
+        "twitter": null,
+        "bio": null,
+        "company": null,
+        "location": null,
+        "followers": 18,
+        "publicRepos": 71
+      }
+    },
+    {
+      "author": "cloudflare",
+      "profileUrl": "https://github.com/cloudflare",
+      "repos": [
+        {
+          "url": "https://github.com/cloudflare/mcp-server-cloudflare",
+          "repo": "mcp-server-cloudflare"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal",
+      "github": {
+        "name": "Cloudflare",
+        "email": null,
+        "blog": "https://www.cloudflare.com",
+        "twitter": null,
+        "bio": null,
+        "company": null,
+        "location": "San Francisco, London, Austin, Lisbon, Singapore",
+        "followers": 11411,
+        "publicRepos": 545
+      }
+    },
+    {
+      "author": "stripe",
+      "profileUrl": "https://github.com/stripe",
+      "repos": [
+        {
+          "url": "https://github.com/stripe/mcp-server-stripe",
+          "repo": "mcp-server-stripe"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal",
+      "github": {
+        "name": "Stripe",
+        "email": "support+github@stripe.com",
+        "blog": "https://stripe.dev",
+        "twitter": "StripeDev",
+        "bio": null,
+        "company": null,
+        "location": "San Francisco, CA",
+        "followers": 2767,
+        "publicRepos": 82
+      }
+    },
+    {
+      "author": "plaid",
+      "profileUrl": "https://github.com/plaid",
+      "repos": [
+        {
+          "url": "https://github.com/plaid/mcp-server-plaid",
+          "repo": "mcp-server-plaid"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal",
+      "github": {
+        "name": "Plaid",
+        "email": null,
+        "blog": "https://plaid.com/docs",
+        "twitter": null,
+        "bio": null,
+        "company": null,
+        "location": "San Francisco, CA",
+        "followers": 803,
+        "publicRepos": 65
+      }
+    },
+    {
+      "author": "e2b-dev",
+      "profileUrl": "https://github.com/e2b-dev",
+      "repos": [
+        {
+          "url": "https://github.com/e2b-dev/mcp-server",
+          "repo": "mcp-server"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal",
+      "github": {
+        "name": "E2B | Cloud for AI Agents",
+        "email": "hello@e2b.dev",
+        "blog": "https://e2b.dev/docs",
+        "twitter": "e2b",
+        "bio": "Open-source, secure environment with real-world tools for enterprise-grade agents.",
+        "company": null,
+        "location": "United States of America",
+        "followers": 2517,
+        "publicRepos": 54
+      }
+    },
+    {
+      "author": "MarkusPfworring",
+      "profileUrl": "https://github.com/MarkusPfworring",
+      "repos": [
+        {
+          "url": "https://github.com/MarkusPfworring/obsidian-mcp",
+          "repo": "obsidian-mcp"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal"
+    },
+    {
+      "author": "suekou",
+      "profileUrl": "https://github.com/suekou",
+      "repos": [
+        {
+          "url": "https://github.com/suekou/mcp-apple-notes",
+          "repo": "mcp-apple-notes"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal",
+      "github": {
+        "name": "suekou",
+        "email": null,
+        "blog": "",
+        "twitter": "MRHhUpdDBo7nbJt",
+        "bio": null,
+        "company": null,
+        "location": null,
+        "followers": 7,
+        "publicRepos": 26
+      }
+    },
+    {
+      "author": "supabase",
+      "profileUrl": "https://github.com/supabase",
+      "repos": [
+        {
+          "url": "https://github.com/supabase/mcp-server-supabase",
+          "repo": "mcp-server-supabase"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal",
+      "github": {
+        "name": "Supabase",
+        "email": "support@supabase.io",
+        "blog": "https://supabase.com",
+        "twitter": "supabase",
+        "bio": "The Postgres Development Platform.",
+        "company": null,
+        "location": "United States of America",
+        "followers": 8696,
+        "publicRepos": 145
+      }
+    },
+    {
+      "author": "mongodb",
+      "profileUrl": "https://github.com/mongodb",
+      "repos": [
+        {
+          "url": "https://github.com/mongodb/mcp-server-mongodb",
+          "repo": "mcp-server-mongodb"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal",
+      "github": {
+        "name": "mongodb",
+        "email": "iteng@mongodb.com",
+        "blog": "http://www.mongodb.com/",
+        "twitter": null,
+        "bio": null,
+        "company": null,
+        "location": "United States of America",
+        "followers": 4269,
+        "publicRepos": 295
+      }
+    },
+    {
+      "author": "elastic",
+      "profileUrl": "https://github.com/elastic",
+      "repos": [
+        {
+          "url": "https://github.com/elastic/mcp-server-elasticsearch",
+          "repo": "mcp-server-elasticsearch"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal",
+      "github": {
+        "name": "elastic",
+        "email": "info@elastic.co",
+        "blog": "https://www.elastic.co/",
+        "twitter": null,
+        "bio": null,
+        "company": null,
+        "location": null,
+        "followers": 4999,
+        "publicRepos": 880
+      }
+    },
+    {
+      "author": "neo4j",
+      "profileUrl": "https://github.com/neo4j",
+      "repos": [
+        {
+          "url": "https://github.com/neo4j/mcp-neo4j",
+          "repo": "mcp-neo4j"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal",
+      "github": {
+        "name": "Neo4j",
+        "email": null,
+        "blog": "http://neo4j.com/",
+        "twitter": null,
+        "bio": null,
+        "company": null,
+        "location": null,
+        "followers": 1144,
+        "publicRepos": 94
+      }
+    },
+    {
+      "author": "asana",
+      "profileUrl": "https://github.com/asana",
+      "repos": [
+        {
+          "url": "https://github.com/asana/mcp-server-asana",
+          "repo": "mcp-server-asana"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal",
+      "github": {
+        "name": "Asana",
+        "email": "support@asana.com",
+        "blog": "https://asana.com",
+        "twitter": "asana",
+        "bio": null,
+        "company": "Asana, Inc.",
+        "location": "United States of America",
+        "followers": 286,
+        "publicRepos": 189
+      }
+    },
+    {
+      "author": "vercel",
+      "profileUrl": "https://github.com/vercel",
+      "repos": [
+        {
+          "url": "https://github.com/vercel/mcp-server-vercel",
+          "repo": "mcp-server-vercel"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal",
+      "github": {
+        "name": "Vercel",
+        "email": "contactus@vercel.com",
+        "blog": "https://vercel.com",
+        "twitter": null,
+        "bio": "Develop. Preview. Ship. Creators of Next.js.",
+        "company": null,
+        "location": "United States of America",
+        "followers": 25818,
+        "publicRepos": 215
+      }
+    },
+    {
+      "author": "netlify",
+      "profileUrl": "https://github.com/netlify",
+      "repos": [
+        {
+          "url": "https://github.com/netlify/mcp-server-netlify",
+          "repo": "mcp-server-netlify"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal",
+      "github": {
+        "name": "Netlify",
+        "email": "team@netlify.com",
+        "blog": "https://www.netlify.com",
+        "twitter": "netlify",
+        "bio": "Netlify builds, deploys and hosts your front-end",
+        "company": null,
+        "location": "San Francisco",
+        "followers": 12117,
+        "publicRepos": 368
+      }
+    },
+    {
+      "author": "heroku",
+      "profileUrl": "https://github.com/heroku",
+      "repos": [
+        {
+          "url": "https://github.com/heroku/mcp-server-heroku",
+          "repo": "mcp-server-heroku"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal",
+      "github": {
+        "name": "Heroku",
+        "email": null,
+        "blog": "https://heroku.com/",
+        "twitter": null,
+        "bio": null,
+        "company": null,
+        "location": "San Francisco, CA",
+        "followers": 1909,
+        "publicRepos": 863
+      }
+    },
+    {
+      "author": "google",
+      "profileUrl": "https://github.com/google",
+      "repos": [
+        {
+          "url": "https://github.com/google/mcp-server-gcp",
+          "repo": "mcp-server-gcp"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal",
+      "github": {
+        "name": "Google",
+        "email": "opensource@google.com",
+        "blog": "https://opensource.google/",
+        "twitter": "GoogleOSS",
+        "bio": "Google ❤️ Open Source",
+        "company": null,
+        "location": "United States of America",
+        "followers": 67215,
+        "publicRepos": 2833
+      }
+    },
+    {
+      "author": "microsoft",
+      "profileUrl": "https://github.com/microsoft",
+      "repos": [
+        {
+          "url": "https://github.com/microsoft/mcp-server-azure",
+          "repo": "mcp-server-azure"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal",
+      "github": {
+        "name": "Microsoft",
+        "email": "opensource@microsoft.com",
+        "blog": "https://opensource.microsoft.com",
+        "twitter": "OpenAtMicrosoft",
+        "bio": "Open source projects and samples from Microsoft",
+        "company": null,
+        "location": "Redmond, WA",
+        "followers": 112050,
+        "publicRepos": 7550
+      }
+    },
+    {
+      "author": "tlkc888-Jenkins",
+      "profileUrl": "https://github.com/tlkc888-Jenkins",
+      "repos": [
+        {
+          "url": "https://github.com/tlkc888-Jenkins/autropicai-mcp",
+          "repo": "autropicai-mcp"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal",
+      "github": {
+        "name": null,
+        "email": null,
+        "blog": "",
+        "twitter": null,
+        "bio": null,
+        "company": null,
+        "location": null,
+        "followers": 0,
+        "publicRepos": 2
+      }
+    },
+    {
+      "author": "kimtaeyoon83",
+      "profileUrl": "https://github.com/kimtaeyoon83",
+      "repos": [
+        {
+          "url": "https://github.com/kimtaeyoon83/mcp-server-youtube-transcript",
+          "repo": "mcp-server-youtube-transcript"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal",
+      "github": {
+        "name": "Freddie",
+        "email": null,
+        "blog": "",
+        "twitter": null,
+        "bio": null,
+        "company": null,
+        "location": "Korea, Seoul",
+        "followers": 16,
+        "publicRepos": 15
+      }
+    },
+    {
+      "author": "exa-labs",
+      "profileUrl": "https://github.com/exa-labs",
+      "repos": [
+        {
+          "url": "https://github.com/exa-labs/exa-mcp-server",
+          "repo": "exa-mcp-server"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal",
+      "github": {
+        "name": "Exa Labs",
+        "email": "hello@exa.ai",
+        "blog": "https://exa.ai",
+        "twitter": null,
+        "bio": "The search engine for AI",
+        "company": null,
+        "location": "United States of America",
+        "followers": 454,
+        "publicRepos": 68
+      }
+    },
+    {
+      "author": "tavily-ai",
+      "profileUrl": "https://github.com/tavily-ai",
+      "repos": [
+        {
+          "url": "https://github.com/tavily-ai/tavily-mcp",
+          "repo": "tavily-mcp"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal",
+      "github": {
+        "name": "Tavily AI",
+        "email": "support@tavily.com",
+        "blog": "tavily.com",
+        "twitter": "tavilyai",
+        "bio": "Tavily Search API is a search engine optimized for LLMs and RAG, aimed at efficient, quick and persistent search results",
+        "company": null,
+        "location": "United States of America",
+        "followers": 570,
+        "publicRepos": 28
+      }
+    },
+    {
+      "author": "pskill9",
+      "profileUrl": "https://github.com/pskill9",
+      "repos": [
+        {
+          "url": "https://github.com/pskill9/web-search",
+          "repo": "web-search"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal",
+      "github": {
+        "name": "Manav Kundra",
+        "email": null,
+        "blog": "",
+        "twitter": null,
+        "bio": "Koder",
+        "company": null,
+        "location": null,
+        "followers": 2,
+        "publicRepos": 9
+      }
+    },
+    {
+      "author": "ahujasid",
+      "profileUrl": "https://github.com/ahujasid",
+      "repos": [
+        {
+          "url": "https://github.com/ahujasid/blender-mcp",
+          "repo": "blender-mcp"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal",
+      "github": {
+        "name": null,
+        "email": null,
+        "blog": "",
+        "twitter": "sidahuj",
+        "bio": null,
+        "company": null,
+        "location": null,
+        "followers": 565,
+        "publicRepos": 30
+      }
+    },
+    {
+      "author": "samuelgursky",
+      "profileUrl": "https://github.com/samuelgursky",
+      "repos": [
+        {
+          "url": "https://github.com/samuelgursky/davinci-resolve-mcp",
+          "repo": "davinci-resolve-mcp"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal",
+      "github": {
+        "name": "Samuel Gursky",
+        "email": null,
+        "blog": "www.samuelgursky.com",
+        "twitter": "samuelgursky",
+        "bio": "Creative Producer & Technology Consultant",
+        "company": "Bradford Operations",
+        "location": "Brooklyn, NY",
+        "followers": 40,
+        "publicRepos": 9
+      }
+    },
+    {
+      "author": "abhiemj",
+      "profileUrl": "https://github.com/abhiemj",
+      "repos": [
+        {
+          "url": "https://github.com/abhiemj/manim-mcp-server",
+          "repo": "manim-mcp-server"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal",
+      "github": {
+        "name": "Abhishek choraria",
+        "email": null,
+        "blog": "",
+        "twitter": null,
+        "bio": "Aspiring Data Scientist || Python || SQL || Tableau || Power BI ||EX Marine Engineer",
+        "company": null,
+        "location": "India",
+        "followers": 29,
+        "publicRepos": 25
+      }
+    },
+    {
+      "author": "raveenb",
+      "profileUrl": "https://github.com/raveenb",
+      "repos": [
+        {
+          "url": "https://github.com/raveenb/fal-mcp-server",
+          "repo": "fal-mcp-server"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal",
+      "github": {
+        "name": "Raveen Beemsingh",
+        "email": null,
+        "blog": "https://www.linkedin.com/in/raveenbeemsingh/",
+        "twitter": "rbmsingh",
+        "bio": "3x Founder, founder Luminary Lane, previously Leadzen.ai (founder, CTO), Hammerhead.io (founder, CTO) | GenAI Enthusiast ",
+        "company": "https://www.luminarylane.app",
+        "location": "Bangalore, India",
+        "followers": 33,
+        "publicRepos": 17
+      }
+    },
+    {
+      "author": "sirmews",
+      "profileUrl": "https://github.com/sirmews",
+      "repos": [
+        {
+          "url": "https://github.com/sirmews/mcp-pinecone",
+          "repo": "mcp-pinecone"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal",
+      "github": {
+        "name": "Navishkar Rao",
+        "email": null,
+        "blog": "https://www.perfectlycromulent.dev",
+        "twitter": null,
+        "bio": "I have nothing witty to say.",
+        "company": null,
+        "location": "Melbourne",
+        "followers": 59,
+        "publicRepos": 87
+      }
+    },
+    {
+      "author": "qdrant",
+      "profileUrl": "https://github.com/qdrant",
+      "repos": [
+        {
+          "url": "https://github.com/qdrant/mcp-server-qdrant",
+          "repo": "mcp-server-qdrant"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal",
+      "github": {
+        "name": "Qdrant",
+        "email": "info@qdrant.com",
+        "blog": "https://qdrant.tech/",
+        "twitter": "qdrant_engine",
+        "bio": "Creating advanced vector search technology",
+        "company": null,
+        "location": "Germany",
+        "followers": 1514,
+        "publicRepos": 122
+      }
+    },
+    {
+      "author": "chroma-core",
+      "profileUrl": "https://github.com/chroma-core",
+      "repos": [
+        {
+          "url": "https://github.com/chroma-core/chroma-mcp",
+          "repo": "chroma-mcp"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal",
+      "github": {
+        "name": "Chroma",
+        "email": null,
+        "blog": "trychroma.com",
+        "twitter": "trychroma",
+        "bio": null,
+        "company": null,
+        "location": "United States of America",
+        "followers": 724,
+        "publicRepos": 26
+      }
+    },
+    {
+      "author": "ktanaka101",
+      "profileUrl": "https://github.com/ktanaka101",
+      "repos": [
+        {
+          "url": "https://github.com/ktanaka101/mcp-server-duckdb",
+          "repo": "mcp-server-duckdb"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal",
+      "github": {
+        "name": "Kentaro Tanaka",
+        "email": null,
+        "blog": "",
+        "twitter": null,
+        "bio": null,
+        "company": null,
+        "location": "Japan",
+        "followers": 22,
+        "publicRepos": 26
+      }
+    },
+    {
+      "author": "datawiz168",
+      "profileUrl": "https://github.com/datawiz168",
+      "repos": [
+        {
+          "url": "https://github.com/datawiz168/mcp-snowflake-service",
+          "repo": "mcp-snowflake-service"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal",
+      "github": {
+        "name": null,
+        "email": null,
+        "blog": "",
+        "twitter": null,
+        "bio": null,
+        "company": null,
+        "location": null,
+        "followers": 1,
+        "publicRepos": 16
+      }
+    },
+    {
+      "author": "ergut",
+      "profileUrl": "https://github.com/ergut",
+      "repos": [
+        {
+          "url": "https://github.com/ergut/mcp-bigquery-server",
+          "repo": "mcp-bigquery-server"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal",
+      "github": {
+        "name": "Salih Ergut",
+        "email": null,
+        "blog": "",
+        "twitter": null,
+        "bio": null,
+        "company": "Oredata",
+        "location": null,
+        "followers": 15,
+        "publicRepos": 17
+      }
+    },
+    {
+      "author": "ollama",
+      "profileUrl": "https://github.com/ollama",
+      "repos": [
+        {
+          "url": "https://github.com/ollama/ollama-mcp",
+          "repo": "ollama-mcp"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal",
+      "github": {
+        "name": "Ollama",
+        "email": "hello@ollama.com",
+        "blog": "https://ollama.com",
+        "twitter": "ollama",
+        "bio": null,
+        "company": null,
+        "location": null,
+        "followers": 8015,
+        "publicRepos": 3
+      }
+    },
+    {
+      "author": "replicate",
+      "profileUrl": "https://github.com/replicate",
+      "repos": [
+        {
+          "url": "https://github.com/replicate/replicate-mcp",
+          "repo": "replicate-mcp"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal",
+      "github": {
+        "name": "Replicate",
+        "email": "team@replicate.com",
+        "blog": "https://replicate.com",
+        "twitter": "replicate",
+        "bio": "Run AI with an API",
+        "company": null,
+        "location": null,
+        "followers": 10966,
+        "publicRepos": 167
+      }
+    },
+    {
+      "author": "huggingface",
+      "profileUrl": "https://github.com/huggingface",
+      "repos": [
+        {
+          "url": "https://github.com/huggingface/huggingface-mcp",
+          "repo": "huggingface-mcp"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal",
+      "github": {
+        "name": "Hugging Face",
+        "email": null,
+        "blog": "https://huggingface.co/",
+        "twitter": "huggingface",
+        "bio": "The AI community building the future.",
+        "company": null,
+        "location": "NYC + Paris",
+        "followers": 58733,
+        "publicRepos": 384
+      }
+    },
+    {
+      "author": "circleci",
+      "profileUrl": "https://github.com/circleci",
+      "repos": [
+        {
+          "url": "https://github.com/circleci/circleci-mcp",
+          "repo": "circleci-mcp"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal",
+      "github": {
+        "name": "CircleCI",
+        "email": "sayhi@circleci.com",
+        "blog": "https://circleci.com",
+        "twitter": null,
+        "bio": "Continuous Integration and Deployment",
+        "company": null,
+        "location": "San Francisco",
+        "followers": 978,
+        "publicRepos": 58
+      }
+    },
+    {
+      "author": "coinbase",
+      "profileUrl": "https://github.com/coinbase",
+      "repos": [
+        {
+          "url": "https://github.com/coinbase/coinbase-mcp",
+          "repo": "coinbase-mcp"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal",
+      "github": {
+        "name": "Coinbase",
+        "email": null,
+        "blog": "https://www.coinbase.com",
+        "twitter": null,
+        "bio": null,
+        "company": null,
+        "location": null,
+        "followers": 2361,
+        "publicRepos": 167
+      }
+    },
+    {
+      "author": "1password",
+      "profileUrl": "https://github.com/1password",
+      "repos": [
+        {
+          "url": "https://github.com/1password/1password-mcp",
+          "repo": "1password-mcp"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal",
+      "github": {
+        "name": "1Password",
+        "email": "support@1password.com",
+        "blog": "https://1password.com",
+        "twitter": null,
+        "bio": "1Password remembers all your passwords for you. It keeps your digital life secure and always available, safe behind the one password that only you know.",
+        "company": null,
+        "location": "Toronto, Canada",
+        "followers": 1938,
+        "publicRepos": 90
+      }
+    },
+    {
+      "author": "PipedreamHQ",
+      "profileUrl": "https://github.com/PipedreamHQ",
+      "repos": [
+        {
+          "url": "https://github.com/PipedreamHQ/pipedream",
+          "repo": "pipedream"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal",
+      "github": {
+        "name": "Pipedream",
+        "email": null,
+        "blog": "https://pipedream.com",
+        "twitter": null,
+        "bio": "Pipedream is a serverless integration and compute platform.  Free for developers.",
+        "company": null,
+        "location": "San Francisco, CA",
+        "followers": 552,
+        "publicRepos": 43
+      }
+    },
+    {
+      "author": "julien040",
+      "profileUrl": "https://github.com/julien040",
+      "repos": [
+        {
+          "url": "https://github.com/julien040/anyquery",
+          "repo": "anyquery"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal",
+      "github": {
+        "name": "Julien C",
+        "email": null,
+        "blog": "https://julienc.me",
+        "twitter": "JulienC_me",
+        "bio": "Yet another CS student",
+        "company": null,
+        "location": "France",
+        "followers": 58,
+        "publicRepos": 31
+      }
+    },
+    {
+      "author": "mindsdb",
+      "profileUrl": "https://github.com/mindsdb",
+      "repos": [
+        {
+          "url": "https://github.com/mindsdb/mindsdb",
+          "repo": "mindsdb"
+        }
+      ],
+      "repoCount": 1,
+      "priority": "normal",
+      "github": {
+        "name": "MindsDB Inc",
+        "email": null,
+        "blog": "mindsdb.com",
+        "twitter": "MindsDB",
+        "bio": "MindsDB is the AI data automation solution that connects and unifies petabyte scale enterprise data, enabling informed decision-making in real-time.",
+        "company": null,
+        "location": "Berkeley, CA",
+        "followers": 1336,
+        "publicRepos": 48
+      }
+    }
+  ],
+  "emailTemplate": {
+    "subject": "Your MCP server \"[SERVER_NAME]\" - free hosted version?",
+    "body": "Hi [Author Name],\n\nI found your MCP server \"[SERVER_NAME]\" and added it to the AutropicAI directory (https://tryautropic.com/servers/[server-slug]).\n\nQuick offer: We're building hosted MCP infrastructure so developers can try tools instantly without installing anything. Would you be interested in having \"[SERVER_NAME]\" hosted on our platform? \n\nWhat you'd get:\n- Zero-install instant access for users (just an API call)\n- Usage analytics (see how people use your tool)\n- More visibility in our directory\n\nIt's free - we're trying to make MCP more accessible.\n\nIf interested, just reply and I'll set it up. And if you'd be open to adding a \"Try it on AutropicAI\" badge to your README, that would help us out too.\n\nEither way, thanks for building cool MCP tools!\n\nBest,\nJenkins\nAutropicAI\nhttps://tryautropic.com\n\nP.S. Your server page: https://tryautropic.com/servers/[server-slug]"
+  },
+  "badgeTemplate": "[![Try on AutropicAI](https://img.shields.io/badge/Try_on-AutropicAI-764ba2?style=for-the-badge)](https://tryautropic.com/servers/[server-slug])",
+  "enrichedAt": "2026-02-08T12:36:03.240Z",
+  "stats": {
+    "total": 55,
+    "withEmail": 21,
+    "withTwitter": 21,
+    "withBlog": 38
+  }
+}
