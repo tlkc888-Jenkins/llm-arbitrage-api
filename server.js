@@ -426,6 +426,39 @@ app.get('/category/:slug', (req, res) => {
   res.send(html);
 });
 
+// Status endpoint - transparency for reliability
+app.get('/status', (req, res) => {
+  const startTime = Date.now();
+  
+  // Check database
+  let dbStatus = 'ok';
+  try {
+    db.servers.getAll({ limit: 1 });
+  } catch (e) {
+    dbStatus = 'error';
+  }
+  
+  // Check Supabase
+  const supabaseConfigured = usageTracker.isSupabaseConfigured();
+  
+  res.json({
+    status: dbStatus === 'ok' ? 'operational' : 'degraded',
+    timestamp: new Date().toISOString(),
+    version: '1.0.0',
+    services: {
+      api: 'ok',
+      database: dbStatus,
+      persistence: supabaseConfigured ? 'ok' : 'not_configured',
+    },
+    hosted_servers: Object.keys(hostedMCP.HOSTED_SERVERS).length,
+    response_time_ms: Date.now() - startTime,
+  });
+});
+
+app.get('/api/v1/status', (req, res) => {
+  res.redirect('/status');
+});
+
 // Sitemap for SEO
 app.get('/sitemap.xml', (req, res) => {
   const servers = db.servers.getAll({ limit: 1000 });
