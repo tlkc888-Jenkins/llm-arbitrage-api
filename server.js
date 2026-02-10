@@ -161,6 +161,11 @@ app.get('/api/admin/analytics', adminAuth, (req, res) => {
 
 // === HTML Routes (SPA-style, serve index.html) ===
 
+// Admin dashboard (PWA)
+app.get('/admin', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'admin.html'));
+});
+
 // Server detail page
 app.get('/server/:slug', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));

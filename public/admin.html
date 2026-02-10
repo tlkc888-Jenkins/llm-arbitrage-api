@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#0f172a">
+  <title>AutropicAI Admin</title>
+  <link rel="manifest" href="/manifest.json">
+  <link rel="apple-touch-icon" href="/icon-192.svg">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    :root {
+      --bg: #0f172a;
+      --card: #1e293b;
+      --border: #334155;
+      --text: #f1f5f9;
+      --muted: #94a3b8;
+      --accent: #3b82f6;
+      --success: #22c55e;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+    }
+    
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 16px;
+    }
+    
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 0;
+      margin-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+    }
+    
+    .logo {
+      font-size: 20px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .logo span { color: var(--accent); }
+    
+    .status-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--success);
+      animation: pulse 2s infinite;
+    }
+    
+    .status-dot.loading { background: var(--warning); }
+    .status-dot.error { background: var(--danger); animation: none; }
+    
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+    
+    .refresh-btn {
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .refresh-btn:active { transform: scale(0.95); }
+    
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    
+    .stat-card {
+      background: var(--card);
+      border-radius: 12px;
+      padding: 16px;
+      border: 1px solid var(--border);
+    }
+    
+    .stat-card.full { grid-column: span 2; }
+    
+    .stat-label {
+      font-size: 12px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+    
+    .stat-value {
+      font-size: 28px;
+      font-weight: 700;
+    }
+    
+    .stat-value.small { font-size: 18px; }
+    
+    .stat-sub {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+    
+    .section-title {
+      font-size: 14px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 12px;
+      margin-top: 24px;
+    }
+    
+    .activity-feed {
+      background: var(--card);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+    
+    .activity-item {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    
+    .activity-item:last-child { border-bottom: none; }
+    
+    .activity-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+    
+    .activity-icon.call { background: rgba(59, 130, 246, 0.2); }
+    .activity-icon.view { background: rgba(34, 197, 94, 0.2); }
+    .activity-icon.discover { background: rgba(245, 158, 11, 0.2); }
+    
+    .activity-content { flex: 1; min-width: 0; }
+    
+    .activity-title {
+      font-size: 14px;
+      font-weight: 500;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    
+    .activity-meta {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+    
+    .alert-banner {
+      background: linear-gradient(135deg, var(--accent), #8b5cf6);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 20px;
+      display: none;
+    }
+    
+    .alert-banner.show { display: block; }
+    
+    .alert-title {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    
+    .alert-text {
+      font-size: 14px;
+      opacity: 0.9;
+    }
+    
+    .empty-state {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--muted);
+    }
+    
+    .empty-state .icon { font-size: 48px; margin-bottom: 16px; }
+    
+    .auth-screen {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    
+    .auth-card {
+      background: var(--card);
+      border-radius: 16px;
+      padding: 32px;
+      width: 100%;
+      max-width: 320px;
+      border: 1px solid var(--border);
+    }
+    
+    .auth-title {
+      font-size: 24px;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 24px;
+    }
+    
+    .auth-input {
+      width: 100%;
+      padding: 14px 16px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      color: var(--text);
+      font-size: 16px;
+      margin-bottom: 16px;
+    }
+    
+    .auth-input:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+    
+    .auth-btn {
+      width: 100%;
+      padding: 14px;
+      background: var(--accent);
+      border: none;
+      border-radius: 10px;
+      color: white;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    
+    .auth-error {
+      color: var(--danger);
+      font-size: 14px;
+      text-align: center;
+      margin-top: 12px;
+      display: none;
+    }
+    
+    .tool-breakdown {
+      margin-top: 8px;
+    }
+    
+    .tool-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      padding: 4px 0;
+      color: var(--muted);
+    }
+    
+    .tool-row .name { color: var(--text); }
+    
+    .last-updated {
+      text-align: center;
+      font-size: 12px;
+      color: var(--muted);
+      padding: 20px;
+    }
+
+    .hidden { display: none !important; }
+  </style>
+</head>
+<body>
+  <!-- Auth Screen -->
+  <div id="auth-screen" class="auth-screen">
+    <div class="auth-card">
+      <div class="auth-title">🤖 AutropicAI</div>
+      <input type="password" id="auth-key" class="auth-input" placeholder="Admin Key" autocomplete="off">
+      <button id="auth-btn" class="auth-btn">Login</button>
+      <div id="auth-error" class="auth-error">Invalid key</div>
+    </div>
+  </div>
+
+  <!-- Dashboard -->
+  <div id="dashboard" class="container hidden">
+    <header>
+      <div class="logo">
+        <div class="status-dot" id="status-dot"></div>
+        <span>Autropic</span>AI
+      </div>
+      <button class="refresh-btn" id="refresh-btn">↻ Refresh</button>
+    </header>
+
+    <!-- First User Alert -->
+    <div id="first-user-alert" class="alert-banner">
+      <div class="alert-title">🎉 First External User!</div>
+      <div class="alert-text" id="first-user-text"></div>
+    </div>
+
+    <!-- Stats Grid -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-label">Directory</div>
+        <div class="stat-value" id="server-count">-</div>
+        <div class="stat-sub">MCP servers</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Hosted</div>
+        <div class="stat-value" id="hosted-count">-</div>
+        <div class="stat-sub">instant access</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Total Events</div>
+        <div class="stat-value" id="total-events">-</div>
+        <div class="stat-sub" id="events-sub">views + calls</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Unique Users</div>
+        <div class="stat-value" id="unique-users">-</div>
+        <div class="stat-sub" id="users-sub">by IP hash</div>
+      </div>
+    </div>
+
+    <!-- Tool Breakdown -->
+    <div class="stat-card full">
+      <div class="stat-label">Tool Calls by Server</div>
+      <div class="tool-breakdown" id="tool-breakdown">
+        <div class="empty-state" style="padding: 20px;">Loading...</div>
+      </div>
+    </div>
+
+    <!-- Activity Feed -->
+    <div class="section-title">Recent Activity</div>
+    <div class="activity-feed" id="activity-feed">
+      <div class="empty-state">
+        <div class="icon">📊</div>
+        <div>No activity yet</div>
+      </div>
+    </div>
+
+    <div class="last-updated" id="last-updated"></div>
+  </div>
+
+  <script>
+    const API_BASE = '';
+    let adminKey = localStorage.getItem('autropic_admin_key') || '';
+
+    // Auth
+    const authScreen = document.getElementById('auth-screen');
+    const dashboard = document.getElementById('dashboard');
+    const authInput = document.getElementById('auth-key');
+    const authBtn = document.getElementById('auth-btn');
+    const authError = document.getElementById('auth-error');
+
+    async function checkAuth() {
+      if (!adminKey) return false;
+      try {
+        const res = await fetch(`${API_BASE}/api/v1/hosted/stats?key=${adminKey}`);
+        return res.ok;
+      } catch {
+        return false;
+      }
+    }
+
+    async function login() {
+      adminKey = authInput.value.trim();
+      if (!adminKey) return;
+      
+      authBtn.textContent = 'Checking...';
+      const valid = await checkAuth();
+      
+      if (valid) {
+        localStorage.setItem('autropic_admin_key', adminKey);
+        authScreen.classList.add('hidden');
+        dashboard.classList.remove('hidden');
+        loadDashboard();
+      } else {
+        authError.style.display = 'block';
+        authBtn.textContent = 'Login';
+      }
+    }
+
+    authBtn.addEventListener('click', login);
+    authInput.addEventListener('keypress', e => { if (e.key === 'Enter') login(); });
+
+    // Dashboard
+    async function loadDashboard() {
+      const dot = document.getElementById('status-dot');
+      dot.classList.add('loading');
+
+      try {
+        // Load public stats
+        const statsRes = await fetch(`${API_BASE}/api/v1/stats`);
+        const stats = await statsRes.json();
+        
+        document.getElementById('server-count').textContent = stats.totalServers || '-';
+        
+        // Load hosted info
+        const hostedRes = await fetch(`${API_BASE}/api/v1/hosted`);
+        const hosted = await hostedRes.json();
+        document.getElementById('hosted-count').textContent = hosted.servers?.length || '-';
+
+        // Load usage stats (authenticated)
+        const usageRes = await fetch(`${API_BASE}/api/v1/hosted/stats?key=${adminKey}`);
+        if (usageRes.ok) {
+          const usage = await usageRes.json();
+          renderUsageStats(usage);
+        }
+
+        dot.classList.remove('loading');
+        document.getElementById('last-updated').textContent = 
+          `Last updated: ${new Date().toLocaleTimeString()}`;
+
+      } catch (e) {
+        console.error('Load error:', e);
+        dot.classList.remove('loading');
+        dot.classList.add('error');
+      }
+    }
+
+    function renderUsageStats(usage) {
+      const memory = usage.inMemory?.summary || {};
+      const persisted = usage.persisted || {};
+      
+      // Prefer persisted stats if available
+      const totalEvents = persisted.total || (memory.totalCalls + memory.totalViews) || 0;
+      const uniqueUsers = memory.uniqueUsers || countUniqueIPs(persisted.recent) || 0;
+      
+      document.getElementById('total-events').textContent = totalEvents;
+      document.getElementById('unique-users').textContent = uniqueUsers;
+      
+      // Check for external users (non-curl user agents)
+      const externalUser = findExternalUser(persisted.recent || []);
+      if (externalUser) {
+        document.getElementById('first-user-alert').classList.add('show');
+        document.getElementById('first-user-text').textContent = 
+          `${externalUser.user_agent?.slice(0, 50) || 'Unknown agent'} at ${new Date(externalUser.created_at).toLocaleString()}`;
+      }
+      
+      // Tool breakdown
+      const byServer = persisted.byServer || usage.inMemory?.byServer || {};
+      const breakdown = document.getElementById('tool-breakdown');
+      
+      if (Object.keys(byServer).length > 0) {
+        breakdown.innerHTML = Object.entries(byServer)
+          .sort((a, b) => b[1] - a[1])
+          .map(([server, count]) => `
+            <div class="tool-row">
+              <span class="name">${server}</span>
+              <span>${count} calls</span>
+            </div>
+          `).join('');
+      } else {
+        breakdown.innerHTML = '<div class="tool-row"><span class="name">No calls yet</span></div>';
+      }
+      
+      // Activity feed
+      const recent = persisted.recent || usage.inMemory?.recentCalls || [];
+      renderActivityFeed(recent);
+    }
+
+    function findExternalUser(events) {
+      return events.find(e => {
+        const ua = (e.user_agent || '').toLowerCase();
+        return ua && !ua.includes('curl') && !ua.includes('jenkins');
+      });
+    }
+
+    function countUniqueIPs(events) {
+      if (!events) return 0;
+      return new Set(events.map(e => e.ip_hash)).size;
+    }
+
+    function renderActivityFeed(events) {
+      const feed = document.getElementById('activity-feed');
+      
+      if (!events || events.length === 0) {
+        feed.innerHTML = `
+          <div class="empty-state">
+            <div class="icon">📊</div>
+            <div>No activity yet</div>
+          </div>
+        `;
+        return;
+      }
+      
+      feed.innerHTML = events.slice(0, 15).map(e => {
+        const type = e.event_type || (e.tool ? 'tool_call' : 'view');
+        const icon = type === 'tool_call' ? '🔧' : type === 'discover' ? '🔍' : '👁';
+        const iconClass = type === 'tool_call' ? 'call' : type === 'discover' ? 'discover' : 'view';
+        const title = type === 'tool_call' 
+          ? `${e.server_slug || e.server}:${e.tool_name || e.tool}`
+          : type === 'discover'
+          ? `Discovery: ${e.metadata?.query || '?'}`
+          : e.metadata?.endpoint || 'View';
+        const time = e.created_at 
+          ? new Date(e.created_at).toLocaleString()
+          : e.time || '';
+        
+        return `
+          <div class="activity-item">
+            <div class="activity-icon ${iconClass}">${icon}</div>
+            <div class="activity-content">
+              <div class="activity-title">${title}</div>
+              <div class="activity-meta">${time}</div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    document.getElementById('refresh-btn').addEventListener('click', loadDashboard);
+
+    // Init
+    (async () => {
+      if (await checkAuth()) {
+        authScreen.classList.add('hidden');
+        dashboard.classList.remove('hidden');
+        loadDashboard();
+      }
+    })();
+
+    // Auto-refresh every 60s
+    setInterval(() => {
+      if (!dashboard.classList.contains('hidden')) {
+        loadDashboard();
+      }
+    }, 60000);
+
+    // Register service worker for PWA
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js').catch(() => {});
+    }
+  </script>
+</body>
+</html>
