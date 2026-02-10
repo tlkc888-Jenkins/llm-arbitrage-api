@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Live Demo — AutropicAI</title>
+  <meta name="description" content="Watch an AI agent discover and use tools in real-time. No setup required.">
+  <meta property="og:title" content="AutropicAI Live Demo — Agent Tool Discovery">
+  <meta property="og:description" content="Type a question. Watch the agent discover the right tool and use it instantly.">
+  <meta property="og:url" content="https://tryautropic.com/demo">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    :root {
+      --bg: #0a0a0a;
+      --card: #141414;
+      --border: #262626;
+      --text: #fafafa;
+      --muted: #a1a1aa;
+      --accent: #3b82f6;
+      --success: #22c55e;
+      --code-bg: #1e1e1e;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+    
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+    
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    
+    h1 span { color: var(--accent); }
+    
+    .subtitle {
+      color: var(--muted);
+      font-size: 1.1rem;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+    
+    .demo-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+    
+    .input-row {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    
+    #query-input {
+      flex: 1;
+      padding: 14px 18px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      color: var(--text);
+      font-size: 16px;
+    }
+    
+    #query-input:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+    
+    #run-btn {
+      padding: 14px 28px;
+      background: var(--accent);
+      border: none;
+      border-radius: 10px;
+      color: white;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.1s, opacity 0.2s;
+    }
+    
+    #run-btn:hover { opacity: 0.9; }
+    #run-btn:active { transform: scale(0.98); }
+    #run-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    
+    .suggestions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+    
+    .suggestion {
+      padding: 8px 14px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      font-size: 13px;
+      color: var(--muted);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .suggestion:hover {
+      border-color: var(--accent);
+      color: var(--text);
+    }
+    
+    .output-area {
+      background: var(--code-bg);
+      border-radius: 10px;
+      padding: 20px;
+      min-height: 300px;
+      font-family: 'SF Mono', Monaco, 'Courier New', monospace;
+      font-size: 13px;
+      overflow-x: auto;
+    }
+    
+    .step {
+      margin-bottom: 16px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+    
+    .step:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+    
+    .step-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+    
+    .step-icon {
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+    }
+    
+    .step-icon.discover { background: rgba(245, 158, 11, 0.2); }
+    .step-icon.call { background: rgba(59, 130, 246, 0.2); }
+    .step-icon.result { background: rgba(34, 197, 94, 0.2); }
+    .step-icon.error { background: rgba(239, 68, 68, 0.2); }
+    
+    .step-title {
+      font-weight: 600;
+      color: var(--text);
+    }
+    
+    .step-time {
+      color: var(--muted);
+      font-size: 11px;
+      margin-left: auto;
+    }
+    
+    .step-content {
+      color: var(--muted);
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    
+    .step-content code {
+      background: rgba(255,255,255,0.1);
+      padding: 2px 6px;
+      border-radius: 4px;
+      color: var(--accent);
+    }
+    
+    .step-content .json {
+      background: var(--bg);
+      padding: 12px;
+      border-radius: 6px;
+      margin-top: 8px;
+      overflow-x: auto;
+    }
+    
+    .result-value {
+      color: var(--success);
+      font-size: 18px;
+      font-weight: 600;
+    }
+    
+    .how-it-works {
+      margin-top: 40px;
+    }
+    
+    .how-it-works h2 {
+      font-size: 1.3rem;
+      margin-bottom: 20px;
+    }
+    
+    .flow-steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+    }
+    
+    .flow-step {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+    }
+    
+    .flow-step-num {
+      width: 28px;
+      height: 28px;
+      background: var(--accent);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+    
+    .flow-step h3 {
+      font-size: 15px;
+      margin-bottom: 6px;
+    }
+    
+    .flow-step p {
+      font-size: 13px;
+      color: var(--muted);
+    }
+    
+    .cta-section {
+      text-align: center;
+      margin-top: 40px;
+      padding: 30px;
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.1));
+      border-radius: 16px;
+      border: 1px solid var(--border);
+    }
+    
+    .cta-section h2 {
+      margin-bottom: 12px;
+    }
+    
+    .cta-section p {
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+    
+    .cta-links {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    
+    .cta-link {
+      padding: 12px 24px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+    
+    .cta-link:hover {
+      border-color: var(--accent);
+    }
+    
+    .cta-link.primary {
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    
+    footer {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    
+    .loading {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border: 2px solid var(--border);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    @media (max-width: 600px) {
+      h1 { font-size: 1.8rem; }
+      .input-row { flex-direction: column; }
+      #run-btn { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🔌 <span>Autropic</span>AI Demo</h1>
+      <p class="subtitle">Type a question. Watch the agent discover and use the right tool — zero configuration.</p>
+    </header>
+
+    <div class="demo-box">
+      <div class="input-row">
+        <input type="text" id="query-input" placeholder="What time is it in Tokyo?" autocomplete="off">
+        <button id="run-btn">Run →</button>
+      </div>
+      
+      <div class="suggestions">
+        <span class="suggestion" data-query="What time is it in Tokyo?">🕐 Time in Tokyo</span>
+        <span class="suggestion" data-query="What's the weather in New York?">🌤 NYC Weather</span>
+        <span class="suggestion" data-query="Convert 100 USD to EUR">💱 USD to EUR</span>
+        <span class="suggestion" data-query="What's Bitcoin's price?">₿ Bitcoin price</span>
+        <span class="suggestion" data-query="Calculate 15% tip on $85">🧮 Calculate tip</span>
+      </div>
+      
+      <div class="output-area" id="output">
+        <div style="color: var(--muted); text-align: center; padding-top: 100px;">
+          Click "Run" to see the magic ✨
+        </div>
+      </div>
+    </div>
+
+    <div class="how-it-works">
+      <h2>How It Works</h2>
+      <div class="flow-steps">
+        <div class="flow-step">
+          <div class="flow-step-num">1</div>
+          <h3>Agent Has a Need</h3>
+          <p>Your agent needs current time, weather, calculations — any capability.</p>
+        </div>
+        <div class="flow-step">
+          <div class="flow-step-num">2</div>
+          <h3>Discover Tools</h3>
+          <p><code>GET /discover?q=time</code> — finds the best tool instantly.</p>
+        </div>
+        <div class="flow-step">
+          <div class="flow-step-num">3</div>
+          <h3>Execute Immediately</h3>
+          <p><code>POST /mcp/:slug/tools/call</code> — runs the tool, returns result.</p>
+        </div>
+        <div class="flow-step">
+          <div class="flow-step-num">4</div>
+          <h3>No Setup Required</h3>
+          <p>No API keys, no installation, no configuration. Just HTTP calls.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="cta-section">
+      <h2>Add Runtime Tool Discovery to Your Agent</h2>
+      <p>3 lines of code. 230+ tools available. Zero configuration.</p>
+      <div class="cta-links">
+        <a href="https://github.com/tlkc888-Jenkins/llm-arbitrage-api" class="cta-link">View on GitHub</a>
+        <a href="/api/v1/hosted" class="cta-link">Browse Hosted Tools</a>
+        <a href="/" class="cta-link primary">Explore Directory →</a>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    Built by <a href="https://tryautropic.com">AutropicAI</a> — Infrastructure for the Agent Economy
+  </footer>
+
+  <script>
+    const API_BASE = '';
+    const queryInput = document.getElementById('query-input');
+    const runBtn = document.getElementById('run-btn');
+    const output = document.getElementById('output');
+    
+    // Suggestion clicks
+    document.querySelectorAll('.suggestion').forEach(el => {
+      el.addEventListener('click', () => {
+        queryInput.value = el.dataset.query;
+        runDemo();
+      });
+    });
+    
+    runBtn.addEventListener('click', runDemo);
+    queryInput.addEventListener('keypress', e => { if (e.key === 'Enter') runDemo(); });
+    
+    async function runDemo() {
+      const query = queryInput.value.trim();
+      if (!query) return;
+      
+      runBtn.disabled = true;
+      runBtn.innerHTML = '<span class="loading"></span>';
+      output.innerHTML = '';
+      
+      const startTime = Date.now();
+      
+      try {
+        // Step 1: Discover
+        addStep('discover', '🔍 Discovering tools...', `Query: "${query}"`);
+        
+        const discoverRes = await fetch(`${API_BASE}/discover?q=${encodeURIComponent(query)}`);
+        const discover = await discoverRes.json();
+        
+        const discoverTime = Date.now() - startTime;
+        
+        if (!discover.found || !discover.instant) {
+          updateLastStep('error', '❌ No instant tool found', 
+            `The query "${query}" didn't match any hosted tools.\n\nAvailable tools: time, weather, crypto, calculator\n\nTry: "What time is it?" or "Weather in London"`,
+            discoverTime
+          );
+          return;
+        }
+        
+        const rec = discover.recommendation;
+        updateLastStep('discover', '🔍 Tool Discovered', 
+          `Found: <code>${rec.server}</code>\n${rec.description}\n\n<div class="json">${JSON.stringify({endpoint: rec.endpoint, tools: rec.tools}, null, 2)}</div>`,
+          discoverTime
+        );
+        
+        // Step 2: Call tool
+        const toolName = rec.tools[0];
+        const args = buildArgs(query, rec.server, toolName);
+        
+        addStep('call', '⚡ Calling tool...', `${rec.server}:${toolName}`);
+        
+        const callStart = Date.now();
+        const callRes = await fetch(`${API_BASE}/mcp/${rec.server}/tools/call`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name: toolName, arguments: args })
+        });
+        const result = await callRes.json();
+        const callTime = Date.now() - callStart;
+        
+        updateLastStep('call', '⚡ Tool Called',
+          `<code>POST /mcp/${rec.server}/tools/call</code>\n\nArguments:\n<div class="json">${JSON.stringify(args, null, 2)}</div>`,
+          callTime
+        );
+        
+        // Step 3: Result
+        const totalTime = Date.now() - startTime;
+        const resultStr = formatResult(result.result);
+        
+        addStep('result', '✅ Result',
+          `<div class="result-value">${resultStr}</div>\n\n<div class="json">${JSON.stringify(result, null, 2)}</div>`,
+          totalTime + ' total'
+        );
+        
+      } catch (e) {
+        addStep('error', '❌ Error', e.message);
+      } finally {
+        runBtn.disabled = false;
+        runBtn.textContent = 'Run →';
+      }
+    }
+    
+    function addStep(type, title, content, time) {
+      const step = document.createElement('div');
+      step.className = 'step';
+      step.innerHTML = `
+        <div class="step-header">
+          <div class="step-icon ${type}">${type === 'discover' ? '🔍' : type === 'call' ? '⚡' : type === 'result' ? '✅' : '❌'}</div>
+          <div class="step-title">${title}</div>
+          ${time ? `<div class="step-time">${typeof time === 'number' ? time + 'ms' : time}</div>` : ''}
+        </div>
+        <div class="step-content">${content}</div>
+      `;
+      output.appendChild(step);
+    }
+    
+    function updateLastStep(type, title, content, time) {
+      const steps = output.querySelectorAll('.step');
+      const last = steps[steps.length - 1];
+      if (last) {
+        last.querySelector('.step-icon').className = `step-icon ${type}`;
+        last.querySelector('.step-title').textContent = title;
+        last.querySelector('.step-content').innerHTML = content;
+        if (time) {
+          const timeEl = last.querySelector('.step-time');
+          if (timeEl) timeEl.textContent = typeof time === 'number' ? time + 'ms' : time;
+          else {
+            const header = last.querySelector('.step-header');
+            header.innerHTML += `<div class="step-time">${typeof time === 'number' ? time + 'ms' : time}</div>`;
+          }
+        }
+      }
+    }
+    
+    // Build args based on query
+    function buildArgs(query, server, tool) {
+      const q = query.toLowerCase();
+      
+      if (server === 'time') {
+        // Extract timezone from query
+        const tzMap = {
+          'tokyo': 'Asia/Tokyo',
+          'london': 'Europe/London',
+          'new york': 'America/New_York',
+          'nyc': 'America/New_York',
+          'la': 'America/Los_Angeles',
+          'los angeles': 'America/Los_Angeles',
+          'paris': 'Europe/Paris',
+          'sydney': 'Australia/Sydney',
+          'berlin': 'Europe/Berlin',
+        };
+        for (const [city, tz] of Object.entries(tzMap)) {
+          if (q.includes(city)) return { timezone: tz };
+        }
+        return { timezone: 'UTC' };
+      }
+      
+      if (server === 'weather') {
+        // Extract city
+        const cities = ['new york', 'nyc', 'london', 'tokyo', 'paris', 'sydney', 'berlin', 'la', 'los angeles', 'san francisco', 'chicago'];
+        for (const city of cities) {
+          if (q.includes(city)) return { location: city };
+        }
+        // Try to extract after "in" or "for"
+        const match = q.match(/(?:in|for)\s+([a-z\s]+?)(?:\?|$)/i);
+        if (match) return { location: match[1].trim() };
+        return { location: 'San Francisco' };
+      }
+      
+      if (server === 'crypto-prices') {
+        const cryptos = ['bitcoin', 'btc', 'ethereum', 'eth', 'solana', 'sol', 'dogecoin', 'doge'];
+        for (const c of cryptos) {
+          if (q.includes(c)) {
+            const symbol = c === 'bitcoin' ? 'BTC' : c === 'ethereum' ? 'ETH' : c === 'solana' ? 'SOL' : c === 'dogecoin' ? 'DOGE' : c.toUpperCase();
+            return { symbol };
+          }
+        }
+        return { symbol: 'BTC' };
+      }
+      
+      if (server === 'calculator') {
+        // Extract numbers and operation
+        const nums = q.match(/\d+\.?\d*/g);
+        if (q.includes('tip')) {
+          // "15% tip on $85" -> 85 * 0.15
+          const pct = parseFloat(nums?.[0] || 15);
+          const amount = parseFloat(nums?.[1] || 100);
+          return { expression: `${amount} * ${pct / 100}` };
+        }
+        if (nums && nums.length >= 2) {
+          if (q.includes('+') || q.includes('plus') || q.includes('add')) {
+            return { expression: `${nums[0]} + ${nums[1]}` };
+          }
+          if (q.includes('-') || q.includes('minus') || q.includes('subtract')) {
+            return { expression: `${nums[0]} - ${nums[1]}` };
+          }
+          if (q.includes('*') || q.includes('times') || q.includes('multiply')) {
+            return { expression: `${nums[0]} * ${nums[1]}` };
+          }
+          if (q.includes('/') || q.includes('divided') || q.includes('divide')) {
+            return { expression: `${nums[0]} / ${nums[1]}` };
+          }
+        }
+        return { expression: nums ? nums.join(' + ') : '1 + 1' };
+      }
+      
+      return {};
+    }
+    
+    function formatResult(result) {
+      if (!result) return 'No result';
+      if (typeof result === 'string') return result;
+      if (result.formatted) return result.formatted;
+      if (result.time) return result.time;
+      if (result.temperature) return `${result.temperature}°${result.unit || 'C'} - ${result.condition || ''}`;
+      if (result.price) return `$${result.price.toLocaleString()}`;
+      if (result.result !== undefined) return String(result.result);
+      return JSON.stringify(result);
+    }
+  </script>
+</body>
+</html>

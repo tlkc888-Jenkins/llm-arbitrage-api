@@ -166,6 +166,11 @@ app.get('/admin', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'admin.html'));
 });
 
+// Live demo page
+app.get('/demo', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'demo.html'));
+});
+
 // Server detail page
 app.get('/server/:slug', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
