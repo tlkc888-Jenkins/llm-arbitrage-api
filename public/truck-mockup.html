@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trophy Truck Manager — iPhone Mockup</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+      background: #1a1a2e;
+      min-height: 100vh;
+      padding: 40px 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px;
+      justify-content: center;
+    }
+    
+    .mockup-container {
+      text-align: center;
+    }
+    
+    .mockup-label {
+      color: #888;
+      font-size: 14px;
+      margin-bottom: 16px;
+      font-weight: 500;
+    }
+    
+    .iphone {
+      width: 300px;
+      height: 650px;
+      background: #000;
+      border-radius: 40px;
+      padding: 12px;
+      box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+    }
+    
+    .screen {
+      width: 100%;
+      height: 100%;
+      background: #0f172a;
+      border-radius: 32px;
+      overflow: hidden;
+      position: relative;
+    }
+    
+    .notch {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 120px;
+      height: 28px;
+      background: #000;
+      border-radius: 0 0 20px 20px;
+      z-index: 10;
+    }
+    
+    .status-bar {
+      height: 44px;
+      padding: 14px 24px 0;
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+      font-weight: 600;
+      color: #fff;
+    }
+    
+    .content {
+      padding: 0 16px 16px;
+      height: calc(100% - 44px - 70px);
+      overflow-y: auto;
+    }
+    
+    .tab-bar {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 70px;
+      background: rgba(30, 41, 59, 0.95);
+      backdrop-filter: blur(10px);
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding-bottom: 8px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+    
+    .tab-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      color: #64748b;
+      font-size: 10px;
+    }
+    
+    .tab-item.active { color: #f59e0b; }
+    .tab-item .icon { font-size: 24px; }
+    
+    /* Components */
+    .header {
+      padding: 8px 0 16px;
+    }
+    
+    .header h1 {
+      font-size: 28px;
+      font-weight: 700;
+      color: #fff;
+    }
+    
+    .header-sub {
+      font-size: 14px;
+      color: #64748b;
+      margin-top: 4px;
+    }
+    
+    .card {
+      background: #1e293b;
+      border-radius: 16px;
+      padding: 16px;
+      margin-bottom: 12px;
+    }
+    
+    .card-title {
+      font-size: 13px;
+      color: #64748b;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 12px;
+    }
+    
+    .stat-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 0;
+    }
+    
+    .stat-label { color: #94a3b8; font-size: 14px; }
+    .stat-value { color: #fff; font-size: 16px; font-weight: 600; }
+    
+    .big-number {
+      font-size: 48px;
+      font-weight: 700;
+      color: #f59e0b;
+    }
+    
+    .pressure-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    
+    .pressure-box {
+      background: #0f172a;
+      border-radius: 12px;
+      padding: 12px;
+      text-align: center;
+    }
+    
+    .pressure-label {
+      font-size: 11px;
+      color: #64748b;
+      margin-bottom: 4px;
+    }
+    
+    .pressure-value {
+      font-size: 24px;
+      font-weight: 700;
+      color: #fff;
+    }
+    
+    .pressure-value.hot { color: #ef4444; }
+    .pressure-value.ok { color: #22c55e; }
+    
+    .btn {
+      width: 100%;
+      padding: 16px;
+      border-radius: 12px;
+      border: none;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    
+    .btn-primary {
+      background: #f59e0b;
+      color: #000;
+    }
+    
+    .btn-secondary {
+      background: #334155;
+      color: #fff;
+    }
+    
+    .btn-danger {
+      background: #dc2626;
+      color: #fff;
+    }
+    
+    .run-item {
+      display: flex;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    
+    .run-number {
+      width: 36px;
+      height: 36px;
+      background: #f59e0b;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: #000;
+      margin-right: 12px;
+    }
+    
+    .run-info { flex: 1; }
+    .run-title { color: #fff; font-weight: 500; }
+    .run-meta { color: #64748b; font-size: 13px; }
+    
+    .compound-badge {
+      padding: 4px 10px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    
+    .compound-a { background: rgba(239,68,68,0.2); color: #ef4444; }
+    .compound-b { background: rgba(245,158,11,0.2); color: #f59e0b; }
+    .compound-c { background: rgba(34,197,94,0.2); color: #22c55e; }
+    
+    .quick-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    
+    .quick-action {
+      background: #1e293b;
+      border-radius: 16px;
+      padding: 20px 16px;
+      text-align: center;
+    }
+    
+    .quick-action .icon {
+      font-size: 32px;
+      margin-bottom: 8px;
+    }
+    
+    .quick-action .label {
+      color: #fff;
+      font-size: 14px;
+      font-weight: 500;
+    }
+    
+    .voice-btn {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: #dc2626;
+      border: none;
+      color: #fff;
+      font-size: 32px;
+      margin: 20px auto;
+      display: block;
+      box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.5);
+    }
+    
+    .voice-btn.recording {
+      animation: pulse 1.5s infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.5); }
+      50% { box-shadow: 0 0 0 20px rgba(220, 38, 38, 0); }
+    }
+    
+    .input-group {
+      margin-bottom: 16px;
+    }
+    
+    .input-label {
+      font-size: 13px;
+      color: #64748b;
+      margin-bottom: 6px;
+    }
+    
+    .input {
+      width: 100%;
+      padding: 14px 16px;
+      background: #0f172a;
+      border: 1px solid #334155;
+      border-radius: 12px;
+      color: #fff;
+      font-size: 16px;
+    }
+    
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+    
+    .photo-thumb {
+      aspect-ratio: 1;
+      background: #334155;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+    }
+    
+    .photo-add {
+      border: 2px dashed #475569;
+    }
+  </style>
+</head>
+<body>
+  
+  <!-- Screen 1: Dashboard -->
+  <div class="mockup-container">
+    <div class="mockup-label">Dashboard</div>
+    <div class="iphone">
+      <div class="screen">
+        <div class="notch"></div>
+        <div class="status-bar">
+          <span>9:41</span>
+          <span>📶 100%</span>
+        </div>
+        <div class="content">
+          <div class="header">
+            <h1>🏁 Truck Manager</h1>
+            <div class="header-sub">Mason Gen 2 #7</div>
+          </div>
+          
+          <div class="quick-actions">
+            <div class="quick-action">
+              <div class="icon">⏱️</div>
+              <div class="label">New Run</div>
+            </div>
+            <div class="quick-action">
+              <div class="icon">🎤</div>
+              <div class="label">Voice Note</div>
+            </div>
+            <div class="quick-action">
+              <div class="icon">📸</div>
+              <div class="label">Photo</div>
+            </div>
+            <div class="quick-action">
+              <div class="icon">🛞</div>
+              <div class="label">Pressures</div>
+            </div>
+          </div>
+          
+          <div class="card">
+            <div class="card-title">Today's Session</div>
+            <div class="stat-row">
+              <span class="stat-label">Runs completed</span>
+              <span class="stat-value">4</span>
+            </div>
+            <div class="stat-row">
+              <span class="stat-label">Total distance</span>
+              <span class="stat-value">127 km</span>
+            </div>
+            <div class="stat-row">
+              <span class="stat-label">Current compound</span>
+              <span class="compound-badge compound-b">B</span>
+            </div>
+          </div>
+          
+          <div class="card">
+            <div class="card-title">Recent Runs</div>
+            <div class="run-item">
+              <div class="run-number">4</div>
+              <div class="run-info">
+                <div class="run-title">Paul Weel</div>
+                <div class="run-meta">32 km • Compound B</div>
+              </div>
+            </div>
+            <div class="run-item">
+              <div class="run-number">3</div>
+              <div class="run-info">
+                <div class="run-title">Paul Weel</div>
+                <div class="run-meta">28 km • Compound B</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="tab-bar">
+          <div class="tab-item active">
+            <span class="icon">🏠</span>
+            <span>Home</span>
+          </div>
+          <div class="tab-item">
+            <span class="icon">📋</span>
+            <span>Runs</span>
+          </div>
+          <div class="tab-item">
+            <span class="icon">🛞</span>
+            <span>Tyres</span>
+          </div>
+          <div class="tab-item">
+            <span class="icon">📊</span>
+            <span>Data</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Screen 2: Quick Pressure Entry -->
+  <div class="mockup-container">
+    <div class="mockup-label">Pressure Entry</div>
+    <div class="iphone">
+      <div class="screen">
+        <div class="notch"></div>
+        <div class="status-bar">
+          <span>9:41</span>
+          <span>📶 100%</span>
+        </div>
+        <div class="content">
+          <div class="header">
+            <h1>🛞 Pressures</h1>
+            <div class="header-sub">Run #5 • Pre-run</div>
+          </div>
+          
+          <div class="card">
+            <div class="card-title">Starting Pressures (PSI)</div>
+            <div class="pressure-grid">
+              <div class="pressure-box">
+                <div class="pressure-label">FRONT LEFT</div>
+                <div class="pressure-value">18.5</div>
+              </div>
+              <div class="pressure-box">
+                <div class="pressure-label">FRONT RIGHT</div>
+                <div class="pressure-value">18.5</div>
+              </div>
+              <div class="pressure-box">
+                <div class="pressure-label">REAR LEFT</div>
+                <div class="pressure-value">16.0</div>
+              </div>
+              <div class="pressure-box">
+                <div class="pressure-label">REAR RIGHT</div>
+                <div class="pressure-value">16.0</div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="card">
+            <div class="card-title">Post-Run Pressures (PSI)</div>
+            <div class="pressure-grid">
+              <div class="pressure-box">
+                <div class="pressure-label">FRONT LEFT</div>
+                <div class="pressure-value hot">21.2</div>
+              </div>
+              <div class="pressure-box">
+                <div class="pressure-label">FRONT RIGHT</div>
+                <div class="pressure-value hot">22.1</div>
+              </div>
+              <div class="pressure-box">
+                <div class="pressure-label">REAR LEFT</div>
+                <div class="pressure-value ok">18.4</div>
+              </div>
+              <div class="pressure-box">
+                <div class="pressure-label">REAR RIGHT</div>
+                <div class="pressure-value ok">18.8</div>
+              </div>
+            </div>
+          </div>
+          
+          <button class="btn btn-primary" style="margin-top: 8px;">Save Pressures</button>
+        </div>
+        
+        <div class="tab-bar">
+          <div class="tab-item">
+            <span class="icon">🏠</span>
+            <span>Home</span>
+          </div>
+          <div class="tab-item">
+            <span class="icon">📋</span>
+            <span>Runs</span>
+          </div>
+          <div class="tab-item active">
+            <span class="icon">🛞</span>
+            <span>Tyres</span>
+          </div>
+          <div class="tab-item">
+            <span class="icon">📊</span>
+            <span>Data</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Screen 3: Voice Notes -->
+  <div class="mockup-container">
+    <div class="mockup-label">Voice Notes</div>
+    <div class="iphone">
+      <div class="screen">
+        <div class="notch"></div>
+        <div class="status-bar">
+          <span>9:41</span>
+          <span>📶 100%</span>
+        </div>
+        <div class="content">
+          <div class="header">
+            <h1>🎤 Voice Note</h1>
+            <div class="header-sub">Run #5 • Post-stint debrief</div>
+          </div>
+          
+          <div class="card" style="text-align: center; padding: 32px 16px;">
+            <button class="voice-btn recording">🎙️</button>
+            <div style="color: #ef4444; font-weight: 600; margin-top: 16px;">Recording... 0:34</div>
+            <div style="color: #64748b; font-size: 14px; margin-top: 8px;">Tap to stop</div>
+          </div>
+          
+          <div class="card">
+            <div class="card-title">Transcript Preview</div>
+            <div style="color: #94a3b8; font-size: 14px; line-height: 1.6;">
+              "Front end felt loose through the whoops section, might need to bump up front pressure by half a PSI. Rears felt good, compound B handling the heat well. Noticed some vibration at high speed, check wheel balance..."
+            </div>
+          </div>
+          
+          <div style="display: flex; gap: 12px; margin-top: 16px;">
+            <button class="btn btn-secondary" style="flex: 1;">Discard</button>
+            <button class="btn btn-primary" style="flex: 1;">Save</button>
+          </div>
+        </div>
+        
+        <div class="tab-bar">
+          <div class="tab-item">
+            <span class="icon">🏠</span>
+            <span>Home</span>
+          </div>
+          <div class="tab-item active">
+            <span class="icon">📋</span>
+            <span>Runs</span>
+          </div>
+          <div class="tab-item">
+            <span class="icon">🛞</span>
+            <span>Tyres</span>
+          </div>
+          <div class="tab-item">
+            <span class="icon">📊</span>
+            <span>Data</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Screen 4: Photo Capture -->
+  <div class="mockup-container">
+    <div class="mockup-label">Tyre Photos</div>
+    <div class="iphone">
+      <div class="screen">
+        <div class="notch"></div>
+        <div class="status-bar">
+          <span>9:41</span>
+          <span>📶 100%</span>
+        </div>
+        <div class="content">
+          <div class="header">
+            <h1>📸 Tyre Photos</h1>
+            <div class="header-sub">Run #5 • Compound B</div>
+          </div>
+          
+          <div class="card">
+            <div class="card-title">Front Left</div>
+            <div class="photo-grid">
+              <div class="photo-thumb">🛞</div>
+              <div class="photo-thumb">🔍</div>
+              <div class="photo-thumb photo-add">+</div>
+            </div>
+          </div>
+          
+          <div class="card">
+            <div class="card-title">Front Right</div>
+            <div class="photo-grid">
+              <div class="photo-thumb">🛞</div>
+              <div class="photo-thumb photo-add">+</div>
+            </div>
+          </div>
+          
+          <div class="card">
+            <div class="card-title">Rear Left</div>
+            <div class="photo-grid">
+              <div class="photo-thumb photo-add">+</div>
+            </div>
+          </div>
+          
+          <div class="card">
+            <div class="card-title">Rear Right</div>
+            <div class="photo-grid">
+              <div class="photo-thumb photo-add">+</div>
+            </div>
+          </div>
+          
+          <button class="btn btn-primary" style="margin-top: 8px;">Done</button>
+        </div>
+        
+        <div class="tab-bar">
+          <div class="tab-item">
+            <span class="icon">🏠</span>
+            <span>Home</span>
+          </div>
+          <div class="tab-item active">
+            <span class="icon">📋</span>
+            <span>Runs</span>
+          </div>
+          <div class="tab-item">
+            <span class="icon">🛞</span>
+            <span>Tyres</span>
+          </div>
+          <div class="tab-item">
+            <span class="icon">📊</span>
+            <span>Data</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Screen 5: New Run -->
+  <div class="mockup-container">
+    <div class="mockup-label">New Run Entry</div>
+    <div class="iphone">
+      <div class="screen">
+        <div class="notch"></div>
+        <div class="status-bar">
+          <span>9:41</span>
+          <span>📶 100%</span>
+        </div>
+        <div class="content">
+          <div class="header">
+            <h1>⏱️ New Run</h1>
+            <div class="header-sub">Session: Feb 11, 2026</div>
+          </div>
+          
+          <div class="input-group">
+            <div class="input-label">Driver</div>
+            <div class="input">Paul Weel</div>
+          </div>
+          
+          <div class="input-group">
+            <div class="input-label">Tyre Set</div>
+            <div class="input" style="display: flex; justify-content: space-between; align-items: center;">
+              <span>Compound B • 37x13.50R17</span>
+              <span class="compound-badge compound-b">B</span>
+            </div>
+          </div>
+          
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+            <div class="input-group">
+              <div class="input-label">Distance (km)</div>
+              <div class="input">32</div>
+            </div>
+            <div class="input-group">
+              <div class="input-label">Terrain</div>
+              <div class="input">Sand/Rocks</div>
+            </div>
+          </div>
+          
+          <div class="card" style="margin-top: 8px;">
+            <div class="card-title">Quick Actions</div>
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; text-align: center;">
+              <div>
+                <div style="font-size: 28px;">🛞</div>
+                <div style="font-size: 12px; color: #64748b;">Pressures</div>
+              </div>
+              <div>
+                <div style="font-size: 28px;">📸</div>
+                <div style="font-size: 12px; color: #64748b;">Photos</div>
+              </div>
+              <div>
+                <div style="font-size: 28px;">🎤</div>
+                <div style="font-size: 12px; color: #64748b;">Voice</div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="input-group" style="margin-top: 16px;">
+            <div class="input-label">Notes</div>
+            <div class="input" style="min-height: 60px;">Testing new spring rates...</div>
+          </div>
+          
+          <button class="btn btn-primary">Save Run</button>
+        </div>
+        
+        <div class="tab-bar">
+          <div class="tab-item">
+            <span class="icon">🏠</span>
+            <span>Home</span>
+          </div>
+          <div class="tab-item active">
+            <span class="icon">📋</span>
+            <span>Runs</span>
+          </div>
+          <div class="tab-item">
+            <span class="icon">🛞</span>
+            <span>Tyres</span>
+          </div>
+          <div class="tab-item">
+            <span class="icon">📊</span>
+            <span>Data</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
