@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Integrate Autropic Tools - Any Framework, Zero Config</title>
+  <meta name="description" content="Add 22 AI agent tools to LangChain, CrewAI, AutoGPT, or any framework in under 5 minutes. No API keys required.">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { 
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #0a0a0a; color: #e0e0e0; line-height: 1.6;
+    }
+    .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+    h1 { font-size: 2.5rem; margin-bottom: 10px; color: #fff; }
+    h2 { font-size: 1.5rem; margin: 40px 0 20px; color: #fff; border-bottom: 1px solid #333; padding-bottom: 10px; }
+    h3 { font-size: 1.2rem; margin: 25px 0 15px; color: #ddd; }
+    .subtitle { color: #888; font-size: 1.2rem; margin-bottom: 30px; }
+    pre { 
+      background: #1a1a1a; padding: 20px; border-radius: 8px; 
+      overflow-x: auto; margin: 15px 0; border: 1px solid #333;
+    }
+    code { font-family: 'SF Mono', Monaco, monospace; font-size: 0.9rem; }
+    .inline-code { background: #1a1a1a; padding: 2px 6px; border-radius: 4px; }
+    .try-btn {
+      display: inline-block; background: #22c55e; color: #000; 
+      padding: 8px 16px; border-radius: 6px; text-decoration: none;
+      font-weight: 600; margin-top: 10px; font-size: 0.9rem;
+    }
+    .try-btn:hover { background: #16a34a; }
+    .tab-container { margin: 20px 0; }
+    .tabs { display: flex; gap: 0; border-bottom: 1px solid #333; }
+    .tab { 
+      padding: 12px 24px; cursor: pointer; color: #888; 
+      border: 1px solid transparent; border-bottom: none;
+      background: transparent; font-size: 0.95rem;
+    }
+    .tab.active { 
+      color: #fff; background: #1a1a1a; 
+      border-color: #333; border-radius: 8px 8px 0 0;
+      margin-bottom: -1px;
+    }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+    .tools-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 15px; margin: 20px 0;
+    }
+    .tool-card {
+      background: #1a1a1a; padding: 15px; border-radius: 8px;
+      border: 1px solid #333;
+    }
+    .tool-name { font-weight: 600; color: #22c55e; }
+    .tool-desc { font-size: 0.85rem; color: #888; margin-top: 5px; }
+    .hero-curl {
+      background: linear-gradient(135deg, #1a1a2e 0%, #0a0a0a 100%);
+      padding: 30px; border-radius: 12px; margin: 30px 0;
+      border: 1px solid #333;
+    }
+    .badge {
+      display: inline-block; background: #22c55e20; color: #22c55e;
+      padding: 4px 12px; border-radius: 20px; font-size: 0.8rem;
+      margin-bottom: 20px;
+    }
+    a { color: #22c55e; }
+    .copy-btn {
+      position: absolute; top: 10px; right: 10px;
+      background: #333; border: none; color: #fff;
+      padding: 5px 10px; border-radius: 4px; cursor: pointer;
+      font-size: 0.8rem;
+    }
+    .code-block { position: relative; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <span class="badge">Zero Config • No API Keys • Free Tier</span>
+    <h1>Integrate in 60 Seconds</h1>
+    <p class="subtitle">Add 22 tools to any AI agent. Works with every framework.</p>
+    
+    <div class="hero-curl">
+      <h3>Try it now (no signup)</h3>
+      <div class="code-block">
+        <pre><code>curl -X POST https://tryautropic.com/mcp/weather/tools/call \
+  -H "Content-Type: application/json" \
+  -d '{"name":"get_weather","arguments":{"location":"San Francisco"}}'</code></pre>
+      </div>
+      <a href="/demo" class="try-btn">▶ Live Demo</a>
+    </div>
+
+    <h2>Choose Your Framework</h2>
+    
+    <div class="tab-container">
+      <div class="tabs">
+        <div class="tab active" data-tab="langchain">LangChain</div>
+        <div class="tab" data-tab="crewai">CrewAI</div>
+        <div class="tab" data-tab="autogpt">AutoGPT</div>
+        <div class="tab" data-tab="openai">OpenAI</div>
+        <div class="tab" data-tab="js">JavaScript</div>
+        <div class="tab" data-tab="raw">Raw HTTP</div>
+      </div>
+      
+      <div id="langchain" class="tab-content active">
+        <h3>LangChain (Python)</h3>
+        <pre><code>import requests
+from langchain.tools import Tool
+
+def call_autropic(server, tool, args):
+    r = requests.post(f"https://tryautropic.com/mcp/{server}/tools/call",
+                      json={"name": tool, "arguments": args})
+    return r.json().get("content", r.json())
+
+# Create tools
+weather_tool = Tool(
+    name="weather",
+    description="Get current weather for any location",
+    func=lambda loc: call_autropic("weather", "get_weather", {"location": loc})
+)
+
+crypto_tool = Tool(
+    name="crypto_price",
+    description="Get cryptocurrency prices",
+    func=lambda sym: call_autropic("crypto-prices", "get_price", {"symbol": sym})
+)
+
+# Use with any LangChain agent
+from langchain.agents import create_react_agent
+agent = create_react_agent(llm, [weather_tool, crypto_tool], prompt)</code></pre>
+        <a href="https://github.com/autropic/autropic-tools/blob/main/python/langchain_autropic.py" class="try-btn">Full Integration →</a>
+      </div>
+      
+      <div id="crewai" class="tab-content">
+        <h3>CrewAI</h3>
+        <pre><code>from crewai.tools import BaseTool
+import requests
+
+class WeatherTool(BaseTool):
+    name = "Weather Lookup"
+    description = "Get current weather for any location"
+    
+    def _run(self, location: str) -> str:
+        r = requests.post("https://tryautropic.com/mcp/weather/tools/call",
+                         json={"name": "get_weather", "arguments": {"location": location}})
+        return str(r.json().get("content"))
+
+class CryptoTool(BaseTool):
+    name = "Crypto Price"
+    description = "Get cryptocurrency prices (BTC, ETH, etc)"
+    
+    def _run(self, symbol: str) -> str:
+        r = requests.post("https://tryautropic.com/mcp/crypto-prices/tools/call",
+                         json={"name": "get_price", "arguments": {"symbol": symbol}})
+        return str(r.json().get("content"))
+
+# Use with CrewAI
+from crewai import Agent
+researcher = Agent(
+    role='Research Assistant',
+    tools=[WeatherTool(), CryptoTool()],
+    ...
+)</code></pre>
+        <a href="https://github.com/autropic/autropic-tools/blob/main/python/crewai_autropic.py" class="try-btn">Full Integration →</a>
+      </div>
+      
+      <div id="autogpt" class="tab-content">
+        <h3>AutoGPT Block</h3>
+        <pre><code># Add to autogpt_platform/backend/backend/blocks/autropic.py
+
+from backend.data.block import Block, BlockCategory, BlockOutput, BlockSchema
+from backend.data.model import SchemaField
+import requests
+
+class AuotropicWeatherBlock(Block):
+    class Input(BlockSchema):
+        location: str = SchemaField(description="City or location")
+    
+    class Output(BlockSchema):
+        weather: str = SchemaField(description="Weather data")
+        error: str = SchemaField(description="Error if failed")
+    
+    def __init__(self):
+        super().__init__(
+            id="autropic-weather",
+            description="Get current weather (via Autropic)",
+            categories={BlockCategory.TOOLS},
+            input_schema=self.Input,
+            output_schema=self.Output,
+        )
+    
+    def run(self, input_data, **kwargs):
+        try:
+            r = requests.post("https://tryautropic.com/mcp/weather/tools/call",
+                            json={"name": "get_weather", 
+                                  "arguments": {"location": input_data.location}})
+            yield "weather", str(r.json().get("content"))
+        except Exception as e:
+            yield "error", str(e)</code></pre>
+        <a href="https://github.com/autropic/autropic-tools/blob/main/autogpt/blocks.py" class="try-btn">Full Integration →</a>
+      </div>
+      
+      <div id="openai" class="tab-content">
+        <h3>OpenAI Function Calling</h3>
+        <pre><code>import openai
+import requests
+
+# Define functions
+functions = [{
+    "name": "get_weather",
+    "description": "Get current weather for a location",
+    "parameters": {
+        "type": "object",
+        "properties": {"location": {"type": "string"}},
+        "required": ["location"]
+    }
+}]
+
+# Handle function calls
+def handle_function(name, args):
+    endpoints = {
+        "get_weather": ("weather", "get_weather"),
+        "get_crypto": ("crypto-prices", "get_price"),
+        "calculate": ("calculator", "evaluate"),
+    }
+    server, tool = endpoints[name]
+    r = requests.post(f"https://tryautropic.com/mcp/{server}/tools/call",
+                      json={"name": tool, "arguments": args})
+    return r.json()
+
+# Use with OpenAI
+response = openai.chat.completions.create(
+    model="gpt-4",
+    messages=[{"role": "user", "content": "What's the weather in Tokyo?"}],
+    functions=functions
+)
+
+if response.choices[0].message.function_call:
+    fc = response.choices[0].message.function_call
+    result = handle_function(fc.name, json.loads(fc.arguments))
+    print(result)</code></pre>
+      </div>
+      
+      <div id="js" class="tab-content">
+        <h3>JavaScript / TypeScript</h3>
+        <pre><code>// Works in Node.js, Deno, Bun, browsers
+
+async function callTool(server, tool, args) {
+  const res = await fetch(`https://tryautropic.com/mcp/${server}/tools/call`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name: tool, arguments: args })
+  });
+  return res.json();
+}
+
+// Usage
+const weather = await callTool('weather', 'get_weather', { location: 'NYC' });
+const btcPrice = await callTool('crypto-prices', 'get_price', { symbol: 'BTC' });
+const calc = await callTool('calculator', 'evaluate', { expression: '2^10' });
+
+console.log(weather.content);  // { temperature: 45, conditions: 'Cloudy', ... }
+console.log(btcPrice.content); // { symbol: 'BTC', price: 97500, ... }
+console.log(calc.content);     // 1024</code></pre>
+        <pre><code># Or install the npm package
+npm install autropic-tools
+
+const { weather, crypto, search } = require('autropic-tools');
+const wx = await weather('London');
+const btc = await crypto('BTC');</code></pre>
+      </div>
+      
+      <div id="raw" class="tab-content">
+        <h3>Raw HTTP (any language)</h3>
+        <pre><code>POST https://tryautropic.com/mcp/{server}/tools/call
+Content-Type: application/json
+
+{
+  "name": "{tool_name}",
+  "arguments": { ... }
+}</code></pre>
+        <h4>Examples:</h4>
+        <pre><code># Weather
+POST /mcp/weather/tools/call
+{"name": "get_weather", "arguments": {"location": "Paris"}}
+
+# Time
+POST /mcp/time/tools/call  
+{"name": "get_current_time", "arguments": {"timezone": "Europe/London"}}
+
+# Crypto
+POST /mcp/crypto-prices/tools/call
+{"name": "get_price", "arguments": {"symbol": "ETH"}}
+
+# Calculator
+POST /mcp/calculator/tools/call
+{"name": "evaluate", "arguments": {"expression": "sqrt(144) * 3"}}
+
+# Discover tools by need
+GET /discover?q=convert+currency</code></pre>
+      </div>
+    </div>
+
+    <h2>Available Tools (22)</h2>
+    <div class="tools-grid">
+      <div class="tool-card">
+        <div class="tool-name">weather</div>
+        <div class="tool-desc">Current weather for any location</div>
+      </div>
+      <div class="tool-card">
+        <div class="tool-name">time</div>
+        <div class="tool-desc">Current time in any timezone</div>
+      </div>
+      <div class="tool-card">
+        <div class="tool-name">search</div>
+        <div class="tool-desc">Web search</div>
+      </div>
+      <div class="tool-card">
+        <div class="tool-name">crypto-prices</div>
+        <div class="tool-desc">Cryptocurrency prices</div>
+      </div>
+      <div class="tool-card">
+        <div class="tool-name">calculator</div>
+        <div class="tool-desc">Math expression evaluation</div>
+      </div>
+      <div class="tool-card">
+        <div class="tool-name">geo</div>
+        <div class="tool-desc">Geocoding (address → coords)</div>
+      </div>
+      <div class="tool-card">
+        <div class="tool-name">currency</div>
+        <div class="tool-desc">Currency conversion</div>
+      </div>
+      <div class="tool-card">
+        <div class="tool-name">dns</div>
+        <div class="tool-desc">DNS lookups</div>
+      </div>
+      <div class="tool-card">
+        <div class="tool-name">uuid</div>
+        <div class="tool-desc">UUID generation</div>
+      </div>
+      <div class="tool-card">
+        <div class="tool-name">hash</div>
+        <div class="tool-desc">Hash text (MD5, SHA256, etc)</div>
+      </div>
+      <div class="tool-card">
+        <div class="tool-name">base64</div>
+        <div class="tool-desc">Encode/decode base64</div>
+      </div>
+      <div class="tool-card">
+        <div class="tool-name">random</div>
+        <div class="tool-desc">Random number generation</div>
+      </div>
+      <div class="tool-card">
+        <div class="tool-name">url</div>
+        <div class="tool-desc">URL parsing</div>
+      </div>
+      <div class="tool-card">
+        <div class="tool-name">text</div>
+        <div class="tool-desc">Text manipulation</div>
+      </div>
+      <div class="tool-card">
+        <div class="tool-name">regex</div>
+        <div class="tool-desc">Regex matching</div>
+      </div>
+      <div class="tool-card">
+        <div class="tool-name">datetime</div>
+        <div class="tool-desc">Date/time parsing</div>
+      </div>
+      <div class="tool-card">
+        <div class="tool-name">markdown</div>
+        <div class="tool-desc">Markdown rendering</div>
+      </div>
+      <div class="tool-card">
+        <div class="tool-name">memory</div>
+        <div class="tool-desc">Key-value storage</div>
+      </div>
+      <div class="tool-card">
+        <div class="tool-name">fetch</div>
+        <div class="tool-desc">HTTP requests</div>
+      </div>
+      <div class="tool-card">
+        <div class="tool-name">email</div>
+        <div class="tool-desc">Email validation</div>
+      </div>
+      <div class="tool-card">
+        <div class="tool-name">json</div>
+        <div class="tool-desc">JSON operations</div>
+      </div>
+    </div>
+
+    <h2>Why Hosted Tools?</h2>
+    <ul style="margin-left: 20px; color: #aaa;">
+      <li><strong>Zero setup</strong> - No API keys, no config files, no dependencies</li>
+      <li><strong>Always current</strong> - We update APIs, you get new features automatically</li>
+      <li><strong>Any platform</strong> - Works in Python, JS, Go, Rust, curl, anywhere with HTTP</li>
+      <li><strong>Runtime discovery</strong> - Agents can find tools they need on the fly</li>
+      <li><strong>Free tier</strong> - Basic tools free forever, pay only for premium at scale</li>
+    </ul>
+
+    <div style="margin-top: 60px; padding: 30px; background: #1a1a1a; border-radius: 12px; text-align: center;">
+      <h3>Ready to build?</h3>
+      <p style="color: #888; margin: 15px 0;">Questions? Feature requests?</p>
+      <a href="mailto:hello@autropic.com" class="try-btn">Contact Us</a>
+      <a href="https://github.com/autropic/autropic-tools" class="try-btn" style="background: #333; color: #fff; margin-left: 10px;">GitHub</a>
+    </div>
+  </div>
+
+  <script>
+    document.querySelectorAll('.tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        tab.classList.add('active');
+        document.getElementById(tab.dataset.tab).classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>
