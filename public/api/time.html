@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Free Time API - Get Current Time Any Timezone | Autropic</title>
+  <meta name="description" content="Get current time in any timezone via HTTP POST. No API key required. Perfect for AI agents and automation.">
+  <meta name="keywords" content="free time API, current time API, timezone API no key, time API no authentication, world clock API">
+  <link rel="canonical" href="https://tryautropic.com/api/time">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: system-ui, sans-serif; background: #0a0a0a; color: #e0e0e0; line-height: 1.7; }
+    .container { max-width: 800px; margin: 0 auto; padding: 40px 20px; }
+    h1 { font-size: 2rem; margin-bottom: 10px; color: #fff; }
+    .tagline { color: #22c55e; font-size: 1.1rem; margin-bottom: 30px; }
+    h2 { font-size: 1.3rem; margin: 35px 0 15px; color: #fff; }
+    pre { background: #1a1a1a; padding: 20px; border-radius: 8px; overflow-x: auto; margin: 15px 0; border: 1px solid #333; }
+    code { font-family: 'SF Mono', Monaco, monospace; font-size: 0.9rem; }
+    .highlight { background: #22c55e20; border-left: 3px solid #22c55e; padding: 15px; margin: 20px 0; }
+    ul { margin-left: 25px; margin-bottom: 20px; }
+    li { margin: 8px 0; }
+    a { color: #22c55e; }
+    .try-btn { display: inline-block; background: #22c55e; color: #000; padding: 10px 20px; border-radius: 6px; text-decoration: none; font-weight: 600; margin-top: 15px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Free Time/Timezone API</h1>
+    <p class="tagline">Current time anywhere. No API key needed.</p>
+    
+    <div class="highlight">
+      <strong>Endpoint:</strong> <code>POST https://tryautropic.com/mcp/time/tools/call</code><br>
+      <strong>Authentication:</strong> None required
+    </div>
+
+    <h2>Quick Start</h2>
+    <pre><code>curl -X POST https://tryautropic.com/mcp/time/tools/call \
+  -H "Content-Type: application/json" \
+  -d '{"name":"get_current_time","arguments":{"timezone":"America/New_York"}}'</code></pre>
+
+    <h2>Response</h2>
+    <pre><code>{
+  "content": {
+    "timezone": "America/New_York",
+    "datetime": "2026-02-12T04:18:00-05:00",
+    "date": "2026-02-12",
+    "time": "04:18:00",
+    "day": "Thursday",
+    "unix": 1739350680
+  }
+}</code></pre>
+
+    <h2>Parameters</h2>
+    <ul>
+      <li><code>timezone</code> (optional) - IANA timezone (e.g., "Europe/London", "Asia/Tokyo"). Defaults to UTC.</li>
+    </ul>
+
+    <h2>Common Timezones</h2>
+    <ul>
+      <li><code>America/New_York</code> - US Eastern</li>
+      <li><code>America/Los_Angeles</code> - US Pacific</li>
+      <li><code>Europe/London</code> - UK</li>
+      <li><code>Europe/Paris</code> - Central Europe</li>
+      <li><code>Asia/Tokyo</code> - Japan</li>
+      <li><code>Asia/Shanghai</code> - China</li>
+      <li><code>Australia/Sydney</code> - Australia Eastern</li>
+    </ul>
+
+    <h2>Python Example</h2>
+    <pre><code>import requests
+
+response = requests.post(
+    "https://tryautropic.com/mcp/time/tools/call",
+    json={"name": "get_current_time", "arguments": {"timezone": "Asia/Tokyo"}}
+)
+time_data = response.json()["content"]
+print(f"Tokyo time: {time_data['time']}")</code></pre>
+
+    <h2>More Free APIs</h2>
+    <ul>
+      <li><a href="/api/weather">Weather API</a></li>
+      <li><a href="/api/crypto">Cryptocurrency Prices</a></li>
+      <li><a href="/api/calculator">Calculator</a></li>
+      <li><a href="/integrate">See all 22 tools →</a></li>
+    </ul>
+
+    <a href="/demo" class="try-btn">Try Live Demo</a>
+  </div>
+</body>
+</html>

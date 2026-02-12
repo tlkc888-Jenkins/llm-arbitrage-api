@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Free Calculator API - Evaluate Math Expressions | Autropic</title>
+  <meta name="description" content="Safely evaluate math expressions via HTTP. No API key. Supports complex math, variables, functions.">
+  <meta name="keywords" content="free calculator API, math API, evaluate expression API, math expression API no key, calculation API">
+  <link rel="canonical" href="https://tryautropic.com/api/calculator">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: system-ui, sans-serif; background: #0a0a0a; color: #e0e0e0; line-height: 1.7; }
+    .container { max-width: 800px; margin: 0 auto; padding: 40px 20px; }
+    h1 { font-size: 2rem; margin-bottom: 10px; color: #fff; }
+    .tagline { color: #22c55e; font-size: 1.1rem; margin-bottom: 30px; }
+    h2 { font-size: 1.3rem; margin: 35px 0 15px; color: #fff; }
+    pre { background: #1a1a1a; padding: 20px; border-radius: 8px; overflow-x: auto; margin: 15px 0; border: 1px solid #333; }
+    code { font-family: 'SF Mono', Monaco, monospace; font-size: 0.9rem; }
+    .highlight { background: #22c55e20; border-left: 3px solid #22c55e; padding: 15px; margin: 20px 0; }
+    ul { margin-left: 25px; margin-bottom: 20px; }
+    li { margin: 8px 0; }
+    a { color: #22c55e; }
+    .try-btn { display: inline-block; background: #22c55e; color: #000; padding: 10px 20px; border-radius: 6px; text-decoration: none; font-weight: 600; margin-top: 15px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Free Calculator/Math API</h1>
+    <p class="tagline">Evaluate any math expression. No API key.</p>
+    
+    <div class="highlight">
+      <strong>Endpoint:</strong> <code>POST https://tryautropic.com/mcp/calculator/tools/call</code><br>
+      <strong>Authentication:</strong> None required<br>
+      <strong>Safety:</strong> Sandboxed evaluation, no code execution
+    </div>
+
+    <h2>Quick Start</h2>
+    <pre><code>curl -X POST https://tryautropic.com/mcp/calculator/tools/call \
+  -H "Content-Type: application/json" \
+  -d '{"name":"evaluate","arguments":{"expression":"(15 * 3) + sqrt(144)"}}'</code></pre>
+
+    <h2>Response</h2>
+    <pre><code>{
+  "content": {
+    "expression": "(15 * 3) + sqrt(144)",
+    "result": 57
+  }
+}</code></pre>
+
+    <h2>Supported Operations</h2>
+    <ul>
+      <li>Basic: <code>+ - * / %</code></li>
+      <li>Powers: <code>2^10</code> or <code>pow(2, 10)</code></li>
+      <li>Roots: <code>sqrt(16)</code>, <code>cbrt(27)</code></li>
+      <li>Trig: <code>sin, cos, tan, asin, acos, atan</code></li>
+      <li>Logarithms: <code>log, log10, log2, ln</code></li>
+      <li>Constants: <code>pi, e</code></li>
+      <li>Rounding: <code>round, floor, ceil, abs</code></li>
+    </ul>
+
+    <h2>Examples</h2>
+    <pre><code># Compound interest
+"(1 + 0.05)^10 * 1000"  → 1628.89
+
+# Circle area
+"pi * 5^2"  → 78.54
+
+# Hypotenuse
+"sqrt(3^2 + 4^2)"  → 5
+
+# Percentage
+"250 * 0.15"  → 37.5</code></pre>
+
+    <h2>Python Example</h2>
+    <pre><code>import requests
+
+def calculate(expr):
+    r = requests.post(
+        "https://tryautropic.com/mcp/calculator/tools/call",
+        json={"name": "evaluate", "arguments": {"expression": expr}}
+    )
+    return r.json()["content"]["result"]
+
+print(calculate("2^10"))  # 1024
+print(calculate("sin(pi/2)"))  # 1.0</code></pre>
+
+    <h2>Why Use This?</h2>
+    <ul>
+      <li>AI agents can't do math reliably - offload to this API</li>
+      <li>Safe evaluation (no arbitrary code execution)</li>
+      <li>Consistent results across all clients</li>
+      <li>No dependencies to install</li>
+    </ul>
+
+    <h2>More Free APIs</h2>
+    <ul>
+      <li><a href="/api/weather">Weather</a></li>
+      <li><a href="/api/crypto">Crypto Prices</a></li>
+      <li><a href="/api/currency">Currency Conversion</a></li>
+      <li><a href="/integrate">See all 22 tools →</a></li>
+    </ul>
+
+    <a href="/demo" class="try-btn">Try Live Demo</a>
+  </div>
+</body>
+</html>

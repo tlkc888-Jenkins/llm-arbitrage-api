@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Free Cryptocurrency Price API - No Key Required | Autropic</title>
+  <meta name="description" content="Get real-time crypto prices via HTTP. Bitcoin, Ethereum, and more. No API key, no signup.">
+  <meta name="keywords" content="free crypto API, cryptocurrency price API, bitcoin price API no key, ethereum price API free, crypto API no authentication">
+  <link rel="canonical" href="https://tryautropic.com/api/crypto">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: system-ui, sans-serif; background: #0a0a0a; color: #e0e0e0; line-height: 1.7; }
+    .container { max-width: 800px; margin: 0 auto; padding: 40px 20px; }
+    h1 { font-size: 2rem; margin-bottom: 10px; color: #fff; }
+    .tagline { color: #22c55e; font-size: 1.1rem; margin-bottom: 30px; }
+    h2 { font-size: 1.3rem; margin: 35px 0 15px; color: #fff; }
+    pre { background: #1a1a1a; padding: 20px; border-radius: 8px; overflow-x: auto; margin: 15px 0; border: 1px solid #333; }
+    code { font-family: 'SF Mono', Monaco, monospace; font-size: 0.9rem; }
+    .highlight { background: #22c55e20; border-left: 3px solid #22c55e; padding: 15px; margin: 20px 0; }
+    ul { margin-left: 25px; margin-bottom: 20px; }
+    li { margin: 8px 0; }
+    a { color: #22c55e; }
+    .try-btn { display: inline-block; background: #22c55e; color: #000; padding: 10px 20px; border-radius: 6px; text-decoration: none; font-weight: 600; margin-top: 15px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Free Cryptocurrency Price API</h1>
+    <p class="tagline">Real-time crypto prices. No API key needed.</p>
+    
+    <div class="highlight">
+      <strong>Endpoint:</strong> <code>POST https://tryautropic.com/mcp/crypto-prices/tools/call</code><br>
+      <strong>Authentication:</strong> None required
+    </div>
+
+    <h2>Quick Start</h2>
+    <pre><code>curl -X POST https://tryautropic.com/mcp/crypto-prices/tools/call \
+  -H "Content-Type: application/json" \
+  -d '{"name":"get_price","arguments":{"symbol":"BTC"}}'</code></pre>
+
+    <h2>Response</h2>
+    <pre><code>{
+  "content": {
+    "symbol": "BTC",
+    "name": "Bitcoin",
+    "price_usd": 97523.45,
+    "change_24h": 2.3,
+    "market_cap": 1920000000000,
+    "updated_at": "2026-02-12T09:15:00Z"
+  }
+}</code></pre>
+
+    <h2>Supported Cryptocurrencies</h2>
+    <ul>
+      <li><code>BTC</code> - Bitcoin</li>
+      <li><code>ETH</code> - Ethereum</li>
+      <li><code>SOL</code> - Solana</li>
+      <li><code>XRP</code> - Ripple</li>
+      <li><code>ADA</code> - Cardano</li>
+      <li><code>DOGE</code> - Dogecoin</li>
+      <li>And 100+ more...</li>
+    </ul>
+
+    <h2>Python Example</h2>
+    <pre><code>import requests
+
+def get_crypto_price(symbol):
+    response = requests.post(
+        "https://tryautropic.com/mcp/crypto-prices/tools/call",
+        json={"name": "get_price", "arguments": {"symbol": symbol}}
+    )
+    return response.json()["content"]
+
+btc = get_crypto_price("BTC")
+eth = get_crypto_price("ETH")
+print(f"BTC: ${btc['price_usd']:,.2f}")
+print(f"ETH: ${eth['price_usd']:,.2f}")</code></pre>
+
+    <h2>Use Cases</h2>
+    <ul>
+      <li>AI agents tracking portfolio values</li>
+      <li>Chatbots answering crypto price questions</li>
+      <li>Trading bots (for display, not trading signals)</li>
+      <li>Dashboards and alerts</li>
+    </ul>
+
+    <h2>More Free APIs</h2>
+    <ul>
+      <li><a href="/api/weather">Weather API</a></li>
+      <li><a href="/api/time">Time/Timezone API</a></li>
+      <li><a href="/api/currency">Currency Conversion</a></li>
+      <li><a href="/integrate">See all 22 tools →</a></li>
+    </ul>
+
+    <a href="/demo" class="try-btn">Try Live Demo</a>
+  </div>
+</body>
+</html>
