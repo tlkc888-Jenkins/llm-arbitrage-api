@@ -25,6 +25,37 @@ app.use((req, res, next) => {
   next();
 });
 
+// === LLM Discovery Files ===
+// For AI assistants to discover our tools (copying Composio's playbook)
+app.get('/llms.txt', (req, res) => {
+  res.type('text/plain').sendFile(path.join(__dirname, 'public', 'llms.txt'));
+});
+
+app.get('/llms-full.txt', (req, res) => {
+  res.type('text/plain').sendFile(path.join(__dirname, 'public', 'llms-full.txt'));
+});
+
+// Clean URLs for HTML pages
+app.get('/integrate', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'integrate.html'));
+});
+
+app.get('/api/weather', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'api', 'weather.html'));
+});
+
+app.get('/api/time', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'api', 'time.html'));
+});
+
+app.get('/api/crypto', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'api', 'crypto.html'));
+});
+
+app.get('/api/calculator', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'api', 'calculator.html'));
+});
+
 // === API Routes ===
 
 // List servers (JSON API)
