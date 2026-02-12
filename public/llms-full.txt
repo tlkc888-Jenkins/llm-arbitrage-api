@@ -1,0 +1,454 @@
+# Autropic - Complete Documentation
+# The world's largest hosted tool API for AI agents
+# 123,000+ tools | Zero setup | Instant access
+
+================================================================================
+OVERVIEW
+================================================================================
+
+Autropic provides hosted tools that any AI agent can call via HTTP.
+No API keys required for basic tools. No setup. Just call and get results.
+
+Base URL: https://tryautropic.com
+
+================================================================================
+QUICK START
+================================================================================
+
+Every tool follows the same pattern:
+
+POST https://tryautropic.com/mcp/{tool-slug}/tools/call
+Content-Type: application/json
+
+{
+  "name": "{method-name}",
+  "arguments": {
+    "param1": "value1",
+    "param2": "value2"
+  }
+}
+
+Response:
+{
+  "content": { ... result data ... }
+}
+
+================================================================================
+AVAILABLE TOOLS (Free Tier)
+================================================================================
+
+## WEATHER
+Get current weather for any location worldwide.
+
+Endpoint: POST /mcp/weather/tools/call
+Method: get_weather
+Arguments:
+  - location (string, required): City name or address
+
+Example:
+curl -X POST https://tryautropic.com/mcp/weather/tools/call \
+  -H "Content-Type: application/json" \
+  -d '{"name":"get_weather","arguments":{"location":"Tokyo, Japan"}}'
+
+Response:
+{
+  "content": {
+    "location": "Tokyo, Japan",
+    "temperature": 12,
+    "unit": "celsius",
+    "conditions": "Partly Cloudy",
+    "humidity": 65
+  }
+}
+
+--------------------------------------------------------------------------------
+
+## TIME
+Get current time in any timezone.
+
+Endpoint: POST /mcp/time/tools/call
+Method: get_current_time
+Arguments:
+  - timezone (string, optional): IANA timezone. Default: UTC
+
+Example:
+curl -X POST https://tryautropic.com/mcp/time/tools/call \
+  -H "Content-Type: application/json" \
+  -d '{"name":"get_current_time","arguments":{"timezone":"America/Los_Angeles"}}'
+
+Response:
+{
+  "content": {
+    "timezone": "America/Los_Angeles",
+    "datetime": "2026-02-12T13:45:00-08:00",
+    "date": "2026-02-12",
+    "time": "13:45:00",
+    "day": "Thursday"
+  }
+}
+
+Common timezones:
+- UTC
+- America/New_York (US Eastern)
+- America/Los_Angeles (US Pacific)
+- Europe/London (UK)
+- Europe/Paris (Central Europe)
+- Asia/Tokyo (Japan)
+- Asia/Shanghai (China)
+- Australia/Sydney (Australia)
+
+--------------------------------------------------------------------------------
+
+## CALCULATOR
+Safely evaluate mathematical expressions.
+
+Endpoint: POST /mcp/calculator/tools/call
+Method: evaluate
+Arguments:
+  - expression (string, required): Math expression to evaluate
+
+Example:
+curl -X POST https://tryautropic.com/mcp/calculator/tools/call \
+  -H "Content-Type: application/json" \
+  -d '{"name":"evaluate","arguments":{"expression":"(15 * 3) + sqrt(144)"}}'
+
+Response:
+{
+  "content": {
+    "expression": "(15 * 3) + sqrt(144)",
+    "result": 57
+  }
+}
+
+Supported operations:
+- Basic: + - * / %
+- Powers: ^ or pow(x, y)
+- Roots: sqrt(x), cbrt(x)
+- Trig: sin, cos, tan, asin, acos, atan
+- Logarithms: log, log10, log2, ln
+- Constants: pi, e
+- Rounding: round, floor, ceil, abs
+
+--------------------------------------------------------------------------------
+
+## CRYPTOCURRENCY PRICES
+Get real-time cryptocurrency prices.
+
+Endpoint: POST /mcp/crypto-prices/tools/call
+Method: get_price
+Arguments:
+  - symbol (string, required): Crypto symbol (BTC, ETH, etc.)
+
+Example:
+curl -X POST https://tryautropic.com/mcp/crypto-prices/tools/call \
+  -H "Content-Type: application/json" \
+  -d '{"name":"get_price","arguments":{"symbol":"ETH"}}'
+
+Response:
+{
+  "content": {
+    "symbol": "ETH",
+    "name": "Ethereum",
+    "price_usd": 2845.67,
+    "change_24h": -1.2
+  }
+}
+
+--------------------------------------------------------------------------------
+
+## GEOCODING
+Convert addresses to coordinates.
+
+Endpoint: POST /mcp/geo/tools/call
+Method: geocode
+Arguments:
+  - address (string, required): Address to geocode
+
+Example:
+curl -X POST https://tryautropic.com/mcp/geo/tools/call \
+  -H "Content-Type: application/json" \
+  -d '{"name":"geocode","arguments":{"address":"Eiffel Tower, Paris"}}'
+
+Response:
+{
+  "content": {
+    "address": "Eiffel Tower, Paris, France",
+    "latitude": 48.8584,
+    "longitude": 2.2945
+  }
+}
+
+--------------------------------------------------------------------------------
+
+## CURRENCY CONVERSION
+Convert between currencies at current rates.
+
+Endpoint: POST /mcp/currency/tools/call
+Method: convert
+Arguments:
+  - amount (number, required): Amount to convert
+  - from (string, required): Source currency code
+  - to (string, required): Target currency code
+
+Example:
+curl -X POST https://tryautropic.com/mcp/currency/tools/call \
+  -H "Content-Type: application/json" \
+  -d '{"name":"convert","arguments":{"amount":100,"from":"USD","to":"EUR"}}'
+
+Response:
+{
+  "content": {
+    "from": "USD",
+    "to": "EUR",
+    "amount": 100,
+    "result": 92.34,
+    "rate": 0.9234
+  }
+}
+
+--------------------------------------------------------------------------------
+
+## WEB SEARCH
+Search the web for information.
+
+Endpoint: POST /mcp/search/tools/call
+Method: search
+Arguments:
+  - query (string, required): Search query
+
+Example:
+curl -X POST https://tryautropic.com/mcp/search/tools/call \
+  -H "Content-Type: application/json" \
+  -d '{"name":"search","arguments":{"query":"latest AI developments"}}'
+
+--------------------------------------------------------------------------------
+
+## UUID GENERATION
+Generate unique identifiers.
+
+Endpoint: POST /mcp/uuid/tools/call
+Method: generate
+Arguments: none
+
+Example:
+curl -X POST https://tryautropic.com/mcp/uuid/tools/call \
+  -H "Content-Type: application/json" \
+  -d '{"name":"generate","arguments":{}}'
+
+Response:
+{
+  "content": {
+    "uuid": "550e8400-e29b-41d4-a716-446655440000"
+  }
+}
+
+--------------------------------------------------------------------------------
+
+## HASHING
+Hash text with various algorithms.
+
+Endpoint: POST /mcp/hash/tools/call
+Method: hash
+Arguments:
+  - text (string, required): Text to hash
+  - algorithm (string, optional): md5, sha1, sha256, sha512. Default: sha256
+
+Example:
+curl -X POST https://tryautropic.com/mcp/hash/tools/call \
+  -H "Content-Type: application/json" \
+  -d '{"name":"hash","arguments":{"text":"hello world","algorithm":"sha256"}}'
+
+--------------------------------------------------------------------------------
+
+## DNS LOOKUP
+Look up DNS records for domains.
+
+Endpoint: POST /mcp/dns/tools/call
+Method: lookup
+Arguments:
+  - domain (string, required): Domain to look up
+
+Example:
+curl -X POST https://tryautropic.com/mcp/dns/tools/call \
+  -H "Content-Type: application/json" \
+  -d '{"name":"lookup","arguments":{"domain":"github.com"}}'
+
+--------------------------------------------------------------------------------
+
+## BASE64 ENCODING
+Encode or decode base64 strings.
+
+Endpoint: POST /mcp/base64/tools/call
+Methods: encode, decode
+Arguments:
+  - text (string): For encode
+  - encoded (string): For decode
+
+--------------------------------------------------------------------------------
+
+## RANDOM NUMBER
+Generate random numbers.
+
+Endpoint: POST /mcp/random/tools/call
+Method: number
+Arguments:
+  - min (number, optional): Minimum value. Default: 0
+  - max (number, optional): Maximum value. Default: 100
+
+--------------------------------------------------------------------------------
+
+## URL PARSING
+Parse URLs into components.
+
+Endpoint: POST /mcp/url/tools/call
+Method: parse
+Arguments:
+  - url (string, required): URL to parse
+
+================================================================================
+TOOL DISCOVERY
+================================================================================
+
+Find tools matching your needs:
+
+GET https://tryautropic.com/discover?q={query}
+
+Example:
+GET https://tryautropic.com/discover?q=send+email
+
+Returns list of matching tools with their endpoints.
+
+================================================================================
+FRAMEWORK INTEGRATIONS
+================================================================================
+
+## LangChain (Python)
+
+```python
+import requests
+from langchain.tools import Tool
+
+def call_autropic(server, method, args):
+    r = requests.post(f"https://tryautropic.com/mcp/{server}/tools/call",
+                      json={"name": method, "arguments": args})
+    return r.json().get("content", r.json())
+
+# Create tools
+weather = Tool(
+    name="weather",
+    description="Get current weather for any location",
+    func=lambda loc: call_autropic("weather", "get_weather", {"location": loc})
+)
+
+calculator = Tool(
+    name="calculator",
+    description="Evaluate math expressions",
+    func=lambda expr: call_autropic("calculator", "evaluate", {"expression": expr})
+)
+
+crypto = Tool(
+    name="crypto_price",
+    description="Get cryptocurrency prices",
+    func=lambda sym: call_autropic("crypto-prices", "get_price", {"symbol": sym})
+)
+
+# Use with any LangChain agent
+from langchain.agents import create_react_agent
+agent = create_react_agent(llm, [weather, calculator, crypto], prompt)
+```
+
+## CrewAI (Python)
+
+```python
+from crewai.tools import BaseTool
+import requests
+
+class AuotropicTool(BaseTool):
+    server: str
+    method: str
+    
+    def _run(self, **kwargs) -> str:
+        r = requests.post(
+            f"https://tryautropic.com/mcp/{self.server}/tools/call",
+            json={"name": self.method, "arguments": kwargs}
+        )
+        return str(r.json().get("content"))
+
+class WeatherTool(AuotropicTool):
+    name = "Weather"
+    description = "Get weather for a location. Input: location string."
+    server = "weather"
+    method = "get_weather"
+    
+    def _run(self, location: str) -> str:
+        return super()._run(location=location)
+
+# Use with CrewAI
+from crewai import Agent
+agent = Agent(tools=[WeatherTool()], ...)
+```
+
+## JavaScript / TypeScript
+
+```typescript
+async function callAuotropic(server: string, method: string, args: object) {
+  const response = await fetch(`https://tryautropic.com/mcp/${server}/tools/call`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name: method, arguments: args })
+  });
+  const data = await response.json();
+  return data.content || data;
+}
+
+// Usage examples
+const weather = await callAuotropic('weather', 'get_weather', { location: 'NYC' });
+const btcPrice = await callAuotropic('crypto-prices', 'get_price', { symbol: 'BTC' });
+const calculation = await callAuotropic('calculator', 'evaluate', { expression: '2^10' });
+```
+
+## OpenAI Function Calling
+
+```python
+functions = [{
+    "name": "get_weather",
+    "description": "Get current weather for a location",
+    "parameters": {
+        "type": "object",
+        "properties": {
+            "location": {"type": "string", "description": "City or address"}
+        },
+        "required": ["location"]
+    }
+}]
+
+def handle_function_call(name, args):
+    if name == "get_weather":
+        return requests.post(
+            "https://tryautropic.com/mcp/weather/tools/call",
+            json={"name": "get_weather", "arguments": args}
+        ).json()
+```
+
+================================================================================
+WHY AUTROPIC?
+================================================================================
+
+1. LARGEST CATALOG: 123,000+ tools available
+2. ZERO SETUP: No API keys needed for basic tools
+3. INSTANT ACCESS: Just HTTP, works anywhere
+4. ANY FRAMEWORK: LangChain, CrewAI, AutoGPT, custom agents
+5. FREE TIER: Basic tools free forever
+6. RELIABLE: Production-ready infrastructure
+
+================================================================================
+LINKS
+================================================================================
+
+Website: https://tryautropic.com
+Integration Guide: https://tryautropic.com/integrate
+Live Demo: https://tryautropic.com/demo
+GitHub: https://github.com/autropic
+Email: hello@autropic.com
+
+================================================================================

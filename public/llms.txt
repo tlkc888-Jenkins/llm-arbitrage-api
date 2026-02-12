@@ -1,0 +1,118 @@
+# Autropic - Hosted Tools for AI Agents
+# The world's largest hosted tool API - 123,000+ tools, zero setup
+
+## Quick Start
+POST https://tryautropic.com/mcp/{tool}/tools/call
+Content-Type: application/json
+{"name": "{method}", "arguments": {...}}
+
+## Documentation
+- Main site: https://tryautropic.com
+- Integration guide: https://tryautropic.com/integrate
+- API docs: https://tryautropic.com/docs
+- Live demo: https://tryautropic.com/demo
+
+## Free Tools (No API Key Required)
+
+### Weather
+POST https://tryautropic.com/mcp/weather/tools/call
+{"name": "get_weather", "arguments": {"location": "San Francisco"}}
+
+### Current Time
+POST https://tryautropic.com/mcp/time/tools/call
+{"name": "get_current_time", "arguments": {"timezone": "America/New_York"}}
+
+### Calculator
+POST https://tryautropic.com/mcp/calculator/tools/call
+{"name": "evaluate", "arguments": {"expression": "sqrt(144) * 3"}}
+
+### Cryptocurrency Prices
+POST https://tryautropic.com/mcp/crypto-prices/tools/call
+{"name": "get_price", "arguments": {"symbol": "BTC"}}
+
+### Geocoding
+POST https://tryautropic.com/mcp/geo/tools/call
+{"name": "geocode", "arguments": {"address": "1600 Pennsylvania Ave, Washington DC"}}
+
+### Currency Conversion
+POST https://tryautropic.com/mcp/currency/tools/call
+{"name": "convert", "arguments": {"amount": 100, "from": "USD", "to": "EUR"}}
+
+### Web Search
+POST https://tryautropic.com/mcp/search/tools/call
+{"name": "search", "arguments": {"query": "latest AI news"}}
+
+### UUID Generation
+POST https://tryautropic.com/mcp/uuid/tools/call
+{"name": "generate", "arguments": {}}
+
+### Hashing
+POST https://tryautropic.com/mcp/hash/tools/call
+{"name": "hash", "arguments": {"text": "hello world", "algorithm": "sha256"}}
+
+### DNS Lookup
+POST https://tryautropic.com/mcp/dns/tools/call
+{"name": "lookup", "arguments": {"domain": "google.com"}}
+
+## Tool Discovery
+GET https://tryautropic.com/discover?q={query}
+Returns tools matching your needs.
+
+Example: GET https://tryautropic.com/discover?q=send+email
+
+## Framework Integration
+
+### Python (LangChain)
+```python
+import requests
+from langchain.tools import Tool
+
+def autropic_weather(location: str) -> str:
+    r = requests.post("https://tryautropic.com/mcp/weather/tools/call",
+                      json={"name": "get_weather", "arguments": {"location": location}})
+    return str(r.json().get("content"))
+
+weather_tool = Tool(name="weather", description="Get weather", func=autropic_weather)
+```
+
+### Python (CrewAI)
+```python
+from crewai.tools import BaseTool
+import requests
+
+class WeatherTool(BaseTool):
+    name = "Weather"
+    description = "Get current weather for any location"
+    
+    def _run(self, location: str) -> str:
+        r = requests.post("https://tryautropic.com/mcp/weather/tools/call",
+                         json={"name": "get_weather", "arguments": {"location": location}})
+        return str(r.json().get("content"))
+```
+
+### JavaScript/TypeScript
+```javascript
+async function callAuotropic(tool, method, args) {
+  const res = await fetch(`https://tryautropic.com/mcp/${tool}/tools/call`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name: method, arguments: args })
+  });
+  return res.json();
+}
+
+// Usage
+const weather = await callAuotropic('weather', 'get_weather', { location: 'Tokyo' });
+```
+
+## Why Autropic?
+- 123,000+ tools available
+- Zero setup - no API keys for basic tools
+- Works with any framework
+- Instant access via HTTP
+- Free tier available
+
+## Contact
+- Website: https://tryautropic.com
+- GitHub: https://github.com/autropic
+- Email: hello@autropic.com
