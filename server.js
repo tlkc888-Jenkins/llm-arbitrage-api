@@ -323,6 +323,283 @@ app.post('/discover', express.json(), (req, res) => {
   app.handle(req, res);
 });
 
+// === PERFECT MATCH API — Smart tool matching for agents ===
+
+// Enhanced scoring with multiple factors
+function calculateMatchScore(query, server, toolDetails) {
+  const queryLower = query.toLowerCase();
+  const queryWords = queryLower.split(/\s+/).filter(w => w.length > 2);
+  
+  let score = 0;
+  let factors = {};
+  
+  // Factor 1: Tool name exact match (highest weight)
+  const toolNames = server.tools || [];
+  for (const tool of toolNames) {
+    if (queryLower.includes(tool.replace(/_/g, ' ')) || queryLower.includes(tool)) {
+      factors.tool_name_match = 0.3;
+      score += 0.3;
+      break;
+    }
+  }
+  
+  // Factor 2: Server name match
+  const serverNameLower = (server.name || '').toLowerCase();
+  for (const word of queryWords) {
+    if (serverNameLower.includes(word)) {
+      factors.server_name = 0.15;
+      score += 0.15;
+      break;
+    }
+  }
+  
+  // Factor 3: Description semantic match
+  const descLower = (server.description || '').toLowerCase();
+  let descMatches = 0;
+  for (const word of queryWords) {
+    if (descLower.includes(word)) descMatches++;
+  }
+  if (queryWords.length > 0) {
+    const descScore = (descMatches / queryWords.length) * 0.25;
+    factors.description = Math.round(descScore * 100) / 100;
+    score += descScore;
+  }
+  
+  // Factor 4: Keyword synonyms and related terms
+  const synonymMap = {
+    'email': ['mail', 'send', 'message', 'smtp'],
+    'time': ['date', 'clock', 'timezone', 'now', 'current'],
+    'validate': ['check', 'verify', 'valid', 'test'],
+    'generate': ['create', 'make', 'produce', 'new'],
+    'convert': ['transform', 'change', 'format'],
+    'hash': ['encrypt', 'sha', 'md5', 'checksum'],
+    'random': ['generate', 'uuid', 'password'],
+    'url': ['link', 'web', 'http', 'uri'],
+    'json': ['parse', 'format', 'data'],
+    'text': ['string', 'word', 'character'],
+    'currency': ['money', 'exchange', 'rate', 'convert'],
+    'weather': ['forecast', 'temperature', 'climate'],
+    'location': ['geo', 'place', 'address', 'coordinates']
+  };
+  
+  for (const [key, synonyms] of Object.entries(synonymMap)) {
+    const allTerms = [key, ...synonyms];
+    const queryHasTerm = allTerms.some(t => queryLower.includes(t));
+    const serverHasTerm = allTerms.some(t => 
+      serverNameLower.includes(t) || descLower.includes(t) || toolNames.some(tn => tn.includes(t))
+    );
+    if (queryHasTerm && serverHasTerm) {
+      factors.semantic = 0.2;
+      score += 0.2;
+      break;
+    }
+  }
+  
+  // Factor 5: Hosted bonus (instant access is valuable)
+  if (server.type === 'hosted') {
+    factors.hosted_bonus = 0.1;
+    score += 0.1;
+  }
+  
+  return { 
+    score: Math.min(Math.round(score * 100) / 100, 1.0),
+    factors 
+  };
+}
+
+// Confidence level from score
+function getConfidence(score) {
+  if (score >= 0.9) return 'perfect';
+  if (score >= 0.75) return 'strong';
+  if (score >= 0.6) return 'good';
+  if (score >= 0.4) return 'partial';
+  return 'weak';
+}
+
+// GET /api/v1/match — Perfect match rating for agents
+app.get('/api/v1/match', (req, res) => {
+  const query = req.query.q || req.query.query || '';
+  const limit = Math.min(parseInt(req.query.limit) || 5, 20);
+  const minScore = parseFloat(req.query.min_score) || 0.3;
+  const source = req.query.source || req.headers['x-source'] || 'api';
+  
+  if (!query) {
+    return res.json({
+      error: 'Missing query parameter',
+      usage: 'GET /api/v1/match?q=validate+email',
+      examples: [
+        '/api/v1/match?q=send+email',
+        '/api/v1/match?q=generate+qr+code',
+        '/api/v1/match?q=convert+currency',
+        '/api/v1/match?q=what+time+is+it'
+      ]
+    });
+  }
+  
+  // Track for analytics
+  usageTracker.trackView(`/api/v1/match?q=${encodeURIComponent(query)}`, req);
+  analytics.search(query, 0, req, source);
+  
+  // Get all hosted servers with full tool details
+  const hosted = hostedMcp.listHostedServers();
+  
+  // Score each server
+  const matches = hosted.map(server => {
+    const serverDetails = hostedMcp.getHostedServer(server.slug);
+    const { score, factors } = calculateMatchScore(query, { ...server, type: 'hosted' }, serverDetails);
+    
+    return {
+      server: {
+        slug: server.slug,
+        name: server.name,
+        description: server.description,
+        hosted: true
+      },
+      tools: serverDetails?.tools?.map(t => ({
+        name: t.name,
+        description: t.description
+      })) || [],
+      score,
+      confidence: getConfidence(score),
+      factors,
+      endpoint: `/mcp/${server.slug}/tools/call`
+    };
+  })
+  .filter(m => m.score >= minScore)
+  .sort((a, b) => b.score - a.score)
+  .slice(0, limit);
+  
+  // Also search directory for non-hosted options
+  const directoryResults = db.servers.getAll({ search: query, limit: 3 });
+  const directoryMatches = directoryResults.map(s => {
+    const { score, factors } = calculateMatchScore(query, { 
+      name: s.name, 
+      description: s.description, 
+      tools: [],
+      type: 'directory' 
+    });
+    return {
+      server: {
+        slug: s.slug,
+        name: s.name,
+        description: s.description,
+        hosted: false,
+        github_url: s.github_url,
+        install_command: s.install_command
+      },
+      score,
+      confidence: getConfidence(score),
+      requires_install: true
+    };
+  }).filter(m => m.score >= minScore);
+  
+  const baseUrl = `${req.protocol}://${req.get('host')}`;
+  
+  // Build response
+  const response = {
+    query,
+    matches,
+    directory_alternatives: directoryMatches,
+    meta: {
+      total_hosted_servers: hosted.length,
+      matches_found: matches.length,
+      min_score_used: minScore,
+      source,
+      base_url: baseUrl
+    }
+  };
+  
+  // Add quick-use example for top match
+  if (matches.length > 0) {
+    const top = matches[0];
+    response.recommended = {
+      server: top.server.slug,
+      tool: top.tools[0]?.name,
+      confidence: top.confidence,
+      curl_example: `curl -X POST ${baseUrl}/mcp/${top.server.slug}/tools/call -H "Content-Type: application/json" -d '{"name":"${top.tools[0]?.name || 'tool'}","arguments":{}}'`
+    };
+  }
+  
+  res.json(response);
+});
+
+// POST /api/v1/match — Same but with JSON body
+app.post('/api/v1/match', (req, res) => {
+  req.query.q = req.body.query || req.body.q;
+  req.query.limit = req.body.limit;
+  req.query.min_score = req.body.min_score;
+  req.query.source = req.body.source || 'api';
+  app.handle(req, res);
+});
+
+// POST /api/v1/match-and-execute — Find and run in one call
+app.post('/api/v1/match-and-execute', async (req, res) => {
+  const { query, arguments: args = {}, auto_select = true } = req.body;
+  
+  if (!query) {
+    return res.status(400).json({ error: 'Missing query' });
+  }
+  
+  usageTracker.trackView('/api/v1/match-and-execute', req);
+  
+  // Find best match
+  const hosted = hostedMcp.listHostedServers();
+  let bestMatch = null;
+  let bestScore = 0;
+  
+  for (const server of hosted) {
+    const serverDetails = hostedMcp.getHostedServer(server.slug);
+    const { score } = calculateMatchScore(query, { ...server, type: 'hosted' }, serverDetails);
+    if (score > bestScore) {
+      bestScore = score;
+      bestMatch = { server, details: serverDetails };
+    }
+  }
+  
+  if (!bestMatch || bestScore < 0.3) {
+    return res.json({
+      success: false,
+      error: 'No matching tool found',
+      query,
+      best_score: bestScore
+    });
+  }
+  
+  // Execute the first tool of the best match
+  const toolName = bestMatch.details.tools[0]?.name;
+  if (!toolName) {
+    return res.json({
+      success: false,
+      error: 'No tools available on matched server',
+      matched_server: bestMatch.server.slug
+    });
+  }
+  
+  try {
+    const result = await hostedMcp.executeTool(bestMatch.server.slug, toolName, args);
+    
+    res.json({
+      success: true,
+      matched: {
+        server: bestMatch.server.slug,
+        tool: toolName,
+        score: bestScore,
+        confidence: getConfidence(bestScore)
+      },
+      result
+    });
+  } catch (e) {
+    res.json({
+      success: false,
+      error: e.message,
+      matched: {
+        server: bestMatch.server.slug,
+        tool: toolName
+      }
+    });
+  }
+});
+
 // Usage stats (protected)
 app.get('/api/v1/hosted/stats', async (req, res) => {
   // Simple auth - check admin key
