@@ -5,9 +5,13 @@
 
 const express = require('express');
 const path = require('path');
+const Stripe = require('stripe');
 const db = require('./lib/database');
 const analytics = require('./lib/analytics');
 const waitlist = require('./lib/waitlist');
+
+// Stripe setup (use test key in dev, live key in prod)
+const stripe = process.env.STRIPE_SECRET_KEY ? new Stripe(process.env.STRIPE_SECRET_KEY) : null;
 
 const app = express();
 const PORT = process.env.PORT || 8080;
@@ -71,9 +75,14 @@ app.get('/pro', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'pro.html'));
 });
 
-// AIReady - AI Presence Scanner
+// AIReady - AI Presence Scanner (legacy URL)
 app.get('/aiready', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'aiready.html'));
+  res.redirect(301, '/bizcheck');
+});
+
+// Autropic Biz Checker - AI Presence Scanner
+app.get('/bizcheck', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'bizcheck.html'));
 });
 
 // Payment success page
@@ -81,16 +90,26 @@ app.get('/success', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'success.html'));
 });
 
-// AIReady scan tracking
-app.post('/api/v1/aiready/scan', async (req, res) => {
+// Biz Checker scan tracking
+app.post('/api/v1/bizcheck/scan', async (req, res) => {
   const { business, score, results } = req.body;
-  console.log(`[AIREADY SCAN] ${business} - Score: ${score}`);
+  console.log(`[BIZCHECK SCAN] ${business} - Score: ${score}`);
   
   // Track in waitlist system for follow-up
   if (business) {
-    await waitlist.trackMissingSearch(`aiready:${business}`, req.headers['user-agent'], 'aiready');
+    await waitlist.trackMissingSearch(`bizcheck:${business}`, req.headers['user-agent'], 'bizcheck');
   }
   
+  res.json({ tracked: true });
+});
+
+// Legacy AIReady scan tracking (redirect handled above)
+app.post('/api/v1/aiready/scan', async (req, res) => {
+  const { business, score, results } = req.body;
+  console.log(`[BIZCHECK SCAN] ${business} - Score: ${score}`);
+  if (business) {
+    await waitlist.trackMissingSearch(`bizcheck:${business}`, req.headers['user-agent'], 'bizcheck');
+  }
   res.json({ tracked: true });
 });
 
@@ -152,15 +171,57 @@ app.post('/api/v1/stripe/webhook', express.raw({ type: 'application/json' }), as
   if (event.type === 'checkout.session.completed') {
     const session = event.data.object;
     const email = session.customer_email || session.customer_details?.email;
+    const product = session.metadata?.product;
+    const business = session.metadata?.business;
     
-    if (email) {
+    console.log(`[STRIPE] Payment completed: ${product} for ${email} (business: ${business})`);
+    
+    if (product === 'bizcheck') {
+      // Track Biz Checker purchase
+      console.log(`[BIZCHECK SALE] ${business} - ${email}`);
+      // TODO: Generate and send report via email
+      // For now, just log it
+    } else if (email) {
+      // Legacy Pro key creation for AutropicAI
       const { apiKey } = await waitlist.createProKey(email, 'pro');
       console.log(`[STRIPE] Created Pro key for ${email}: ${apiKey.slice(0, 10)}...`);
-      // TODO: Send email with API key
     }
   }
   
   res.json({ received: true });
+});
+
+// Create Stripe Checkout Session for Biz Checker
+app.post('/api/v1/bizcheck/checkout', async (req, res) => {
+  if (!stripe) {
+    return res.status(500).json({ error: 'Stripe not configured' });
+  }
+  
+  const { business, email, score } = req.body;
+  
+  try {
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ['card'],
+      line_items: [{
+        price: 'price_1SxHmVPS3sMxPlS7t11BCNpD', // Autropic Biz Checker $19.95
+        quantity: 1,
+      }],
+      mode: 'payment',
+      success_url: `${req.headers.origin || 'https://tryautropic.com'}/success?session_id={CHECKOUT_SESSION_ID}&business=${encodeURIComponent(business || '')}`,
+      cancel_url: `${req.headers.origin || 'https://tryautropic.com'}/bizcheck`,
+      customer_email: email || undefined,
+      metadata: {
+        product: 'bizcheck',
+        business: business || 'unknown',
+        score: score?.toString() || '0'
+      }
+    });
+    
+    res.json({ url: session.url, sessionId: session.id });
+  } catch (err) {
+    console.error('[STRIPE ERROR]', err.message);
+    res.status(500).json({ error: 'Failed to create checkout session' });
+  }
 });
 
 // === API Routes ===
