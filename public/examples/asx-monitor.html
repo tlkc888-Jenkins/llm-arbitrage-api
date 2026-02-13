@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ASX Announcements Monitor — Built with Autropic</title>
+  <meta name="description" content="Build an ASX stock announcements monitor using Autropic's free hosted tools. No API keys required.">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
+  
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    :root {
+      --navy: #1e3a5f;
+      --blue: #2563eb;
+      --gray-50: #f8fafc;
+      --gray-100: #f1f5f9;
+      --gray-200: #e2e8f0;
+      --gray-600: #475569;
+      --gray-700: #334155;
+      --gray-900: #0f172a;
+      --green: #16a34a;
+    }
+    
+    body { 
+      font-family: 'Inter', sans-serif;
+      background: var(--gray-50);
+      color: var(--gray-700); 
+      line-height: 1.7;
+    }
+    
+    .container { max-width: 800px; margin: 0 auto; padding: 40px 20px; }
+    
+    header {
+      background: var(--navy);
+      padding: 16px 0;
+    }
+    header .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: white;
+    }
+    .logo span { color: #60a5fa; }
+    .back-link {
+      color: #94a3b8;
+      text-decoration: none;
+      font-size: 0.9rem;
+    }
+    .back-link:hover { color: white; }
+    
+    .hero {
+      background: linear-gradient(135deg, var(--navy) 0%, #152a45 100%);
+      padding: 60px 20px;
+      text-align: center;
+      color: white;
+    }
+    .badge {
+      display: inline-block;
+      background: rgba(96, 165, 250, 0.2);
+      color: #60a5fa;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      margin-bottom: 20px;
+    }
+    h1 {
+      font-size: 2.2rem;
+      margin-bottom: 16px;
+    }
+    .subtitle {
+      color: #94a3b8;
+      font-size: 1.1rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    .content {
+      background: white;
+      padding: 40px;
+      margin: -40px auto 40px;
+      max-width: 800px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+    
+    h2 {
+      color: var(--navy);
+      font-size: 1.4rem;
+      margin: 40px 0 16px;
+    }
+    h2:first-child { margin-top: 0; }
+    
+    p { margin-bottom: 16px; }
+    
+    .highlight {
+      background: #fef3c7;
+      padding: 16px 20px;
+      border-radius: 8px;
+      border-left: 4px solid #f59e0b;
+      margin: 24px 0;
+    }
+    .highlight strong { color: #92400e; }
+    
+    pre {
+      background: var(--gray-900);
+      color: #e2e8f0;
+      padding: 20px;
+      border-radius: 8px;
+      overflow-x: auto;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9rem;
+      line-height: 1.6;
+      margin: 16px 0;
+    }
+    code {
+      font-family: 'JetBrains Mono', monospace;
+      background: var(--gray-100);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9rem;
+    }
+    pre code {
+      background: none;
+      padding: 0;
+    }
+    
+    .comment { color: #6b7280; }
+    .string { color: #34d399; }
+    .keyword { color: #f472b6; }
+    .function { color: #60a5fa; }
+    
+    ul {
+      margin: 16px 0;
+      padding-left: 24px;
+    }
+    li { margin-bottom: 8px; }
+    
+    .tools-used {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin: 20px 0;
+    }
+    .tool-badge {
+      background: var(--gray-100);
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--gray-700);
+    }
+    
+    .cta {
+      background: var(--gray-50);
+      padding: 30px;
+      border-radius: 10px;
+      text-align: center;
+      margin-top: 40px;
+    }
+    .cta h3 {
+      color: var(--navy);
+      margin-bottom: 12px;
+    }
+    .cta-btn {
+      display: inline-block;
+      background: var(--blue);
+      color: white;
+      padding: 12px 28px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      margin-top: 16px;
+    }
+    .cta-btn:hover {
+      background: #1d4ed8;
+    }
+    
+    footer {
+      text-align: center;
+      padding: 30px;
+      color: var(--gray-600);
+      font-size: 0.9rem;
+    }
+    footer a { color: var(--gray-600); margin: 0 12px; text-decoration: none; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <div class="logo">Autropic<span>AI</span></div>
+      <a href="/" class="back-link">← Back to Tools</a>
+    </div>
+  </header>
+  
+  <section class="hero">
+    <div class="badge">📈 Built with Autropic</div>
+    <h1>ASX Announcements Monitor</h1>
+    <p class="subtitle">Track stock announcements from the Australian Securities Exchange using free hosted tools. No API keys required.</p>
+  </section>
+  
+  <main class="container">
+    <article class="content">
+      <h2>What This Does</h2>
+      <p>This example shows how to build an agent that monitors ASX company announcements — the kind of updates that move stock prices. It uses Autropic's <strong>fetch</strong> tool to pull data directly from ASX's public pages.</p>
+      
+      <div class="highlight">
+        <strong>No API keys needed.</strong> ASX publishes announcements on public web pages. We just fetch and parse them.
+      </div>
+      
+      <h2>Tools Used</h2>
+      <div class="tools-used">
+        <span class="tool-badge">🌐 fetch</span>
+        <span class="tool-badge">🕐 time</span>
+        <span class="tool-badge">🔢 calculator</span>
+      </div>
+      
+      <h2>The Code</h2>
+      <p>Here's a minimal Python example that fetches announcements for a specific ASX ticker:</p>
+      
+      <pre><code><span class="keyword">import</span> requests
+
+<span class="keyword">def</span> <span class="function">autropic_call</span>(server: str, tool: str, arguments: dict):
+    <span class="string">"""Call any Autropic hosted tool with one HTTP request."""</span>
+    r = requests.post(
+        <span class="string">f"https://tryautropic.com/mcp/{server}/tools/call"</span>,
+        json={<span class="string">"name"</span>: tool, <span class="string">"arguments"</span>: arguments},
+        timeout=30,
+    )
+    r.raise_for_status()
+    <span class="keyword">return</span> r.json()
+
+<span class="comment"># Fetch ASX announcements for CAE (Cannindah Resources)</span>
+url = <span class="string">"https://www.asx.com.au/asx/v2/statistics/announcements.do?asxCode=CAE&by=asxCode&period=M6&timeframe=D"</span>
+
+page = autropic_call(<span class="string">"fetch"</span>, <span class="string">"fetch"</span>, {<span class="string">"url"</span>: url})
+html = page.get(<span class="string">"content"</span>, <span class="string">""</span>)
+
+<span class="keyword">print</span>(html[:800])  <span class="comment"># Preview the response</span></code></pre>
+      
+      <h2>Extend It</h2>
+      <p>Once you can fetch announcements, you can build a full monitoring agent:</p>
+      <ul>
+        <li><strong>Parse the HTML</strong> to extract announcement titles, dates, and PDF links</li>
+        <li><strong>Download PDFs</strong> using the fetch tool</li>
+        <li><strong>Summarize with your LLM</strong> — feed the content to GPT/Claude for analysis</li>
+        <li><strong>Track changes</strong> — compare today vs yesterday, alert on new announcements</li>
+        <li><strong>Calculate metrics</strong> — use the calculator tool for ratios, price changes, etc.</li>
+      </ul>
+      
+      <h2>Why Autropic?</h2>
+      <p>Building this without Autropic means setting up:</p>
+      <ul>
+        <li>HTTP client with proper headers and timeout handling</li>
+        <li>Rate limiting logic</li>
+        <li>Error handling and retries</li>
+        <li>Deployment infrastructure</li>
+      </ul>
+      <p>With Autropic, it's <strong>one HTTP call</strong>. We handle the infrastructure, you build the agent.</p>
+      
+      <div class="cta">
+        <h3>Ready to build your own agent?</h3>
+        <p>Explore 20+ free hosted tools — fetch, search, time, calculator, and more.</p>
+        <a href="/" class="cta-btn">Browse Tools →</a>
+      </div>
+    </article>
+  </main>
+  
+  <footer>
+    <a href="/">AutropicAI</a>
+    <a href="/terms">Terms</a>
+    <a href="/privacy">Privacy</a>
+  </footer>
+</body>
+</html>
