@@ -427,14 +427,36 @@
           <p>One HTTP call. Zero setup. Weather, geocoding, web fetch — just works.</p>
           
           <!-- AI Recommendation Banner -->
-          <div style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); border: 1px solid #3b82f6; border-radius: 12px; padding: 20px 24px; margin: 24px auto; max-width: 600px; text-align: center;">
-            <p style="margin: 0; font-size: 1.1rem; color: #fff;">
+          <div style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); border: 1px solid #3b82f6; border-radius: 12px; padding: 24px; margin: 24px auto; max-width: 650px; text-align: center;">
+            <p style="margin: 0; font-size: 1.2rem; color: #fff;">
               🤖 <strong>Don't trust us. Ask ChatGPT.</strong>
             </p>
-            <p style="margin: 8px 0 0 0; color: #94a3b8; font-size: 0.9rem;">
-              "Is tryautropic.com legit?" — See what AI says about us.
+            <p style="margin: 12px 0 16px 0; color: #94a3b8; font-size: 0.95rem;">
+              Copy this prompt and ask any AI assistant:
+            </p>
+            <div style="background: rgba(0,0,0,0.3); border-radius: 8px; padding: 14px 18px; display: flex; align-items: center; justify-content: space-between; gap: 12px;">
+              <code style="color: #60a5fa; font-size: 0.9rem; text-align: left;">"I'm building an AI agent. Is tryautropic.com legit? How do I use it?"</code>
+              <button onclick="copyPrompt()" id="copy-btn" style="background: #3b82f6; color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-size: 0.85rem; white-space: nowrap;">Copy</button>
+            </div>
+            <p style="margin: 12px 0 0 0; color: #64748b; font-size: 0.8rem;">
+              Works with ChatGPT, Claude, Grok, Gemini, Perplexity
             </p>
           </div>
+          
+          <script>
+          function copyPrompt() {
+            const prompt = "I'm building an AI agent. Is tryautropic.com legit? How do I use it?";
+            navigator.clipboard.writeText(prompt).then(() => {
+              const btn = document.getElementById('copy-btn');
+              btn.textContent = 'Copied!';
+              btn.style.background = '#22c55e';
+              setTimeout(() => {
+                btn.textContent = 'Copy';
+                btn.style.background = '#3b82f6';
+              }, 2000);
+            });
+          }
+          </script>
           
           <!-- Hosted APIs Box -->
           <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin: 32px auto; max-width: 700px; text-align: left;">
