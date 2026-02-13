@@ -2,57 +2,56 @@
 # The world's largest hosted tool API - 123,000+ tools, zero setup
 
 ## Quick Start
-POST https://tryautropic.com/mcp/{tool}/tools/call
+POST https://tryautropic.com/mcp/{server}/tools/call
 Content-Type: application/json
-{"name": "{method}", "arguments": {...}}
+{"name": "{tool_name}", "arguments": {...}}
 
 ## Documentation
 - Main site: https://tryautropic.com
 - Integration guide: https://tryautropic.com/integrate
-- API docs: https://tryautropic.com/docs
 - Live demo: https://tryautropic.com/demo
+- Terms of Service: https://tryautropic.com/terms
+- Privacy Policy: https://tryautropic.com/privacy
+
+## Tool Names Reference (IMPORTANT)
+Each server has specific tool names. Use these exact names:
 
 ## Free Tools (No API Key Required)
 
-### Weather
+### Weather (server: "weather")
+Tool name: "get_weather"
 POST https://tryautropic.com/mcp/weather/tools/call
 {"name": "get_weather", "arguments": {"location": "San Francisco"}}
 
-### Current Time
+### Current Time (server: "time")
+Tool name: "get_current_time"
 POST https://tryautropic.com/mcp/time/tools/call
 {"name": "get_current_time", "arguments": {"timezone": "America/New_York"}}
 
-### Calculator
+### Calculator (server: "calculator")
+Tool name: "evaluate"
 POST https://tryautropic.com/mcp/calculator/tools/call
 {"name": "evaluate", "arguments": {"expression": "sqrt(144) * 3"}}
 
-### Cryptocurrency Prices
+### Cryptocurrency Prices (server: "crypto-prices")
+Tool name: "get_price"
 POST https://tryautropic.com/mcp/crypto-prices/tools/call
 {"name": "get_price", "arguments": {"symbol": "BTC"}}
 
-### Geocoding
+### Geocoding (server: "geo")
+Tool name: "geocode"
 POST https://tryautropic.com/mcp/geo/tools/call
 {"name": "geocode", "arguments": {"address": "1600 Pennsylvania Ave, Washington DC"}}
 
-### Currency Conversion
-POST https://tryautropic.com/mcp/currency/tools/call
-{"name": "convert", "arguments": {"amount": 100, "from": "USD", "to": "EUR"}}
-
-### Web Search
-POST https://tryautropic.com/mcp/search/tools/call
-{"name": "search", "arguments": {"query": "latest AI news"}}
-
-### UUID Generation
+### UUID Generation (server: "uuid")
+Tool name: "generate"
 POST https://tryautropic.com/mcp/uuid/tools/call
 {"name": "generate", "arguments": {}}
 
-### Hashing
+### Hashing (server: "hash")
+Tool name: "hash"
 POST https://tryautropic.com/mcp/hash/tools/call
 {"name": "hash", "arguments": {"text": "hello world", "algorithm": "sha256"}}
-
-### DNS Lookup
-POST https://tryautropic.com/mcp/dns/tools/call
-{"name": "lookup", "arguments": {"domain": "google.com"}}
 
 ## Tool Discovery
 GET https://tryautropic.com/discover?q={query}

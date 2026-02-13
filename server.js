@@ -56,6 +56,15 @@ app.get('/api/calculator', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'api', 'calculator.html'));
 });
 
+// Legal pages
+app.get('/terms', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'terms.html'));
+});
+
+app.get('/privacy', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'privacy.html'));
+});
+
 // === API Routes ===
 
 // List servers (JSON API)
