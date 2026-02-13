@@ -76,6 +76,11 @@ app.get('/aiready', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'aiready.html'));
 });
 
+// Payment success page
+app.get('/success', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'success.html'));
+});
+
 // AIReady scan tracking
 app.post('/api/v1/aiready/scan', async (req, res) => {
   const { business, score, results } = req.body;
