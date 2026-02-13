@@ -10,149 +10,178 @@
   <meta property="og:description" content="What do AI assistants say about your business? Find out in 30 seconds. Free scan.">
   <meta property="og:type" content="website">
   
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     
+    :root {
+      --navy: #1e3a5f;
+      --navy-dark: #152a45;
+      --blue: #2563eb;
+      --blue-light: #3b82f6;
+      --teal: #0d9488;
+      --gray-50: #f8fafc;
+      --gray-100: #f1f5f9;
+      --gray-200: #e2e8f0;
+      --gray-300: #cbd5e1;
+      --gray-500: #64748b;
+      --gray-600: #475569;
+      --gray-700: #334155;
+      --gray-900: #0f172a;
+      --green: #16a34a;
+      --orange: #ea580c;
+      --red: #dc2626;
+    }
+    
     body { 
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 100%);
-      color: #e0e0e0; 
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--gray-50);
+      color: var(--gray-700); 
       line-height: 1.6;
       min-height: 100vh;
     }
     
-    .container { max-width: 800px; margin: 0 auto; padding: 40px 20px; }
+    .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
     
     /* Header */
     header {
-      text-align: center;
-      padding: 20px 0;
-      border-bottom: 1px solid #333;
+      background: white;
+      border-bottom: 1px solid var(--gray-200);
+      padding: 16px 0;
+    }
+    header .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
     }
     .logo {
-      font-size: 1.5rem;
+      font-size: 1.4rem;
       font-weight: 700;
-      color: #fff;
+      color: var(--navy);
     }
-    .logo span { color: #3b82f6; }
+    .logo span { color: var(--blue); }
     .tagline {
       font-size: 0.85rem;
-      color: #666;
-      margin-top: 4px;
+      color: var(--gray-500);
     }
     
     /* Hero */
     .hero {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%);
+      padding: 60px 20px;
       text-align: center;
-      padding: 60px 0 40px;
     }
     
     h1 {
-      font-size: 2.8rem;
+      font-size: 2.5rem;
       font-weight: 700;
-      color: #fff;
+      color: white;
       margin-bottom: 16px;
       line-height: 1.2;
     }
-    h1 span { color: #3b82f6; }
+    h1 span { color: #60a5fa; }
     
     .subtitle {
-      font-size: 1.3rem;
-      color: #888;
+      font-size: 1.15rem;
+      color: #94a3b8;
       margin-bottom: 40px;
     }
     
     /* Scan Box */
     .scan-box {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid #333;
-      border-radius: 16px;
-      padding: 40px;
-      margin: 0 auto 40px;
-      max-width: 600px;
+      background: white;
+      border-radius: 12px;
+      padding: 32px;
+      margin: 0 auto;
+      max-width: 550px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.15);
     }
     
     .scan-input {
       display: flex;
       gap: 12px;
-      margin-bottom: 16px;
+      margin-bottom: 12px;
     }
     
     .scan-input input {
       flex: 1;
-      padding: 16px 20px;
-      font-size: 1.1rem;
-      border: 2px solid #333;
+      padding: 14px 18px;
+      font-size: 1rem;
+      border: 2px solid var(--gray-200);
       border-radius: 8px;
-      background: #0a0a0f;
-      color: #fff;
+      background: white;
+      color: var(--gray-900);
     }
     .scan-input input:focus {
       outline: none;
-      border-color: #3b82f6;
+      border-color: var(--blue);
     }
     .scan-input input::placeholder {
-      color: #555;
+      color: var(--gray-400);
     }
     
     .scan-btn {
-      padding: 16px 32px;
-      font-size: 1.1rem;
+      padding: 14px 28px;
+      font-size: 1rem;
       font-weight: 600;
-      background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
-      color: #fff;
+      background: var(--blue);
+      color: white;
       border: none;
       border-radius: 8px;
       cursor: pointer;
-      transition: transform 0.2s, box-shadow 0.2s;
+      transition: background 0.2s;
     }
     .scan-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4);
+      background: var(--blue-light);
     }
     .scan-btn:disabled {
       opacity: 0.6;
       cursor: not-allowed;
-      transform: none;
     }
     
     .scan-note {
       font-size: 0.85rem;
-      color: #666;
+      color: var(--gray-500);
     }
     
     /* AI Logos */
     .ai-logos {
       display: flex;
       justify-content: center;
-      gap: 24px;
-      margin: 30px 0;
+      gap: 16px;
+      margin-top: 30px;
       flex-wrap: wrap;
     }
     .ai-logo {
-      padding: 12px 20px;
-      background: rgba(255,255,255,0.05);
-      border-radius: 8px;
-      font-size: 0.9rem;
-      color: #888;
+      padding: 8px 16px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 6px;
+      font-size: 0.85rem;
+      color: #94a3b8;
     }
     
     /* Results */
     .results {
       display: none;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid #333;
-      border-radius: 16px;
+      background: white;
+      border: 1px solid var(--gray-200);
+      border-radius: 12px;
       padding: 40px;
       margin: 40px auto;
       max-width: 600px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
     }
     
     .score-circle {
-      width: 150px;
-      height: 150px;
+      width: 140px;
+      height: 140px;
       border-radius: 50%;
-      background: conic-gradient(#3b82f6 0deg, #3b82f6 0deg, #333 0deg);
+      background: conic-gradient(var(--blue) 0deg, var(--blue) 0deg, var(--gray-200) 0deg);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -160,10 +189,10 @@
       position: relative;
     }
     .score-inner {
-      width: 120px;
-      height: 120px;
+      width: 110px;
+      height: 110px;
       border-radius: 50%;
-      background: #1a1a2e;
+      background: white;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -172,11 +201,11 @@
     .score-number {
       font-size: 2.5rem;
       font-weight: 700;
-      color: #fff;
+      color: var(--navy);
     }
     .score-label {
       font-size: 0.8rem;
-      color: #888;
+      color: var(--gray-500);
     }
     
     .ai-results {
@@ -186,98 +215,107 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 16px;
-      border-bottom: 1px solid #333;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--gray-100);
     }
     .ai-result:last-child { border-bottom: none; }
     .ai-name {
       font-weight: 600;
-      color: #fff;
+      color: var(--gray-700);
     }
-    .status-found { color: #22c55e; }
-    .status-partial { color: #f59e0b; }
-    .status-missing { color: #ef4444; }
+    .status-found { color: var(--green); font-weight: 500; }
+    .status-partial { color: var(--orange); font-weight: 500; }
+    .status-missing { color: var(--red); font-weight: 500; }
     
     .cta-box {
-      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-      border: 1px solid #3b82f6;
-      border-radius: 12px;
+      background: var(--gray-50);
+      border: 2px solid var(--blue);
+      border-radius: 10px;
       padding: 24px;
       text-align: center;
       margin-top: 30px;
     }
     .cta-box h3 {
-      color: #fff;
+      color: var(--navy);
       margin-bottom: 8px;
+      font-size: 1.1rem;
     }
     .cta-box p {
-      color: #888;
+      color: var(--gray-600);
       margin-bottom: 16px;
+      font-size: 0.95rem;
     }
     .cta-btn {
       display: inline-block;
-      padding: 12px 24px;
-      background: #3b82f6;
-      color: #fff;
+      padding: 12px 28px;
+      background: var(--blue);
+      color: white;
       font-weight: 600;
       border-radius: 6px;
       text-decoration: none;
+      transition: background 0.2s;
     }
     .cta-btn:hover {
-      background: #2563eb;
+      background: var(--blue-light);
     }
     
     /* How It Works */
     .how-it-works {
-      padding: 60px 0;
-      text-align: center;
+      padding: 60px 20px;
+      background: white;
     }
     .how-it-works h2 {
-      font-size: 2rem;
-      color: #fff;
+      font-size: 1.8rem;
+      color: var(--navy);
       margin-bottom: 40px;
+      text-align: center;
     }
     .steps {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 30px;
       max-width: 800px;
       margin: 0 auto;
     }
     .step {
-      padding: 30px 20px;
-      background: rgba(255,255,255,0.03);
-      border-radius: 12px;
+      padding: 30px 24px;
+      background: var(--gray-50);
+      border-radius: 10px;
+      text-align: center;
+      border: 1px solid var(--gray-200);
     }
     .step-number {
-      width: 40px;
-      height: 40px;
+      width: 44px;
+      height: 44px;
       border-radius: 50%;
-      background: #3b82f6;
-      color: #fff;
+      background: var(--blue);
+      color: white;
       display: flex;
       align-items: center;
       justify-content: center;
       margin: 0 auto 16px;
       font-weight: 700;
+      font-size: 1.1rem;
     }
     .step h3 {
-      color: #fff;
+      color: var(--navy);
       margin-bottom: 8px;
+      font-size: 1.1rem;
     }
     .step p {
-      color: #888;
+      color: var(--gray-600);
       font-size: 0.9rem;
     }
     
     /* Pricing */
     .pricing {
-      padding: 60px 0;
+      padding: 60px 20px;
+      background: var(--gray-50);
     }
     .pricing h2 {
       text-align: center;
-      font-size: 2rem;
-      color: #fff;
+      font-size: 1.8rem;
+      color: var(--navy);
       margin-bottom: 40px;
     }
     .pricing-grid {
@@ -288,28 +326,29 @@
       margin: 0 auto;
     }
     .pricing-card {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid #333;
-      border-radius: 12px;
-      padding: 30px;
+      background: white;
+      border: 1px solid var(--gray-200);
+      border-radius: 10px;
+      padding: 32px;
     }
     .pricing-card.featured {
-      border-color: #3b82f6;
-      background: rgba(59, 130, 246, 0.1);
+      border: 2px solid var(--blue);
+      box-shadow: 0 4px 20px rgba(37, 99, 235, 0.15);
     }
     .pricing-card h3 {
-      color: #fff;
+      color: var(--navy);
       margin-bottom: 8px;
+      font-size: 1.2rem;
     }
     .pricing-card .price {
-      font-size: 2rem;
+      font-size: 2.2rem;
       font-weight: 700;
-      color: #3b82f6;
-      margin-bottom: 16px;
+      color: var(--blue);
+      margin-bottom: 20px;
     }
     .pricing-card .price span {
       font-size: 1rem;
-      color: #888;
+      color: var(--gray-500);
       font-weight: normal;
     }
     .pricing-card ul {
@@ -317,44 +356,108 @@
       margin-bottom: 24px;
     }
     .pricing-card li {
-      padding: 8px 0;
-      color: #aaa;
-      font-size: 0.9rem;
+      padding: 10px 0;
+      color: var(--gray-600);
+      font-size: 0.95rem;
+      border-bottom: 1px solid var(--gray-100);
     }
+    .pricing-card li:last-child { border-bottom: none; }
     .pricing-card li::before {
       content: "✓ ";
-      color: #22c55e;
+      color: var(--green);
+      font-weight: 600;
     }
     .pricing-card button {
       width: 100%;
-      padding: 12px;
-      border: 1px solid #333;
-      background: transparent;
-      color: #fff;
+      padding: 14px;
+      border: 2px solid var(--gray-300);
+      background: white;
+      color: var(--gray-700);
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: all 0.2s;
+    }
+    .pricing-card button:hover {
+      border-color: var(--blue);
+      color: var(--blue);
+    }
+    .pricing-card.featured button {
+      background: var(--blue);
+      border-color: var(--blue);
+      color: white;
+    }
+    .pricing-card.featured button:hover {
+      background: var(--blue-light);
+    }
+    
+    /* Email box in results */
+    .email-box {
+      margin-top: 20px;
+      padding: 20px;
+      background: var(--gray-50);
+      border-radius: 8px;
+      border: 1px solid var(--gray-200);
+    }
+    .email-box p {
+      margin-bottom: 12px;
+      color: var(--gray-700);
+      font-size: 0.95rem;
+    }
+    .email-box input {
+      flex: 1;
+      padding: 10px 14px;
+      border-radius: 6px;
+      border: 1px solid var(--gray-300);
+      background: white;
+      color: var(--gray-900);
+    }
+    .email-box button {
+      padding: 10px 20px;
+      background: var(--teal);
+      color: white;
+      border: none;
       border-radius: 6px;
       cursor: pointer;
       font-weight: 500;
     }
-    .pricing-card.featured button {
-      background: #3b82f6;
-      border-color: #3b82f6;
+    .email-box button:hover {
+      background: #0f766e;
     }
     
     /* Footer */
     footer {
       text-align: center;
       padding: 40px 20px;
-      border-top: 1px solid #333;
-      color: #666;
+      background: white;
+      border-top: 1px solid var(--gray-200);
+      color: var(--gray-500);
       font-size: 0.9rem;
     }
-    footer a { color: #888; margin: 0 12px; }
+    footer a { 
+      color: var(--gray-600); 
+      margin: 0 12px;
+      text-decoration: none;
+    }
+    footer a:hover {
+      color: var(--blue);
+    }
+
+    /* Mobile */
+    @media (max-width: 600px) {
+      h1 { font-size: 1.8rem; }
+      .scan-input { flex-direction: column; }
+      .scan-btn { width: 100%; }
+    }
   </style>
 </head>
 <body>
   <header>
     <div class="container">
-      <div class="logo">Autropic <span>Biz Checker</span></div>
+      <div>
+        <div class="logo">Autropic <span>Biz Checker</span></div>
+      </div>
       <div class="tagline">AI visibility for small business</div>
     </div>
   </header>
@@ -384,33 +487,35 @@
       </div>
     </section>
     
-    <div class="results" id="results">
-      <h2 style="text-align: center; color: #fff; margin-bottom: 20px;">Your AI Visibility Score</h2>
-      
-      <div class="score-circle" id="score-circle">
-        <div class="score-inner">
-          <div class="score-number" id="score-number">--</div>
-          <div class="score-label">out of 100</div>
+    <div class="container">
+      <div class="results" id="results">
+        <h2 style="text-align: center; color: var(--navy); margin-bottom: 20px; font-size: 1.5rem;">Your AI Visibility Score</h2>
+        
+        <div class="score-circle" id="score-circle">
+          <div class="score-inner">
+            <div class="score-number" id="score-number">--</div>
+            <div class="score-label">out of 100</div>
+          </div>
         </div>
-      </div>
-      
-      <div class="ai-results" id="ai-results">
-        <!-- Filled by JS -->
-      </div>
-      
-      <div class="cta-box">
-        <h3>Want to improve your score?</h3>
-        <p>Get AI-optimized content, llms.txt file, and step-by-step fixes.</p>
-        <a href="#pricing" class="cta-btn">Get Full Report — $19.95 →</a>
-      </div>
-      
-      <div style="margin-top: 20px; padding: 20px; background: rgba(0,0,0,0.3); border-radius: 8px;">
-        <p style="margin-bottom: 12px; color: #fff; font-size: 0.95rem;">📧 Get your free summary emailed:</p>
-        <div style="display: flex; gap: 10px;">
-          <input type="email" id="report-email" placeholder="your@email.com" style="flex:1; padding: 10px 14px; border-radius: 6px; border: 1px solid #333; background: #0a0a0f; color: #fff;">
-          <button onclick="sendReport()" style="padding: 10px 20px; background: #22c55e; color: #fff; border: none; border-radius: 6px; cursor: pointer; font-weight: 500;">Send</button>
+        
+        <div class="ai-results" id="ai-results">
+          <!-- Filled by JS -->
         </div>
-        <p id="email-status" style="margin-top: 8px; font-size: 0.85rem; color: #888;"></p>
+        
+        <div class="cta-box">
+          <h3>Want to improve your score?</h3>
+          <p>Get AI-optimized content, llms.txt file, and step-by-step fixes.</p>
+          <a href="#pricing" class="cta-btn">Get Full Report — $19.95 →</a>
+        </div>
+        
+        <div class="email-box">
+          <p>📧 Get your free summary emailed:</p>
+          <div style="display: flex; gap: 10px;">
+            <input type="email" id="report-email" placeholder="your@email.com">
+            <button onclick="sendReport()">Send</button>
+          </div>
+          <p id="email-status" style="margin-top: 8px; font-size: 0.85rem; color: var(--gray-500);"></p>
+        </div>
       </div>
     </div>
     
@@ -449,7 +554,7 @@
               <li>6 AI platforms checked</li>
               <li>Basic summary</li>
             </ul>
-            <button onclick="document.getElementById('business-name').focus()">Scan Now</button>
+            <button onclick="document.getElementById('business-name').focus(); window.scrollTo({top: 0, behavior: 'smooth'})">Scan Now</button>
           </div>
           
           <div class="pricing-card featured">
@@ -515,7 +620,7 @@
       // Update score circle
       const degrees = (score / 100) * 360;
       document.getElementById('score-circle').style.background = 
-        `conic-gradient(#3b82f6 0deg, #3b82f6 ${degrees}deg, #333 ${degrees}deg)`;
+        `conic-gradient(var(--blue) 0deg, var(--blue) ${degrees}deg, var(--gray-200) ${degrees}deg)`;
       
       // Display AI results
       const resultsHtml = aiPlatforms.map(p => `
@@ -554,12 +659,12 @@
       
       if (!email || !email.includes('@')) {
         statusEl.textContent = 'Please enter a valid email';
-        statusEl.style.color = '#ef4444';
+        statusEl.style.color = 'var(--red)';
         return;
       }
       
       statusEl.textContent = 'Sending...';
-      statusEl.style.color = '#888';
+      statusEl.style.color = 'var(--gray-500)';
       
       try {
         const res = await fetch('/api/v1/waitlist', {
@@ -573,13 +678,13 @@
         
         if (res.ok) {
           statusEl.textContent = '✓ Summary sent to your inbox!';
-          statusEl.style.color = '#22c55e';
+          statusEl.style.color = 'var(--green)';
         } else {
           throw new Error('Failed');
         }
       } catch (e) {
         statusEl.textContent = 'Something went wrong. Please try again.';
-        statusEl.style.color = '#ef4444';
+        statusEl.style.color = 'var(--red)';
       }
     }
     
@@ -588,6 +693,7 @@
       if (!business) {
         alert('Please scan your business first');
         document.getElementById('business-name').focus();
+        window.scrollTo({top: 0, behavior: 'smooth'});
         return;
       }
       
