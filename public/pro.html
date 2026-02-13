@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Autropic Pro - 10x Rate Limits</title>
+  <meta name="description" content="Upgrade to Autropic Pro for 10x rate limits. $19/month.">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { 
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #0a0a0a; 
+      color: #e0e0e0; 
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+    .container { max-width: 600px; margin: 0 auto; padding: 60px 20px; }
+    
+    h1 { 
+      font-size: 2.5rem; 
+      margin-bottom: 10px; 
+      color: #fff;
+      text-align: center;
+    }
+    .subtitle {
+      text-align: center;
+      color: #888;
+      font-size: 1.2rem;
+      margin-bottom: 40px;
+    }
+    
+    .pricing-card {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      border: 1px solid #333;
+      border-radius: 16px;
+      padding: 40px;
+      margin-bottom: 30px;
+    }
+    
+    .price {
+      font-size: 3rem;
+      font-weight: bold;
+      color: #fff;
+      text-align: center;
+    }
+    .price span {
+      font-size: 1rem;
+      color: #888;
+      font-weight: normal;
+    }
+    
+    .features {
+      margin: 30px 0;
+      list-style: none;
+    }
+    .features li {
+      padding: 12px 0;
+      border-bottom: 1px solid #333;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .features li:last-child {
+      border-bottom: none;
+    }
+    .check {
+      color: #22c55e;
+      font-size: 1.2rem;
+    }
+    
+    .comparison {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin: 20px 0;
+      font-size: 0.9rem;
+    }
+    .comparison div {
+      padding: 10px;
+      border-radius: 8px;
+    }
+    .free-col {
+      background: #1a1a1a;
+      color: #888;
+    }
+    .pro-col {
+      background: #1a2a1a;
+      color: #22c55e;
+    }
+    
+    .cta-button {
+      display: block;
+      width: 100%;
+      padding: 16px 24px;
+      background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+      color: white;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .cta-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4);
+    }
+    
+    .waitlist-section {
+      background: #111;
+      border: 1px solid #333;
+      border-radius: 12px;
+      padding: 30px;
+      margin-top: 40px;
+    }
+    .waitlist-section h3 {
+      margin-bottom: 10px;
+      color: #fff;
+    }
+    .waitlist-section p {
+      color: #888;
+      margin-bottom: 20px;
+    }
+    .waitlist-form {
+      display: flex;
+      gap: 10px;
+    }
+    .waitlist-form input {
+      flex: 1;
+      padding: 12px 16px;
+      background: #1a1a1a;
+      border: 1px solid #333;
+      border-radius: 6px;
+      color: #fff;
+      font-size: 1rem;
+    }
+    .waitlist-form button {
+      padding: 12px 24px;
+      background: #333;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 500;
+    }
+    .waitlist-form button:hover {
+      background: #444;
+    }
+    
+    .back-link {
+      text-align: center;
+      margin-top: 30px;
+    }
+    .back-link a {
+      color: #888;
+      text-decoration: none;
+    }
+    .back-link a:hover {
+      color: #fff;
+    }
+    
+    .badge {
+      display: inline-block;
+      background: #22c55e;
+      color: #000;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-left: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Autropic Pro</h1>
+    <p class="subtitle">10x rate limits for serious builders</p>
+    
+    <div class="pricing-card">
+      <div class="price">$19<span>/month</span></div>
+      
+      <div class="comparison">
+        <div class="free-col">
+          <strong>Free</strong><br>
+          100 req/min<br>
+          10K req/day
+        </div>
+        <div class="pro-col">
+          <strong>Pro</strong><br>
+          1,000 req/min<br>
+          100K req/day
+        </div>
+      </div>
+      
+      <ul class="features">
+        <li><span class="check">✓</span> 10x rate limits</li>
+        <li><span class="check">✓</span> Priority support</li>
+        <li><span class="check">✓</span> API key for tracking</li>
+        <li><span class="check">✓</span> Usage dashboard</li>
+        <li><span class="check">✓</span> Same 123K+ tools</li>
+      </ul>
+      
+      <a href="#checkout" class="cta-button" id="checkout-btn">
+        Upgrade to Pro →
+      </a>
+      
+      <p style="text-align: center; margin-top: 15px; color: #666; font-size: 0.85rem;">
+        Cancel anytime. No questions asked.
+      </p>
+    </div>
+    
+    <div class="waitlist-section">
+      <h3>Want something else? <span class="badge">Coming Soon</span></h3>
+      <p>Tell us what tools you need. We'll build them and let you know when they're ready.</p>
+      <form class="waitlist-form" id="waitlist-form">
+        <input type="email" placeholder="your@email.com" required id="waitlist-email">
+        <button type="submit">Join Waitlist</button>
+      </form>
+      <p id="waitlist-message" style="margin-top: 10px; display: none;"></p>
+    </div>
+    
+    <div class="back-link">
+      <a href="/">← Back to Autropic</a>
+    </div>
+  </div>
+  
+  <script>
+    // Waitlist form
+    document.getElementById('waitlist-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('waitlist-email').value;
+      const msgEl = document.getElementById('waitlist-message');
+      
+      try {
+        const res = await fetch('/api/v1/waitlist', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, interests: ['premium-tools'] })
+        });
+        const data = await res.json();
+        
+        if (data.success) {
+          msgEl.textContent = '✓ You\'re on the list! We\'ll email you when new tools launch.';
+          msgEl.style.color = '#22c55e';
+        } else {
+          msgEl.textContent = data.error || 'Something went wrong';
+          msgEl.style.color = '#ef4444';
+        }
+      } catch (err) {
+        msgEl.textContent = 'Network error. Please try again.';
+        msgEl.style.color = '#ef4444';
+      }
+      msgEl.style.display = 'block';
+    });
+    
+    // Stripe checkout (placeholder - replace with actual Stripe link)
+    document.getElementById('checkout-btn').addEventListener('click', (e) => {
+      e.preventDefault();
+      // TODO: Replace with actual Stripe checkout link
+      // window.location.href = 'https://buy.stripe.com/your-link';
+      alert('Stripe checkout coming soon! Join the waitlist below to be notified.');
+    });
+  </script>
+</body>
+</html>

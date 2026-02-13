@@ -7,6 +7,7 @@ const express = require('express');
 const path = require('path');
 const db = require('./lib/database');
 const analytics = require('./lib/analytics');
+const waitlist = require('./lib/waitlist');
 
 const app = express();
 const PORT = process.env.PORT || 8080;
@@ -63,6 +64,80 @@ app.get('/terms', (req, res) => {
 
 app.get('/privacy', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'privacy.html'));
+});
+
+// Pro tier / Upgrade page
+app.get('/pro', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'pro.html'));
+});
+
+// === Waitlist & Pro Tier APIs ===
+
+// Join waitlist
+app.post('/api/v1/waitlist', async (req, res) => {
+  const { email, interests } = req.body;
+  if (!email || !email.includes('@')) {
+    return res.status(400).json({ error: 'Valid email required' });
+  }
+  const entry = await waitlist.addToWaitlist(email, interests || []);
+  res.json({ success: true, message: 'Added to waitlist', position: waitlist.getWaitlistCount() });
+});
+
+// Get top missing searches (admin)
+app.get('/api/v1/missing-searches', (req, res) => {
+  const auth = req.headers.authorization;
+  if (auth !== `Bearer ${ADMIN_KEY}`) {
+    return res.status(401).json({ error: 'Unauthorized' });
+  }
+  res.json({ searches: waitlist.getTopMissingSearches(50) });
+});
+
+// Check API key status
+app.get('/api/v1/key/status', (req, res) => {
+  const apiKey = req.headers['x-api-key'] || req.query.key;
+  const proData = waitlist.validateProKey(apiKey);
+  
+  if (!proData) {
+    return res.json({
+      tier: 'free',
+      limits: { requestsPerMinute: 100, requestsPerDay: 10000 },
+      message: 'Upgrade to Pro for 10x limits: https://tryautropic.com/pro'
+    });
+  }
+  
+  res.json({
+    tier: proData.tier,
+    limits: proData.limits,
+    email: proData.email,
+    active: proData.active
+  });
+});
+
+// Stripe webhook (for creating Pro keys on payment)
+app.post('/api/v1/stripe/webhook', express.raw({ type: 'application/json' }), async (req, res) => {
+  const STRIPE_WEBHOOK_SECRET = process.env.STRIPE_WEBHOOK_SECRET;
+  
+  // In production, verify the webhook signature
+  // For now, just parse the event
+  let event;
+  try {
+    event = JSON.parse(req.body);
+  } catch (e) {
+    return res.status(400).json({ error: 'Invalid payload' });
+  }
+  
+  if (event.type === 'checkout.session.completed') {
+    const session = event.data.object;
+    const email = session.customer_email || session.customer_details?.email;
+    
+    if (email) {
+      const { apiKey } = await waitlist.createProKey(email, 'pro');
+      console.log(`[STRIPE] Created Pro key for ${email}: ${apiKey.slice(0, 10)}...`);
+      // TODO: Send email with API key
+    }
+  }
+  
+  res.json({ received: true });
 });
 
 // === API Routes ===
