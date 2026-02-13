@@ -545,7 +545,7 @@
     <section class="pricing" id="pricing">
       <div class="container">
         <h2>Pricing</h2>
-        <div class="pricing-grid">
+        <div class="pricing-grid" style="grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); max-width: 900px;">
           <div class="pricing-card">
             <h3>Free Scan</h3>
             <div class="price">$0</div>
@@ -557,18 +557,32 @@
             <button onclick="document.getElementById('business-name').focus(); window.scrollTo({top: 0, behavior: 'smooth'})">Scan Now</button>
           </div>
           
-          <div class="pricing-card featured">
+          <div class="pricing-card">
             <h3>Full Report</h3>
             <div class="price">$19.95 <span>one-time</span></div>
             <ul>
               <li>Everything in Free</li>
               <li>Custom llms.txt file</li>
-              <li>AI-optimized content suggestions</li>
+              <li>AI-optimized content</li>
               <li>Structured data schemas</li>
-              <li>Step-by-step implementation guide</li>
-              <li>PDF report to share</li>
+              <li>Implementation guide</li>
+              <li>PDF report</li>
             </ul>
-            <button onclick="buyReport()">Get Full Report</button>
+            <button onclick="buyReport()">Get Report</button>
+          </div>
+          
+          <div class="pricing-card featured">
+            <h3>Monitoring</h3>
+            <div class="price">$29 <span>/month</span></div>
+            <ul>
+              <li>Everything in Full Report</li>
+              <li>Weekly AI presence checks</li>
+              <li>Change alerts via email</li>
+              <li>Competitor tracking</li>
+              <li>Monthly trend reports</li>
+              <li>Priority support</li>
+            </ul>
+            <button onclick="buyMonitoring()">Start Monitoring</button>
           </div>
         </div>
       </div>
@@ -685,6 +699,44 @@
       } catch (e) {
         statusEl.textContent = 'Something went wrong. Please try again.';
         statusEl.style.color = 'var(--red)';
+      }
+    }
+    
+    async function buyMonitoring() {
+      const business = window.scannedBusiness || document.getElementById('business-name').value.trim();
+      if (!business) {
+        alert('Please scan your business first');
+        document.getElementById('business-name').focus();
+        window.scrollTo({top: 0, behavior: 'smooth'});
+        return;
+      }
+      
+      const email = document.getElementById('report-email')?.value?.trim() || '';
+      
+      // Show loading state
+      const btn = event.target;
+      const originalText = btn.textContent;
+      btn.textContent = 'Redirecting...';
+      btn.disabled = true;
+      
+      try {
+        const res = await fetch('/api/v1/bizcheck/checkout', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ business, email, product: 'monitoring' })
+        });
+        
+        const data = await res.json();
+        
+        if (data.url) {
+          window.location.href = data.url;
+        } else {
+          throw new Error(data.error || 'Failed to create checkout');
+        }
+      } catch (err) {
+        alert('Something went wrong. Please try again.');
+        btn.textContent = originalText;
+        btn.disabled = false;
       }
     }
     

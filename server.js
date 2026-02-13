@@ -191,27 +191,41 @@ app.post('/api/v1/stripe/webhook', express.raw({ type: 'application/json' }), as
   res.json({ received: true });
 });
 
+// Stripe Price IDs
+const STRIPE_PRICES = {
+  report: 'price_1SxHmVPS3sMxPlS7t11BCNpD',      // Autropic Biz Checker $19.95 one-time
+  monitoring: process.env.STRIPE_MONITORING_PRICE || null  // $29/month - set in env
+};
+
 // Create Stripe Checkout Session for Biz Checker
 app.post('/api/v1/bizcheck/checkout', async (req, res) => {
   if (!stripe) {
     return res.status(500).json({ error: 'Stripe not configured' });
   }
   
-  const { business, email, score } = req.body;
+  const { business, email, score, product } = req.body;
+  const isMonitoring = product === 'monitoring';
+  
+  // Check if monitoring price is configured
+  if (isMonitoring && !STRIPE_PRICES.monitoring) {
+    return res.status(400).json({ error: 'Monitoring product not yet available' });
+  }
+  
+  const priceId = isMonitoring ? STRIPE_PRICES.monitoring : STRIPE_PRICES.report;
   
   try {
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       line_items: [{
-        price: 'price_1SxHmVPS3sMxPlS7t11BCNpD', // Autropic Biz Checker $19.95
+        price: priceId,
         quantity: 1,
       }],
-      mode: 'payment',
+      mode: isMonitoring ? 'subscription' : 'payment',
       success_url: `${req.headers.origin || 'https://tryautropic.com'}/success?session_id={CHECKOUT_SESSION_ID}&business=${encodeURIComponent(business || '')}`,
       cancel_url: `${req.headers.origin || 'https://tryautropic.com'}/bizcheck`,
       customer_email: email || undefined,
       metadata: {
-        product: 'bizcheck',
+        product: isMonitoring ? 'bizcheck-monitoring' : 'bizcheck-report',
         business: business || 'unknown',
         score: score?.toString() || '0'
       }
