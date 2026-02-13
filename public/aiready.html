@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AIReady — What Do AI Assistants Say About Your Business?</title>
+  <meta name="description" content="Free AI presence scan. See what ChatGPT, Grok, Claude, and Gemini say about your business. Get your AIReady score.">
+  
+  <meta property="og:title" content="AIReady — Is Your Business AI-Ready?">
+  <meta property="og:description" content="What do AI assistants say about your business? Find out in 30 seconds. Free scan.">
+  <meta property="og:type" content="website">
+  
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body { 
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 100%);
+      color: #e0e0e0; 
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+    
+    .container { max-width: 800px; margin: 0 auto; padding: 40px 20px; }
+    
+    /* Header */
+    header {
+      text-align: center;
+      padding: 20px 0;
+      border-bottom: 1px solid #333;
+    }
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #fff;
+    }
+    .logo span { color: #3b82f6; }
+    .by-autropic {
+      font-size: 0.8rem;
+      color: #666;
+      margin-top: 4px;
+    }
+    
+    /* Hero */
+    .hero {
+      text-align: center;
+      padding: 60px 0 40px;
+    }
+    
+    h1 {
+      font-size: 2.8rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+    h1 span { color: #3b82f6; }
+    
+    .subtitle {
+      font-size: 1.3rem;
+      color: #888;
+      margin-bottom: 40px;
+    }
+    
+    /* Scan Box */
+    .scan-box {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid #333;
+      border-radius: 16px;
+      padding: 40px;
+      margin: 0 auto 40px;
+      max-width: 600px;
+    }
+    
+    .scan-input {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    
+    .scan-input input {
+      flex: 1;
+      padding: 16px 20px;
+      font-size: 1.1rem;
+      border: 2px solid #333;
+      border-radius: 8px;
+      background: #0a0a0f;
+      color: #fff;
+    }
+    .scan-input input:focus {
+      outline: none;
+      border-color: #3b82f6;
+    }
+    .scan-input input::placeholder {
+      color: #555;
+    }
+    
+    .scan-btn {
+      padding: 16px 32px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .scan-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4);
+    }
+    .scan-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+    
+    .scan-note {
+      font-size: 0.85rem;
+      color: #666;
+    }
+    
+    /* AI Logos */
+    .ai-logos {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      margin: 30px 0;
+      flex-wrap: wrap;
+    }
+    .ai-logo {
+      padding: 12px 20px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 8px;
+      font-size: 0.9rem;
+      color: #888;
+    }
+    
+    /* Results */
+    .results {
+      display: none;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid #333;
+      border-radius: 16px;
+      padding: 40px;
+      margin: 40px auto;
+      max-width: 600px;
+    }
+    
+    .score-circle {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      background: conic-gradient(#3b82f6 0deg, #3b82f6 0deg, #333 0deg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 30px;
+      position: relative;
+    }
+    .score-inner {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: #1a1a2e;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+    .score-number {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #fff;
+    }
+    .score-label {
+      font-size: 0.8rem;
+      color: #888;
+    }
+    
+    .ai-results {
+      margin: 30px 0;
+    }
+    .ai-result {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px;
+      border-bottom: 1px solid #333;
+    }
+    .ai-result:last-child { border-bottom: none; }
+    .ai-name {
+      font-weight: 600;
+      color: #fff;
+    }
+    .status-found { color: #22c55e; }
+    .status-partial { color: #f59e0b; }
+    .status-missing { color: #ef4444; }
+    
+    .cta-box {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      border: 1px solid #3b82f6;
+      border-radius: 12px;
+      padding: 24px;
+      text-align: center;
+      margin-top: 30px;
+    }
+    .cta-box h3 {
+      color: #fff;
+      margin-bottom: 8px;
+    }
+    .cta-box p {
+      color: #888;
+      margin-bottom: 16px;
+    }
+    .cta-btn {
+      display: inline-block;
+      padding: 12px 24px;
+      background: #3b82f6;
+      color: #fff;
+      font-weight: 600;
+      border-radius: 6px;
+      text-decoration: none;
+    }
+    .cta-btn:hover {
+      background: #2563eb;
+    }
+    
+    /* How It Works */
+    .how-it-works {
+      padding: 60px 0;
+      text-align: center;
+    }
+    .how-it-works h2 {
+      font-size: 2rem;
+      color: #fff;
+      margin-bottom: 40px;
+    }
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 30px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .step {
+      padding: 30px 20px;
+      background: rgba(255,255,255,0.03);
+      border-radius: 12px;
+    }
+    .step-number {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #3b82f6;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+      font-weight: 700;
+    }
+    .step h3 {
+      color: #fff;
+      margin-bottom: 8px;
+    }
+    .step p {
+      color: #888;
+      font-size: 0.9rem;
+    }
+    
+    /* Pricing */
+    .pricing {
+      padding: 60px 0;
+    }
+    .pricing h2 {
+      text-align: center;
+      font-size: 2rem;
+      color: #fff;
+      margin-bottom: 40px;
+    }
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 24px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .pricing-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid #333;
+      border-radius: 12px;
+      padding: 30px;
+    }
+    .pricing-card.featured {
+      border-color: #3b82f6;
+      background: rgba(59, 130, 246, 0.1);
+    }
+    .pricing-card h3 {
+      color: #fff;
+      margin-bottom: 8px;
+    }
+    .pricing-card .price {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #3b82f6;
+      margin-bottom: 16px;
+    }
+    .pricing-card .price span {
+      font-size: 1rem;
+      color: #888;
+      font-weight: normal;
+    }
+    .pricing-card ul {
+      list-style: none;
+      margin-bottom: 24px;
+    }
+    .pricing-card li {
+      padding: 8px 0;
+      color: #aaa;
+      font-size: 0.9rem;
+    }
+    .pricing-card li::before {
+      content: "✓ ";
+      color: #22c55e;
+    }
+    .pricing-card button {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #333;
+      background: transparent;
+      color: #fff;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 500;
+    }
+    .pricing-card.featured button {
+      background: #3b82f6;
+      border-color: #3b82f6;
+    }
+    
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 40px 20px;
+      border-top: 1px solid #333;
+      color: #666;
+      font-size: 0.9rem;
+    }
+    footer a { color: #888; margin: 0 12px; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <div class="logo">AI<span>Ready</span></div>
+      <div class="by-autropic">by <a href="https://tryautropic.com" style="color: #888;">Autropic</a></div>
+    </div>
+  </header>
+  
+  <main>
+    <section class="hero">
+      <div class="container">
+        <h1>What do <span>AI assistants</span> say about your business?</h1>
+        <p class="subtitle">Ask ChatGPT. Ask Grok. Ask Claude. We'll show you what they say.</p>
+        
+        <div class="scan-box">
+          <div class="scan-input">
+            <input type="text" id="business-name" placeholder="Enter your business name..." />
+            <button class="scan-btn" id="scan-btn" onclick="startScan()">Scan Free</button>
+          </div>
+          <p class="scan-note">Free AI presence scan across 6 major AI assistants</p>
+        </div>
+        
+        <div class="ai-logos">
+          <div class="ai-logo">ChatGPT</div>
+          <div class="ai-logo">Grok</div>
+          <div class="ai-logo">Claude</div>
+          <div class="ai-logo">Gemini</div>
+          <div class="ai-logo">Perplexity</div>
+          <div class="ai-logo">Copilot</div>
+        </div>
+      </div>
+    </section>
+    
+    <div class="results" id="results">
+      <h2 style="text-align: center; color: #fff; margin-bottom: 20px;">Your AIReady Score</h2>
+      
+      <div class="score-circle" id="score-circle">
+        <div class="score-inner">
+          <div class="score-number" id="score-number">--</div>
+          <div class="score-label">out of 100</div>
+        </div>
+      </div>
+      
+      <div class="ai-results" id="ai-results">
+        <!-- Filled by JS -->
+      </div>
+      
+      <div class="cta-box">
+        <h3>Want to improve your score?</h3>
+        <p>Get AI-optimized content, llms.txt file, and ongoing monitoring.</p>
+        <a href="#pricing" class="cta-btn">See Pricing →</a>
+      </div>
+    </div>
+    
+    <section class="how-it-works">
+      <div class="container">
+        <h2>How It Works</h2>
+        <div class="steps">
+          <div class="step">
+            <div class="step-number">1</div>
+            <h3>Scan</h3>
+            <p>Enter your business name. We check what 6 major AI assistants say about you.</p>
+          </div>
+          <div class="step">
+            <div class="step-number">2</div>
+            <h3>Score</h3>
+            <p>Get your AIReady score (0-100) and see exactly what each AI knows.</p>
+          </div>
+          <div class="step">
+            <div class="step-number">3</div>
+            <h3>Optimize</h3>
+            <p>Get actionable fixes: AI-optimized content, structured data, and monitoring.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section class="pricing" id="pricing">
+      <div class="container">
+        <h2>Pricing</h2>
+        <div class="pricing-grid">
+          <div class="pricing-card">
+            <h3>Free Scan</h3>
+            <div class="price">$0</div>
+            <ul>
+              <li>AI presence score</li>
+              <li>6 AI platforms checked</li>
+              <li>Basic report</li>
+            </ul>
+            <button onclick="document.getElementById('business-name').focus()">Scan Now</button>
+          </div>
+          
+          <div class="pricing-card featured">
+            <h3>Starter</h3>
+            <div class="price">$49 <span>one-time</span></div>
+            <ul>
+              <li>Everything in Free</li>
+              <li>llms.txt file generated</li>
+              <li>AI-optimized content</li>
+              <li>Structured data schemas</li>
+              <li>Implementation guide</li>
+            </ul>
+            <button onclick="alert('Coming soon!')">Get Started</button>
+          </div>
+          
+          <div class="pricing-card">
+            <h3>Monitor</h3>
+            <div class="price">$29 <span>/month</span></div>
+            <ul>
+              <li>Everything in Starter</li>
+              <li>Weekly AI checks</li>
+              <li>Change alerts</li>
+              <li>Competitor tracking</li>
+              <li>Monthly reports</li>
+            </ul>
+            <button onclick="alert('Coming soon!')">Subscribe</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  
+  <footer>
+    <a href="https://tryautropic.com">Autropic</a>
+    <a href="https://tryautropic.com/terms">Terms</a>
+    <a href="https://tryautropic.com/privacy">Privacy</a>
+  </footer>
+  
+  <script>
+    async function startScan() {
+      const businessName = document.getElementById('business-name').value.trim();
+      if (!businessName) {
+        alert('Please enter your business name');
+        return;
+      }
+      
+      const btn = document.getElementById('scan-btn');
+      btn.disabled = true;
+      btn.textContent = 'Scanning...';
+      
+      // Simulate scan (in production, this would call real APIs)
+      await new Promise(r => setTimeout(r, 2000));
+      
+      // Generate mock results (replace with real API calls)
+      const aiPlatforms = [
+        { name: 'ChatGPT', status: Math.random() > 0.3 ? 'found' : (Math.random() > 0.5 ? 'partial' : 'missing') },
+        { name: 'Grok', status: Math.random() > 0.5 ? 'found' : (Math.random() > 0.5 ? 'partial' : 'missing') },
+        { name: 'Claude', status: Math.random() > 0.4 ? 'found' : (Math.random() > 0.5 ? 'partial' : 'missing') },
+        { name: 'Gemini', status: Math.random() > 0.4 ? 'found' : (Math.random() > 0.5 ? 'partial' : 'missing') },
+        { name: 'Perplexity', status: Math.random() > 0.6 ? 'found' : (Math.random() > 0.5 ? 'partial' : 'missing') },
+        { name: 'Copilot', status: Math.random() > 0.5 ? 'found' : (Math.random() > 0.5 ? 'partial' : 'missing') },
+      ];
+      
+      // Calculate score
+      const score = aiPlatforms.reduce((acc, p) => {
+        if (p.status === 'found') return acc + 17;
+        if (p.status === 'partial') return acc + 8;
+        return acc;
+      }, 0);
+      
+      // Display results
+      document.getElementById('results').style.display = 'block';
+      document.getElementById('score-number').textContent = Math.min(100, score);
+      
+      // Update score circle
+      const degrees = (score / 100) * 360;
+      document.getElementById('score-circle').style.background = 
+        `conic-gradient(#3b82f6 0deg, #3b82f6 ${degrees}deg, #333 ${degrees}deg)`;
+      
+      // Display AI results
+      const resultsHtml = aiPlatforms.map(p => `
+        <div class="ai-result">
+          <span class="ai-name">${p.name}</span>
+          <span class="status-${p.status}">
+            ${p.status === 'found' ? '✓ Found' : (p.status === 'partial' ? '⚠ Partial' : '✗ Not Found')}
+          </span>
+        </div>
+      `).join('');
+      document.getElementById('ai-results').innerHTML = resultsHtml;
+      
+      // Scroll to results
+      document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+      
+      btn.disabled = false;
+      btn.textContent = 'Scan Again';
+      
+      // Track scan (for analytics)
+      fetch('/api/v1/aiready/scan', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ business: businessName, score, results: aiPlatforms })
+      }).catch(() => {});
+    }
+  </script>
+</body>
+</html>

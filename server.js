@@ -71,6 +71,24 @@ app.get('/pro', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'pro.html'));
 });
 
+// AIReady - AI Presence Scanner
+app.get('/aiready', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'aiready.html'));
+});
+
+// AIReady scan tracking
+app.post('/api/v1/aiready/scan', async (req, res) => {
+  const { business, score, results } = req.body;
+  console.log(`[AIREADY SCAN] ${business} - Score: ${score}`);
+  
+  // Track in waitlist system for follow-up
+  if (business) {
+    await waitlist.trackMissingSearch(`aiready:${business}`, req.headers['user-agent'], 'aiready');
+  }
+  
+  res.json({ tracked: true });
+});
+
 // === Waitlist & Pro Tier APIs ===
 
 // Join waitlist
