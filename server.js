@@ -959,6 +959,110 @@ app.get('/api/v1/status', (req, res) => {
   res.redirect('/status');
 });
 
+// === Mining Data API ===
+// Australian mining tenement data - unified access across states
+const miningWA = require('./lib/mining-wa');
+
+// Mining API info
+app.get('/api/mining', (req, res) => {
+  res.json({
+    name: 'Australian Mining Data API',
+    version: '0.1.0',
+    description: 'Unified API for Australian mining tenement data',
+    states: ['WA'],
+    coming_soon: ['QLD', 'NSW', 'SA', 'NT'],
+    endpoints: {
+      tenements: 'GET /api/mining/tenements?state=WA&status=LIVE&limit=100',
+      tenement: 'GET /api/mining/tenements/:id',
+      stats: 'GET /api/mining/stats',
+      search: 'GET /api/mining/search?q=<company_name>'
+    },
+    data_sources: {
+      WA: 'Department of Mines, Industry Regulation and Safety (DMIRS)'
+    }
+  });
+});
+
+// Query tenements
+app.get('/api/mining/tenements', async (req, res) => {
+  try {
+    const state = (req.query.state || 'WA').toUpperCase();
+    
+    if (state !== 'WA' && state !== 'ALL') {
+      return res.json({ error: 'Only WA supported currently. QLD, NSW, SA, NT coming soon.' });
+    }
+
+    const result = await miningWA.queryTenements({
+      status: req.query.status,
+      type: req.query.type,
+      holder: req.query.holder,
+      limit: parseInt(req.query.limit) || 100,
+      offset: parseInt(req.query.offset) || 0,
+      includeGeometry: req.query.geometry === 'true'
+    });
+    
+    res.json(result);
+  } catch (error) {
+    console.error('Mining API error:', error);
+    res.status(500).json({ error: 'Failed to fetch tenement data', message: error.message });
+  }
+});
+
+// Get single tenement by ID
+app.get('/api/mining/tenements/:id', async (req, res) => {
+  try {
+    const tenement = await miningWA.getTenement(req.params.id);
+    if (!tenement) {
+      return res.status(404).json({ error: 'Tenement not found', id: req.params.id });
+    }
+    res.json(tenement);
+  } catch (error) {
+    console.error('Mining API error:', error);
+    res.status(500).json({ error: 'Failed to fetch tenement', message: error.message });
+  }
+});
+
+// Mining stats
+app.get('/api/mining/stats', async (req, res) => {
+  try {
+    const waStats = await miningWA.getStats();
+    res.json({
+      states: {
+        WA: waStats.stats
+      },
+      total: {
+        live: waStats.stats.live,
+        pending: waStats.stats.pending
+      },
+      sources: {
+        WA: 'DMIRS (live data)'
+      }
+    });
+  } catch (error) {
+    console.error('Mining API error:', error);
+    res.status(500).json({ error: 'Failed to fetch stats', message: error.message });
+  }
+});
+
+// Search by holder/company name
+app.get('/api/mining/search', async (req, res) => {
+  try {
+    if (!req.query.q) {
+      return res.status(400).json({ error: 'Missing search query. Use ?q=<company_name>' });
+    }
+    
+    const result = await miningWA.queryTenements({
+      holder: req.query.q,
+      limit: parseInt(req.query.limit) || 50
+    });
+    
+    res.json(result);
+  } catch (error) {
+    console.error('Mining API error:', error);
+    res.status(500).json({ error: 'Failed to search', message: error.message });
+  }
+});
+
 // Sitemap for SEO
 app.get('/sitemap.xml', (req, res) => {
   const servers = db.servers.getAll({ limit: 1000 });
