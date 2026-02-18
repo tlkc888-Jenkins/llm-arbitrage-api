@@ -85,6 +85,11 @@ app.get('/bizcheck', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'bizcheck.html'));
 });
 
+// Autropic Mining - Mining Tenement Data API
+app.get('/mining', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'mining.html'));
+});
+
 // Payment success page
 app.get('/success', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'success.html'));
