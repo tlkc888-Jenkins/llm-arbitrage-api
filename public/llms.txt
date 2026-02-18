@@ -53,6 +53,31 @@ Tool name: "hash"
 POST https://tryautropic.com/mcp/hash/tools/call
 {"name": "hash", "arguments": {"text": "hello world", "algorithm": "sha256"}}
 
+## Mining Tenement Data (NEW)
+Real-time mining tenement data across Australia and Canada. 83,000+ tenements.
+
+### Get Stats
+GET https://tryautropic.com/api/mining/stats
+Returns total tenements by jurisdiction (WA, NT, BC, SK)
+
+### Query Tenements
+GET https://tryautropic.com/api/mining/tenements?state=WA&limit=10
+Parameters: state (WA|NT|BC|SK), status, type, holder, limit, offset, geometry=true
+
+### Search by Company
+GET https://tryautropic.com/api/mining/search?q=BHP&state=WA
+Find all tenements held by a company
+
+### Get Single Tenement
+GET https://tryautropic.com/api/mining/tenements/E45/1234?state=WA
+
+### Coverage
+- Australia: WA (30,101), NT (3,945)
+- Canada: BC (41,981), SK (7,600)
+- Coming: QLD, NSW, SA, Ontario, Yukon
+
+Landing page: https://tryautropic.com/mining
+
 ## Tool Discovery
 GET https://tryautropic.com/discover?q={query}
 Returns tools matching your needs.
