@@ -960,25 +960,47 @@ app.get('/api/v1/status', (req, res) => {
 });
 
 // === Mining Data API ===
-// Australian mining tenement data - unified access across states
+// Mining tenement data - unified access across jurisdictions
 const miningWA = require('./lib/mining-wa');
+const miningNT = require('./lib/mining-nt');
+const miningBC = require('./lib/mining-bc');
+const miningSK = require('./lib/mining-sk');
+
+// Map of all mining clients by jurisdiction
+const MINING_CLIENTS = {
+  // Australia
+  WA: { client: miningWA, country: 'AU', name: 'Western Australia' },
+  NT: { client: miningNT, country: 'AU', name: 'Northern Territory' },
+  // Canada
+  BC: { client: miningBC, country: 'CA', name: 'British Columbia' },
+  SK: { client: miningSK, country: 'CA', name: 'Saskatchewan' }
+};
 
 // Mining API info
 app.get('/api/mining', (req, res) => {
   res.json({
-    name: 'Australian Mining Data API',
-    version: '0.1.0',
-    description: 'Unified API for Australian mining tenement data',
-    states: ['WA'],
-    coming_soon: ['QLD', 'NSW', 'SA', 'NT'],
+    name: 'Global Mining Data API',
+    version: '0.2.0',
+    description: 'Unified API for mining tenement data across multiple jurisdictions',
+    jurisdictions: {
+      australia: ['WA', 'NT'],
+      canada: ['BC', 'SK']
+    },
+    coming_soon: {
+      australia: ['QLD', 'NSW', 'SA'],
+      canada: ['ON', 'YT', 'NU']
+    },
     endpoints: {
       tenements: 'GET /api/mining/tenements?state=WA&status=LIVE&limit=100',
-      tenement: 'GET /api/mining/tenements/:id',
+      tenement: 'GET /api/mining/tenements/:id?state=WA',
       stats: 'GET /api/mining/stats',
-      search: 'GET /api/mining/search?q=<company_name>'
+      search: 'GET /api/mining/search?q=<company_name>&state=WA'
     },
     data_sources: {
-      WA: 'Department of Mines, Industry Regulation and Safety (DMIRS)'
+      WA: 'DMIRS (Department of Mines, Industry Regulation and Safety)',
+      NT: 'NT Geological Survey WFS',
+      BC: 'BC Open Maps WFS (Ministry of Energy, Mines)',
+      SK: 'Saskatchewan GIS (Ministry of Energy and Resources)'
     }
   });
 });
@@ -988,11 +1010,17 @@ app.get('/api/mining/tenements', async (req, res) => {
   try {
     const state = (req.query.state || 'WA').toUpperCase();
     
-    if (state !== 'WA' && state !== 'ALL') {
-      return res.json({ error: 'Only WA supported currently. QLD, NSW, SA, NT coming soon.' });
+    const client = MINING_CLIENTS[state];
+    if (!client) {
+      const supported = Object.keys(MINING_CLIENTS).join(', ');
+      return res.status(400).json({ 
+        error: `Unsupported state: ${state}`, 
+        supported,
+        tip: 'Use ?state=WA, ?state=NT (Australia), ?state=BC, or ?state=SK (Canada)'
+      });
     }
 
-    const result = await miningWA.queryTenements({
+    const result = await client.client.queryTenements({
       status: req.query.status,
       type: req.query.type,
       holder: req.query.holder,
@@ -1011,9 +1039,16 @@ app.get('/api/mining/tenements', async (req, res) => {
 // Get single tenement by ID
 app.get('/api/mining/tenements/:id', async (req, res) => {
   try {
-    const tenement = await miningWA.getTenement(req.params.id);
+    const state = (req.query.state || 'WA').toUpperCase();
+    const client = MINING_CLIENTS[state];
+    
+    if (!client) {
+      return res.status(400).json({ error: `Unsupported state: ${state}` });
+    }
+    
+    const tenement = await client.client.getTenement(req.params.id);
     if (!tenement) {
-      return res.status(404).json({ error: 'Tenement not found', id: req.params.id });
+      return res.status(404).json({ error: 'Tenement not found', id: req.params.id, state });
     }
     res.json(tenement);
   } catch (error) {
@@ -1025,17 +1060,41 @@ app.get('/api/mining/tenements/:id', async (req, res) => {
 // Mining stats
 app.get('/api/mining/stats', async (req, res) => {
   try {
-    const waStats = await miningWA.getStats();
+    // Fetch stats from all jurisdictions in parallel
+    const [waStats, ntStats, bcStats, skStats] = await Promise.all([
+      miningWA.getStats().catch(e => ({ stats: { error: e.message } })),
+      miningNT.getStats().catch(e => ({ stats: { error: e.message } })),
+      miningBC.getStats().catch(e => ({ stats: { error: e.message } })),
+      miningSK.getStats().catch(e => ({ stats: { error: e.message } }))
+    ]);
+    
+    // Calculate totals
+    const auTotal = (waStats.stats?.live || waStats.stats?.total || 0) + 
+                    (waStats.stats?.pending || 0) +
+                    (ntStats.stats?.total || 0);
+    const caTotal = (bcStats.stats?.total || 0) + (skStats.stats?.total || 0);
+    
     res.json({
-      states: {
-        WA: waStats.stats
+      jurisdictions: {
+        australia: {
+          WA: waStats.stats,
+          NT: ntStats.stats
+        },
+        canada: {
+          BC: bcStats.stats,
+          SK: skStats.stats
+        }
       },
-      total: {
-        live: waStats.stats.live,
-        pending: waStats.stats.pending
+      totals: {
+        australia: auTotal,
+        canada: caTotal,
+        global: auTotal + caTotal
       },
       sources: {
-        WA: 'DMIRS (live data)'
+        WA: 'DMIRS (live data)',
+        NT: 'NT Geological Survey WFS',
+        BC: 'BC Open Maps WFS',
+        SK: 'Saskatchewan GIS'
       }
     });
   } catch (error) {
@@ -1048,10 +1107,17 @@ app.get('/api/mining/stats', async (req, res) => {
 app.get('/api/mining/search', async (req, res) => {
   try {
     if (!req.query.q) {
-      return res.status(400).json({ error: 'Missing search query. Use ?q=<company_name>' });
+      return res.status(400).json({ error: 'Missing search query. Use ?q=<company_name>&state=WA' });
     }
     
-    const result = await miningWA.queryTenements({
+    const state = (req.query.state || 'WA').toUpperCase();
+    const client = MINING_CLIENTS[state];
+    
+    if (!client) {
+      return res.status(400).json({ error: `Unsupported state: ${state}` });
+    }
+    
+    const result = await client.client.queryTenements({
       holder: req.query.q,
       limit: parseInt(req.query.limit) || 50
     });
