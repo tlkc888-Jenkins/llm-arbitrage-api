@@ -17,7 +17,11 @@ const app = express();
 const PORT = process.env.PORT || 8080;
 const ADMIN_KEY = process.env.ADMIN_KEY || 'admin_dev_key';
 
+// Security monitoring
+const securityMonitor = require('./lib/security-monitor');
+
 // Middleware
+app.use(securityMonitor.middleware); // Security first
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -375,6 +379,17 @@ app.get('/api/admin/analytics', adminAuth, (req, res) => {
       ? 'Analytics active — check Supabase for data'
       : 'Add SUPABASE_URL and SUPABASE_KEY to enable analytics'
   });
+});
+
+// Security status (admin)
+app.get('/api/admin/security', adminAuth, (req, res) => {
+  res.json(securityMonitor.getStats());
+});
+
+// Security alerts (admin)
+app.get('/api/admin/security/alerts', adminAuth, (req, res) => {
+  const limit = parseInt(req.query.limit) || 50;
+  res.json({ alerts: securityMonitor.getAlerts(limit) });
 });
 
 // === HTML Routes (SPA-style, serve index.html) ===
