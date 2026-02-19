@@ -1,0 +1,65 @@
+{
+  "last_updated": "2026-02-19",
+  "listings": [
+    {
+      "id": "eq_001",
+      "title": "2019 Caterpillar 994K Wheel Loader",
+      "category": "Wheel Loader",
+      "make": "Caterpillar",
+      "model": "994K",
+      "year": 2019,
+      "hours": 12500,
+      "location": "Perth, WA",
+      "price_aud": 2850000,
+      "condition": "Used - Good"
+    },
+    {
+      "id": "eq_002",
+      "title": "2021 Komatsu PC5500-6 Mining Excavator",
+      "category": "Excavator",
+      "make": "Komatsu",
+      "model": "PC5500-6",
+      "year": 2021,
+      "hours": 8200,
+      "location": "Newman, WA",
+      "price_aud": 4500000,
+      "condition": "Used - Excellent"
+    },
+    {
+      "id": "eq_003",
+      "title": "2020 Caterpillar 793F Mining Truck",
+      "category": "Haul Truck",
+      "make": "Caterpillar",
+      "model": "793F",
+      "year": 2020,
+      "hours": 15800,
+      "location": "Port Hedland, WA",
+      "price_aud": 1950000,
+      "condition": "Used - Good"
+    },
+    {
+      "id": "eq_004",
+      "title": "2022 Sandvik DD422i Development Drill",
+      "category": "Underground Drill",
+      "make": "Sandvik",
+      "model": "DD422i",
+      "year": 2022,
+      "hours": 3200,
+      "location": "Kalgoorlie, WA",
+      "price_aud": 1200000,
+      "condition": "Used - Excellent"
+    },
+    {
+      "id": "eq_005",
+      "title": "2018 Epiroc SmartROC D65 Surface Drill",
+      "category": "Surface Drill",
+      "make": "Epiroc",
+      "model": "SmartROC D65",
+      "year": 2018,
+      "hours": 9500,
+      "location": "Mount Isa, QLD",
+      "price_aud": 650000,
+      "condition": "Used - Fair"
+    }
+  ]
+}

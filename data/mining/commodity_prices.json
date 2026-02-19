@@ -1,0 +1,21 @@
+{
+  "scraped_at": "2026-02-19",
+  "precious_metals": {
+    "gold_usd_oz": 2650,
+    "silver_usd_oz": 31.5
+  },
+  "base_metals": {
+    "copper_usd_lb": 4.25,
+    "zinc_usd_lb": 1.15,
+    "nickel_usd_lb": 7.5,
+    "lead_usd_lb": 0.92
+  },
+  "iron_ore": {
+    "iron_ore_62fe_usd_t": 105.5
+  },
+  "battery_metals": {
+    "lithium_carbonate_usd_t": 12500,
+    "lithium_hydroxide_usd_t": 13500,
+    "cobalt_usd_lb": 14.25
+  }
+}

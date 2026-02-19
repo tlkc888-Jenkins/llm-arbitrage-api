@@ -999,29 +999,32 @@ const MINING_CLIENTS = {
 // Mining API info
 app.get('/api/mining', (req, res) => {
   res.json({
-    name: 'Global Mining Data API',
-    version: '0.2.0',
-    description: 'Unified API for mining tenement data across multiple jurisdictions',
-    jurisdictions: {
+    name: 'Mining Intelligence API',
+    version: '1.0.0',
+    description: 'Comprehensive mining data API — tenements, labs, drillers, jobs, equipment, prices, and ASX announcements',
+    endpoints: {
+      tenements: {
+        list: 'GET /api/mining/tenements?state=WA&status=LIVE&limit=100',
+        single: 'GET /api/mining/tenements/:id?state=WA',
+        stats: 'GET /api/mining/stats',
+        search: 'GET /api/mining/search?q=<company_name>&state=WA'
+      },
+      intelligence: {
+        labs: 'GET /api/mining/labs?region=perth&service=fire+assay&commodity=gold',
+        drillers: 'GET /api/mining/drillers?region=WA&drill_type=diamond',
+        jobs: 'GET /api/mining/jobs?company=bhp&work_type=FIFO&role_type=exploration',
+        equipment: 'GET /api/mining/equipment?category=excavator&make=caterpillar',
+        prices: 'GET /api/mining/prices',
+        announcements: 'GET /api/mining/announcements?company=BHP',
+        capital_raises: 'GET /api/mining/announcements/capital-raises',
+        exploration: 'GET /api/mining/announcements/exploration'
+      }
+    },
+    tenement_jurisdictions: {
       australia: ['WA', 'NT'],
       canada: ['BC', 'SK']
     },
-    coming_soon: {
-      australia: ['QLD', 'NSW', 'SA'],
-      canada: ['ON', 'YT', 'NU']
-    },
-    endpoints: {
-      tenements: 'GET /api/mining/tenements?state=WA&status=LIVE&limit=100',
-      tenement: 'GET /api/mining/tenements/:id?state=WA',
-      stats: 'GET /api/mining/stats',
-      search: 'GET /api/mining/search?q=<company_name>&state=WA'
-    },
-    data_sources: {
-      WA: 'DMIRS (Department of Mines, Industry Regulation and Safety)',
-      NT: 'NT Geological Survey WFS',
-      BC: 'BC Open Maps WFS (Ministry of Energy, Mines)',
-      SK: 'Saskatchewan GIS (Ministry of Energy and Resources)'
-    }
+    docs: 'https://tryautropic.com/mining/docs'
   });
 });
 
@@ -1147,6 +1150,173 @@ app.get('/api/mining/search', async (req, res) => {
     console.error('Mining API error:', error);
     res.status(500).json({ error: 'Failed to search', message: error.message });
   }
+});
+
+// === Mining Intelligence API ===
+const miningIntel = require('./lib/mining-intelligence');
+
+// Labs
+app.get('/api/mining/labs', (req, res) => {
+  const data = miningIntel.getLabs();
+  if (!data) return res.status(503).json({ error: 'Data unavailable' });
+  
+  let labs = data.labs || [];
+  
+  if (req.query.region) {
+    const r = req.query.region.toLowerCase();
+    labs = labs.filter(l => l.address?.toLowerCase().includes(r) || l.id?.includes(r));
+  }
+  if (req.query.service) {
+    const s = req.query.service.toLowerCase();
+    labs = labs.filter(l => l.services?.some(svc => svc.toLowerCase().includes(s)));
+  }
+  if (req.query.commodity) {
+    const c = req.query.commodity.toLowerCase();
+    labs = labs.filter(l => l.commodities?.some(com => com.toLowerCase().includes(c)));
+  }
+  
+  res.json({ total: labs.length, data: labs });
+});
+
+// Drillers
+app.get('/api/mining/drillers', (req, res) => {
+  const data = miningIntel.getDrillers();
+  if (!data) return res.status(503).json({ error: 'Data unavailable' });
+  
+  let drillers = data.contractors || [];
+  
+  if (req.query.region) {
+    const r = req.query.region.toUpperCase();
+    drillers = drillers.filter(d => d.regions?.includes(r));
+  }
+  if (req.query.drill_type) {
+    const t = req.query.drill_type.toLowerCase();
+    drillers = drillers.filter(d => d.drill_types?.some(dt => dt.toLowerCase().includes(t)));
+  }
+  if (req.query.asx_listed === 'true') {
+    drillers = drillers.filter(d => d.asx_code);
+  }
+  
+  res.json({ total: drillers.length, data: drillers });
+});
+
+// Jobs
+app.get('/api/mining/jobs', (req, res) => {
+  const data = miningIntel.getJobs();
+  if (!data) return res.status(503).json({ error: 'Data unavailable' });
+  
+  let jobs = data.jobs || [];
+  
+  if (req.query.company) {
+    const c = req.query.company.toLowerCase();
+    jobs = jobs.filter(j => j.company?.toLowerCase().includes(c));
+  }
+  if (req.query.location) {
+    const l = req.query.location.toLowerCase();
+    jobs = jobs.filter(j => j.location?.toLowerCase().includes(l));
+  }
+  if (req.query.role_type) {
+    jobs = jobs.filter(j => j.role_type === req.query.role_type);
+  }
+  if (req.query.work_type) {
+    jobs = jobs.filter(j => j.work_type === req.query.work_type);
+  }
+  
+  const limit = Math.min(parseInt(req.query.limit) || 50, 200);
+  const offset = parseInt(req.query.offset) || 0;
+  
+  res.json({
+    total: jobs.length,
+    limit,
+    offset,
+    data: jobs.slice(offset, offset + limit)
+  });
+});
+
+// Equipment
+app.get('/api/mining/equipment', (req, res) => {
+  const data = miningIntel.getEquipment();
+  if (!data) return res.status(503).json({ error: 'Data unavailable' });
+  
+  let listings = data.listings || [];
+  
+  if (req.query.category) {
+    const c = req.query.category.toLowerCase();
+    listings = listings.filter(l => l.category?.toLowerCase().includes(c));
+  }
+  if (req.query.make) {
+    const m = req.query.make.toLowerCase();
+    listings = listings.filter(l => l.make?.toLowerCase().includes(m));
+  }
+  if (req.query.max_price) {
+    const p = parseInt(req.query.max_price);
+    listings = listings.filter(l => l.price_aud <= p);
+  }
+  
+  res.json({ total: listings.length, data: listings });
+});
+
+// Prices
+app.get('/api/mining/prices', (req, res) => {
+  const data = miningIntel.getPrices();
+  if (!data) {
+    return res.json({ prices: {}, message: 'Price data updating' });
+  }
+  
+  res.json({
+    prices: {
+      precious_metals: data.precious_metals || {},
+      base_metals: data.base_metals || {},
+      iron_ore: data.iron_ore || {},
+      battery_metals: data.battery_metals || {}
+    }
+  });
+});
+
+// ASX Announcements
+app.get('/api/mining/announcements', (req, res) => {
+  const data = miningIntel.getAnnouncements();
+  if (!data) return res.status(503).json({ error: 'Data unavailable' });
+  
+  let results = data.all_announcements || [];
+  
+  if (req.query.company) {
+    const c = req.query.company.toUpperCase();
+    results = results.filter(a => a.company_code === c);
+  }
+  if (req.query.category) {
+    results = results.filter(a => a.category === req.query.category);
+  }
+  
+  const limit = Math.min(parseInt(req.query.limit) || 50, 200);
+  const offset = parseInt(req.query.offset) || 0;
+  
+  res.json({
+    total: results.length,
+    limit,
+    offset,
+    data: results.slice(offset, offset + limit)
+  });
+});
+
+app.get('/api/mining/announcements/capital-raises', (req, res) => {
+  const data = miningIntel.getAnnouncements();
+  if (!data) return res.status(503).json({ error: 'Data unavailable' });
+  
+  res.json({
+    total: data.capital_raises?.length || 0,
+    data: data.capital_raises || []
+  });
+});
+
+app.get('/api/mining/announcements/exploration', (req, res) => {
+  const data = miningIntel.getAnnouncements();
+  if (!data) return res.status(503).json({ error: 'Data unavailable' });
+  
+  res.json({
+    total: data.exploration_results?.length || 0,
+    data: data.exploration_results || []
+  });
 });
 
 // Sitemap for SEO

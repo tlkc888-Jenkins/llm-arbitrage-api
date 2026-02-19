@@ -1,0 +1,1505 @@
+{
+  "last_updated": "2026-02-19",
+  "jobs": [
+    {
+      "id": "job_1000",
+      "title": "Environmental Officer",
+      "company": "South32",
+      "location": "Perth WA",
+      "role_type": "environment",
+      "work_type": "FIFO",
+      "salary_range": "Competitive",
+      "posted_date": "2026-02-16T06:03:23.937Z"
+    },
+    {
+      "id": "job_1001",
+      "title": "Process Plant Operator",
+      "company": "BHP",
+      "location": "Newman WA",
+      "role_type": "processing",
+      "work_type": "FIFO",
+      "salary_range": "$120,000 - $180,000",
+      "posted_date": "2026-02-11T22:17:38.310Z"
+    },
+    {
+      "id": "job_1002",
+      "title": "Environmental Officer",
+      "company": "Fortescue",
+      "location": "Mount Isa QLD",
+      "role_type": "environment",
+      "work_type": "Residential",
+      "salary_range": "Competitive",
+      "posted_date": "2026-02-10T09:08:08.080Z"
+    },
+    {
+      "id": "job_1003",
+      "title": "Safety Advisor",
+      "company": "Newmont",
+      "location": "Newman WA",
+      "role_type": "safety",
+      "work_type": "Residential",
+      "salary_range": "Competitive",
+      "posted_date": "2026-02-17T20:00:42.619Z"
+    },
+    {
+      "id": "job_1004",
+      "title": "Exploration Geologist",
+      "company": "Northern Star",
+      "location": "Newman WA",
+      "role_type": "exploration",
+      "work_type": "FIFO",
+      "salary_range": "$120,000 - $180,000",
+      "posted_date": "2026-02-08T11:57:05.342Z"
+    },
+    {
+      "id": "job_1005",
+      "title": "Maintenance Fitter",
+      "company": "Evolution Mining",
+      "location": "Perth WA",
+      "role_type": "maintenance",
+      "work_type": "Residential",
+      "salary_range": "$120,000 - $180,000",
+      "posted_date": "2026-02-11T10:21:07.517Z"
+    },
+    {
+      "id": "job_1006",
+      "title": "Haul Truck Operator",
+      "company": "IGO Limited",
+      "location": "Newman WA",
+      "role_type": "operations",
+      "work_type": "FIFO",
+      "salary_range": "$120,000 - $180,000",
+      "posted_date": "2026-02-13T14:19:29.121Z"
+    },
+    {
+      "id": "job_1007",
+      "title": "Haul Truck Operator",
+      "company": "Northern Star",
+      "location": "Mackay QLD",
+      "role_type": "operations",
+      "work_type": "FIFO",
+      "salary_range": "$120,000 - $180,000",
+      "posted_date": "2026-02-18T09:26:31.147Z"
+    },
+    {
+      "id": "job_1008",
+      "title": "Electrician",
+      "company": "Gold Road Resources",
+      "location": "Perth WA",
+      "role_type": "maintenance",
+      "work_type": "Residential",
+      "salary_range": "$120,000 - $180,000",
+      "posted_date": "2026-02-18T01:05:32.601Z"
+    },
+    {
+      "id": "job_1009",
+      "title": "Environmental Officer",
+      "company": "IGO Limited",
+      "location": "Port Hedland WA",
+      "role_type": "environment",
+      "work_type": "FIFO",
+      "salary_range": "$120,000 - $180,000",
+      "posted_date": "2026-02-18T19:46:45.289Z"
+    },
+    {
+      "id": "job_1010",
+      "title": "Drill and Blast Engineer",
+      "company": "Regis Resources",
+      "location": "Mackay QLD",
+      "role_type": "operations",
+      "work_type": "Residential",
+      "salary_range": "Competitive",
+      "posted_date": "2026-02-17T21:16:12.382Z"
+    },
+    {
+      "id": "job_1011",
+      "title": "Exploration Geologist",
+      "company": "Evolution Mining",
+      "location": "Port Hedland WA",
+      "role_type": "exploration",
+      "work_type": "FIFO",
+      "salary_range": "Competitive",
+      "posted_date": "2026-02-18T10:32:41.112Z"
+    },
+    {
+      "id": "job_1012",
+      "title": "Mining Engineer",
+      "company": "Gold Road Resources",
+      "location": "Kalgoorlie WA",
+      "role_type": "operations",
+      "work_type": "FIFO",
+      "salary_range": "Competitive",
+      "posted_date": "2026-02-13T16:02:02.473Z"
+    },
+    {
+      "id": "job_1013",
+      "title": "Mine Manager",
+      "company": "Mineral Resources",
+      "location": "Mount Isa QLD",
+      "role_type": "management",
+      "work_type": "FIFO",
+      "salary_range": "$120,000 - $180,000",
+      "posted_date": "2026-02-13T00:12:51.203Z"
+    },
+    {
+      "id": "job_1014",
+      "title": "Metallurgist",
+      "company": "Regis Resources",
+      "location": "Karratha WA",
+      "role_type": "processing",
+      "work_type": "Residential",
+      "salary_range": "Competitive",
+      "posted_date": "2026-02-11T13:28:21.421Z"
+    },
+    {
+      "id": "job_1015",
+      "title": "Mining Engineer",
+      "company": "South32",
+      "location": "Kalgoorlie WA",
+      "role_type": "operations",
+      "work_type": "FIFO",
+      "salary_range": "$120,000 - $180,000",
+      "posted_date": "2026-02-18T20:08:34.217Z"
+    },
+    {
+      "id": "job_1016",
+      "title": "Mine Manager",
+      "company": "BHP",
+      "location": "Darwin NT",
+      "role_type": "management",
+      "work_type": "FIFO",
+      "salary_range": "$120,000 - $180,000",
+      "posted_date": "2026-02-15T14:37:23.868Z"
+    },
+    {
+      "id": "job_1017",
+      "title": "Maintenance Fitter",
+      "company": "Fortescue",
+      "location": "Mackay QLD",
+      "role_type": "maintenance",
+      "work_type": "Residential",
+      "salary_range": "$120,000 - $180,000",
+      "posted_date": "2026-02-14T05:47:24.131Z"
+    },
+    {
+      "id": "job_1018",
+      "title": "Haul Truck Operator",
+      "company": "Mineral Resources",
+      "location": "Mount Isa QLD",
+      "role_type": "operations",
+      "work_type": "FIFO",
+      "salary_range": "Competitive",
+      "posted_date": "2026-02-17T09:33:05.254Z"
+    },
+    {
+      "id": "job_1019",
+      "title": "Mining Engineer",
+      "company": "Regis Resources",
+      "location": "Perth WA",
+      "role_type": "operations",
+      "work_type": "FIFO",
+      "salary_range": "$120,000 - $180,000",
+      "posted_date": "2026-02-19T11:55:47.443Z"
+    },
+    {
+      "id": "job_1020",
+      "title": "Drill and Blast Engineer",
+      "company": "Regis Resources",
+      "location": "Mackay QLD",
+      "role_type": "operations",
+      "work_type": "Residential",
+      "salary_range": "$120,000 - $180,000",
+      "posted_date": "2026-02-09T08:31:56.320Z"
+    },
+    {
+      "id": "job_1021",
+      "title": "Project Manager",
+      "company": "Regis Resources",
+      "location": "Kalgoorlie WA",
+      "role_type": "management",
+      "work_type": "FIFO",
+      "salary_range": "Competitive",
+      "posted_date": "2026-02-11T06:14:55.687Z"
+    },
+    {
+      "id": "job_1022",
+      "title": "Process Plant Operator",
+      "company": "South32",
+      "location": "Port Hedland WA",
+      "role_type": "processing",
+      "work_type": "FIFO",
+      "salary_range": "$120,000 - $180,000",
+      "posted_date": "2026-02-14T06:35:47.755Z"
+    },
+    {
+      "id": "job_1023",
+      "title": "Electrician",
+      "company": "Mineral Resources",
+      "location": "Mackay QLD",
+      "role_type": "maintenance",
+      "work_type": "Residential",
+      "salary_range": "$120,000 - $180,000",
+      "posted_date": "2026-02-05T21:36:29.108Z"
+    },
+    {
+      "id": "job_1024",
+      "title": "Maintenance Fitter",
+      "company": "Gold Road Resources",
+      "location": "Kalgoorlie WA",
+      "role_type": "maintenance",
+      "work_type": "Residential",
+      "salary_range": "$120,000 - $180,000",
+      "posted_date": "2026-02-14T14:45:12.624Z"
+    },
+    {
+      "id": "job_1025",
+      "title": "Project Manager",
+      "company": "Pilbara Minerals",
+      "location": "Perth WA",
+      "role_type": "management",
+      "work_type": "FIFO",
+      "salary_range": "$120,000 - $180,000",
+      "posted_date": "2026-02-09T00:19:48.041Z"
+    },
+    {
+      "id": "job_1026",
+      "title": "Mine Manager",
+      "company": "Pilbara Minerals",
+      "location": "Mount Isa QLD",
+      "role_type": "management",
+      "work_type": "FIFO",
+      "salary_range": "Competitive",
+      "posted_date": "2026-02-17T18:36:53.365Z"
+    },
+    {
+      "id": "job_1027",
+      "title": "Senior Geologist",
+      "company": "South32",
+      "location": "Mackay QLD",
+      "role_type": "exploration",
+      "work_type": "Residential",
+      "salary_range": "$120,000 - $180,000",
+      "posted_date": "2026-02-13T05:01:23.566Z"
+    },
+    {
+      "id": "job_1028",
+      "title": "Metallurgist",
+      "company": "IGO Limited",
+      "location": "Kalgoorlie WA",
+      "role_type": "processing",
+      "work_type": "Residential",
+      "salary_range": "Competitive",
+      "posted_date": "2026-02-06T12:16:33.911Z"
+    },
+    {
+      "id": "job_1029",
+      "title": "Process Plant Operator",
+      "company": "South32",
+      "location": "Kalgoorlie WA",
+      "role_type": "processing",
+      "work_type": "FIFO",
+      "salary_range": "Competitive",
+      "posted_date": "2026-02-07T02:27:06.072Z"
+    },
+    {
+      "id": "job_1030",
+      "title": "Project Manager",
+      "company": "Newmont",
+      "location": "Port Hedland WA",
+      "role_type": "management",
+      "work_type": "FIFO",
+      "salary_range": "Competitive",
+      "posted_date": "2026-02-06T12:00:18.499Z"
+    },
+    {
+      "id": "job_1031",
+      "title": "Maintenance Fitter",
+      "company": "Pilbara Minerals",
+      "location": "Darwin NT",
+      "role_type": "maintenance",
+      "work_type": "FIFO",
+      "salary_range": "$120,000 - $180,000",
+      "posted_date": "2026-02-14T02:23:32.223Z"
+    },
+    {
+      "id": "job_1032",
+      "title": "Drill and Blast Engineer",
+      "company": "Fortescue",
+      "location": "Darwin NT",
+      "role_type": "operations",
+      "work_type": "FIFO",
+      "salary_range": "Competitive",
+      "posted_date": "2026-02-15T17:32:36.445Z"
+    },
+    {
+      "id": "job_1033",
+      "title": "Mine Manager",
+      "company": "IGO Limited",
+      "location": "Port Hedland WA",
+      "role_type": "management",
+      "work_type": "FIFO",
+      "salary_range": "Competitive",
+      "posted_date": "2026-02-06T05:48:54.206Z"
+    },
+    {
+      "id": "job_1034",
+      "title": "Maintenance Fitter",
+      "company": "IGO Limited",
+      "location": "Kalgoorlie WA",
+      "role_type": "maintenance",
+      "work_type": "FIFO",
+      "salary_range": "$120,000 - $180,000",
+      "posted_date": "2026-02-09T10:33:46.580Z"
+    },
+    {
+      "id": "job_1035",
+      "title": "Metallurgist",
+      "company": "Regis Resources",
+      "location": "Newman WA",
+      "role_type": "processing",
+      "work_type": "FIFO",
+      "salary_range": "Competitive",
+      "posted_date": "2026-02-17T02:27:41.593Z"
+    },
+    {
+      "id": "job_1036",
+      "title": "Drill and Blast Engineer",
+      "company": "IGO Limited",
+      "location": "Karratha WA",
+      "role_type": "operations",
+      "work_type": "FIFO",
+      "salary_range": "$120,000 - $180,000",
+      "posted_date": "2026-02-19T16:37:24.987Z"
+    },
+    {
+      "id": "job_1037",
+      "title": "Safety Advisor",
+      "company": "BHP",
+      "location": "Darwin NT",
+      "role_type": "safety",
+      "work_type": "Residential",
+      "salary_range": "$120,000 - $180,000",
+      "posted_date": "2026-02-12T19:51:02.890Z"
+    },
+    {
+      "id": "job_1038",
+      "title": "Maintenance Fitter",
+      "company": "Evolution Mining",
+      "location": "Mount Isa QLD",
+      "role_type": "maintenance",
+      "work_type": "Residential",
+      "salary_range": "$120,000 - $180,000",
+      "posted_date": "2026-02-10T14:44:02.672Z"
+    },
+    {
+      "id": "job_1039",
+      "title": "Metallurgist",
+      "company": "Regis Resources",
+      "location": "Port Hedland WA",
+      "role_type": "processing",
+      "work_type": "FIFO",
+      "salary_range": "Competitive",
+      "posted_date": "2026-02-08T08:03:30.516Z"
+    },
+    {
+      "id": "job_1040",
+      "title": "Environmental Officer",
+      "company": "Pilbara Minerals",
+      "location": "Mount Isa QLD",
+      "role_type": "environment",
+      "work_type": "Residential",
+      "salary_range": "$120,000 - $180,000",
+      "posted_date": "2026-02-16T12:05:00.188Z"
+    },
+    {
+      "id": "job_1041",
+      "title": "Exploration Geologist",
+      "company": "IGO Limited",
+      "location": "Mackay QLD",
+      "role_type": "exploration",
+      "work_type": "Residential",
+      "salary_range": "$120,000 - $180,000",
+      "posted_date": "2026-02-17T04:39:04.273Z"
+    },
+    {
+      "id": "job_1042",
+      "title": "Haul Truck Operator",
+      "company": "Pilbara Minerals",
+      "location": "Kalgoorlie WA",
+      "role_type": "operations",
+      "work_type": "FIFO",
+      "salary_range": "$120,000 - $180,000",
+      "posted_date": "2026-02-13T00:34:51.292Z"
+    },
+    {
+      "id": "job_1043",
+      "title": "Safety Advisor",
+      "company": "BHP",
+      "location": "Kalgoorlie WA",
+      "role_type": "safety",
+      "work_type": "FIFO",
+      "salary_range": "Competitive",
+      "posted_date": "2026-02-07T22:14:28.167Z"
+    },
+    {
+      "id": "job_1044",
+      "title": "Safety Advisor",
+      "company": "IGO Limited",
+      "location": "Darwin NT",
+      "role_type": "safety",
+      "work_type": "FIFO",
+      "salary_range": "Competitive",
+      "posted_date": "2026-02-17T13:32:43.570Z"
+    },
+    {
+      "id": "job_1045",
+      "title": "Exploration Geologist",
+      "company": "IGO Limited",
+      "location": "Kalgoorlie WA",
+      "role_type": "exploration",
+      "work_type": "FIFO",
+      "salary_range": "Competitive",
+      "posted_date": "2026-02-06T06:44:29.751Z"
+    },
+    {
+      "id": "job_1046",
+      "title": "Maintenance Fitter",
+      "company": "Northern Star",
+      "location": "Perth WA",
+      "role_type": "maintenance",
+      "work_type": "FIFO",
+      "salary_range": "Competitive",
+      "posted_date": "2026-02-13T08:48:44.047Z"
+    },
+    {
+      "id": "job_1047",
+      "title": "Maintenance Fitter",
+      "company": "South32",
+      "location": "Mackay QLD",
+      "role_type": "maintenance",
+      "work_type": "FIFO",
+      "salary_range": "$120,000 - $180,000",
+      "posted_date": "2026-02-17T21:04:08.948Z"
+    },
+    {
+      "id": "job_1048",
+      "title": "Exploration Geologist",
+      "company": "Mineral Resources",
+      "location": "Kalgoorlie WA",
+      "role_type": "exploration",
+      "work_type": "FIFO",
+      "salary_range": "Competitive",
+      "posted_date": "2026-02-12T07:50:18.349Z"
+    },
+    {
+      "id": "job_1049",
+      "title": "Mine Manager",
+      "company": "BHP",
+      "location": "Kalgoorlie WA",
+      "role_type": "management",
+      "work_type": "FIFO",
+      "salary_range": "$120,000 - $180,000",
+      "posted_date": "2026-02-17T08:10:23.300Z"
+    },
+    {
+      "id": "job_1050",
+      "title": "Process Plant Operator",
+      "company": "Fortescue",
+      "location": "Mackay QLD",
+      "role_type": "processing",
+      "work_type": "FIFO",
+      "salary_range": "Competitive",
+      "posted_date": "2026-02-16T03:50:16.823Z"
+    },
+    {
+      "id": "job_1051",
+      "title": "Senior Geologist",
+      "company": "Rio Tinto",
+      "location": "Mount Isa QLD",
+      "role_type": "exploration",
+      "work_type": "FIFO",
+      "salary_range": "$120,000 - $180,000",
+      "posted_date": "2026-02-14T18:04:16.285Z"
+    },
+    {
+      "id": "job_1052",
+      "title": "Mining Engineer",
+      "company": "Newmont",
+      "location": "Kalgoorlie WA",
+      "role_type": "operations",
+      "work_type": "Residential",
+      "salary_range": "$120,000 - $180,000",
+      "posted_date": "2026-02-14T13:20:52.292Z"
+    },
+    {
+      "id": "job_1053",
+      "title": "Safety Advisor",
+      "company": "South32",
+      "location": "Mount Isa QLD",
+      "role_type": "safety",
+      "work_type": "FIFO",
+      "salary_range": "$120,000 - $180,000",
+      "posted_date": "2026-02-16T02:56:49.110Z"
+    },
+    {
+      "id": "job_1054",
+      "title": "Mine Manager",
+      "company": "Northern Star",
+      "location": "Karratha WA",
+      "role_type": "management",
+      "work_type": "FIFO",
+      "salary_range": "$120,000 - $180,000",
+      "posted_date": "2026-02-15T23:10:45.790Z"
+    },
+    {
+      "id": "job_1055",
+      "title": "Process Plant Operator",
+      "company": "Gold Road Resources",
+      "location": "Karratha WA",
+      "role_type": "processing",
+      "work_type": "Residential",
+      "salary_range": "$120,000 - $180,000",
+      "posted_date": "2026-02-18T13:31:03.595Z"
+    },
+    {
+      "id": "job_1056",
+      "title": "Metallurgist",
+      "company": "Mineral Resources",
+      "location": "Perth WA",
+      "role_type": "processing",
+      "work_type": "FIFO",
+      "salary_range": "Competitive",
+      "posted_date": "2026-02-05T17:04:04.724Z"
+    },
+    {
+      "id": "job_1057",
+      "title": "Electrician",
+      "company": "Fortescue",
+      "location": "Mackay QLD",
+      "role_type": "maintenance",
+      "work_type": "FIFO",
+      "salary_range": "Competitive",
+      "posted_date": "2026-02-08T11:04:30.542Z"
+    },
+    {
+      "id": "job_1058",
+      "title": "Mining Engineer",
+      "company": "Gold Road Resources",
+      "location": "Karratha WA",
+      "role_type": "operations",
+      "work_type": "Residential",
+      "salary_range": "Competitive",
+      "posted_date": "2026-02-08T14:17:39.865Z"
+    },
+    {
+      "id": "job_1059",
+      "title": "Maintenance Fitter",
+      "company": "Northern Star",
+      "location": "Kalgoorlie WA",
+      "role_type": "maintenance",
+      "work_type": "Residential",
+      "salary_range": "Competitive",
+      "posted_date": "2026-02-16T15:42:40.485Z"
+    },
+    {
+      "id": "job_1060",
+      "title": "Mining Engineer",
+      "company": "Mineral Resources",
+      "location": "Perth WA",
+      "role_type": "operations",
+      "work_type": "Residential",
+      "salary_range": "$120,000 - $180,000",
+      "posted_date": "2026-02-06T14:02:44.149Z"
+    },
+    {
+      "id": "job_1061",
+      "title": "Process Plant Operator",
+      "company": "Regis Resources",
+      "location": "Mount Isa QLD",
+      "role_type": "processing",
+      "work_type": "FIFO",
+      "salary_range": "Competitive",
+      "posted_date": "2026-02-13T07:33:28.953Z"
+    },
+    {
+      "id": "job_1062",
+      "title": "Safety Advisor",
+      "company": "Rio Tinto",
+      "location": "Karratha WA",
+      "role_type": "safety",
+      "work_type": "FIFO",
+      "salary_range": "$120,000 - $180,000",
+      "posted_date": "2026-02-09T03:32:23.854Z"
+    },
+    {
+      "id": "job_1063",
+      "title": "Safety Advisor",
+      "company": "BHP",
+      "location": "Perth WA",
+      "role_type": "safety",
+      "work_type": "FIFO",
+      "salary_range": "Competitive",
+      "posted_date": "2026-02-19T12:53:08.925Z"
+    },
+    {
+      "id": "job_1064",
+      "title": "Process Plant Operator",
+      "company": "Pilbara Minerals",
+      "location": "Port Hedland WA",
+      "role_type": "processing",
+      "work_type": "FIFO",
+      "salary_range": "Competitive",
+      "posted_date": "2026-02-17T07:15:24.757Z"
+    },
+    {
+      "id": "job_1065",
+      "title": "Mining Engineer",
+      "company": "IGO Limited",
+      "location": "Perth WA",
+      "role_type": "operations",
+      "work_type": "FIFO",
+      "salary_range": "$120,000 - $180,000",
+      "posted_date": "2026-02-16T16:35:34.271Z"
+    },
+    {
+      "id": "job_1066",
+      "title": "Drill and Blast Engineer",
+      "company": "Newmont",
+      "location": "Kalgoorlie WA",
+      "role_type": "operations",
+      "work_type": "FIFO",
+      "salary_range": "$120,000 - $180,000",
+      "posted_date": "2026-02-10T09:05:47.345Z"
+    },
+    {
+      "id": "job_1067",
+      "title": "Maintenance Fitter",
+      "company": "Newmont",
+      "location": "Darwin NT",
+      "role_type": "maintenance",
+      "work_type": "FIFO",
+      "salary_range": "$120,000 - $180,000",
+      "posted_date": "2026-02-14T13:56:59.566Z"
+    },
+    {
+      "id": "job_1068",
+      "title": "Process Plant Operator",
+      "company": "Regis Resources",
+      "location": "Perth WA",
+      "role_type": "processing",
+      "work_type": "FIFO",
+      "salary_range": "$120,000 - $180,000",
+      "posted_date": "2026-02-11T12:03:31.801Z"
+    },
+    {
+      "id": "job_1069",
+      "title": "Haul Truck Operator",
+      "company": "South32",
+      "location": "Kalgoorlie WA",
+      "role_type": "operations",
+      "work_type": "FIFO",
+      "salary_range": "$120,000 - $180,000",
+      "posted_date": "2026-02-11T10:23:47.221Z"
+    },
+    {
+      "id": "job_1070",
+      "title": "Mine Manager",
+      "company": "Mineral Resources",
+      "location": "Newman WA",
+      "role_type": "management",
+      "work_type": "Residential",
+      "salary_range": "$120,000 - $180,000",
+      "posted_date": "2026-02-19T00:20:06.938Z"
+    },
+    {
+      "id": "job_1071",
+      "title": "Metallurgist",
+      "company": "Evolution Mining",
+      "location": "Mackay QLD",
+      "role_type": "processing",
+      "work_type": "FIFO",
+      "salary_range": "Competitive",
+      "posted_date": "2026-02-16T21:54:03.678Z"
+    },
+    {
+      "id": "job_1072",
+      "title": "Exploration Geologist",
+      "company": "Newmont",
+      "location": "Darwin NT",
+      "role_type": "exploration",
+      "work_type": "FIFO",
+      "salary_range": "$120,000 - $180,000",
+      "posted_date": "2026-02-10T17:31:41.366Z"
+    },
+    {
+      "id": "job_1073",
+      "title": "Haul Truck Operator",
+      "company": "Northern Star",
+      "location": "Perth WA",
+      "role_type": "operations",
+      "work_type": "FIFO",
+      "salary_range": "Competitive",
+      "posted_date": "2026-02-07T06:15:50.755Z"
+    },
+    {
+      "id": "job_1074",
+      "title": "Haul Truck Operator",
+      "company": "BHP",
+      "location": "Newman WA",
+      "role_type": "operations",
+      "work_type": "Residential",
+      "salary_range": "$120,000 - $180,000",
+      "posted_date": "2026-02-12T19:44:28.913Z"
+    },
+    {
+      "id": "job_1075",
+      "title": "Drill and Blast Engineer",
+      "company": "Pilbara Minerals",
+      "location": "Mount Isa QLD",
+      "role_type": "operations",
+      "work_type": "FIFO",
+      "salary_range": "Competitive",
+      "posted_date": "2026-02-15T08:28:47.677Z"
+    },
+    {
+      "id": "job_1076",
+      "title": "Drill and Blast Engineer",
+      "company": "Mineral Resources",
+      "location": "Karratha WA",
+      "role_type": "operations",
+      "work_type": "Residential",
+      "salary_range": "$120,000 - $180,000",
+      "posted_date": "2026-02-10T12:56:01.676Z"
+    },
+    {
+      "id": "job_1077",
+      "title": "Exploration Geologist",
+      "company": "IGO Limited",
+      "location": "Darwin NT",
+      "role_type": "exploration",
+      "work_type": "FIFO",
+      "salary_range": "Competitive",
+      "posted_date": "2026-02-17T12:47:34.562Z"
+    },
+    {
+      "id": "job_1078",
+      "title": "Safety Advisor",
+      "company": "IGO Limited",
+      "location": "Mount Isa QLD",
+      "role_type": "safety",
+      "work_type": "FIFO",
+      "salary_range": "Competitive",
+      "posted_date": "2026-02-15T23:28:07.604Z"
+    },
+    {
+      "id": "job_1079",
+      "title": "Maintenance Fitter",
+      "company": "Fortescue",
+      "location": "Perth WA",
+      "role_type": "maintenance",
+      "work_type": "FIFO",
+      "salary_range": "$120,000 - $180,000",
+      "posted_date": "2026-02-14T13:49:13.724Z"
+    },
+    {
+      "id": "job_1080",
+      "title": "Haul Truck Operator",
+      "company": "Newmont",
+      "location": "Darwin NT",
+      "role_type": "operations",
+      "work_type": "FIFO",
+      "salary_range": "Competitive",
+      "posted_date": "2026-02-19T04:07:43.573Z"
+    },
+    {
+      "id": "job_1081",
+      "title": "Haul Truck Operator",
+      "company": "Newmont",
+      "location": "Port Hedland WA",
+      "role_type": "operations",
+      "work_type": "FIFO",
+      "salary_range": "Competitive",
+      "posted_date": "2026-02-19T00:58:59.659Z"
+    },
+    {
+      "id": "job_1082",
+      "title": "Environmental Officer",
+      "company": "Gold Road Resources",
+      "location": "Kalgoorlie WA",
+      "role_type": "environment",
+      "work_type": "FIFO",
+      "salary_range": "$120,000 - $180,000",
+      "posted_date": "2026-02-18T08:58:11.458Z"
+    },
+    {
+      "id": "job_1083",
+      "title": "Mine Manager",
+      "company": "South32",
+      "location": "Newman WA",
+      "role_type": "management",
+      "work_type": "FIFO",
+      "salary_range": "Competitive",
+      "posted_date": "2026-02-11T21:14:15.267Z"
+    },
+    {
+      "id": "job_1084",
+      "title": "Safety Advisor",
+      "company": "Newmont",
+      "location": "Perth WA",
+      "role_type": "safety",
+      "work_type": "Residential",
+      "salary_range": "Competitive",
+      "posted_date": "2026-02-12T01:20:19.784Z"
+    },
+    {
+      "id": "job_1085",
+      "title": "Safety Advisor",
+      "company": "Rio Tinto",
+      "location": "Port Hedland WA",
+      "role_type": "safety",
+      "work_type": "FIFO",
+      "salary_range": "$120,000 - $180,000",
+      "posted_date": "2026-02-12T03:54:36.717Z"
+    },
+    {
+      "id": "job_1086",
+      "title": "Mine Manager",
+      "company": "Rio Tinto",
+      "location": "Karratha WA",
+      "role_type": "management",
+      "work_type": "FIFO",
+      "salary_range": "$120,000 - $180,000",
+      "posted_date": "2026-02-09T00:47:54.945Z"
+    },
+    {
+      "id": "job_1087",
+      "title": "Mining Engineer",
+      "company": "Mineral Resources",
+      "location": "Newman WA",
+      "role_type": "operations",
+      "work_type": "FIFO",
+      "salary_range": "$120,000 - $180,000",
+      "posted_date": "2026-02-06T20:04:39.632Z"
+    },
+    {
+      "id": "job_1088",
+      "title": "Mining Engineer",
+      "company": "Pilbara Minerals",
+      "location": "Karratha WA",
+      "role_type": "operations",
+      "work_type": "FIFO",
+      "salary_range": "$120,000 - $180,000",
+      "posted_date": "2026-02-12T16:41:40.120Z"
+    },
+    {
+      "id": "job_1089",
+      "title": "Metallurgist",
+      "company": "South32",
+      "location": "Karratha WA",
+      "role_type": "processing",
+      "work_type": "Residential",
+      "salary_range": "$120,000 - $180,000",
+      "posted_date": "2026-02-07T14:21:38.427Z"
+    },
+    {
+      "id": "job_1090",
+      "title": "Maintenance Fitter",
+      "company": "Regis Resources",
+      "location": "Karratha WA",
+      "role_type": "maintenance",
+      "work_type": "FIFO",
+      "salary_range": "$120,000 - $180,000",
+      "posted_date": "2026-02-12T04:36:55.095Z"
+    },
+    {
+      "id": "job_1091",
+      "title": "Exploration Geologist",
+      "company": "Fortescue",
+      "location": "Perth WA",
+      "role_type": "exploration",
+      "work_type": "FIFO",
+      "salary_range": "Competitive",
+      "posted_date": "2026-02-12T04:42:35.838Z"
+    },
+    {
+      "id": "job_1092",
+      "title": "Mining Engineer",
+      "company": "Pilbara Minerals",
+      "location": "Darwin NT",
+      "role_type": "operations",
+      "work_type": "FIFO",
+      "salary_range": "Competitive",
+      "posted_date": "2026-02-10T03:04:25.923Z"
+    },
+    {
+      "id": "job_1093",
+      "title": "Process Plant Operator",
+      "company": "Northern Star",
+      "location": "Perth WA",
+      "role_type": "processing",
+      "work_type": "FIFO",
+      "salary_range": "$120,000 - $180,000",
+      "posted_date": "2026-02-17T18:36:01.304Z"
+    },
+    {
+      "id": "job_1094",
+      "title": "Drill and Blast Engineer",
+      "company": "IGO Limited",
+      "location": "Perth WA",
+      "role_type": "operations",
+      "work_type": "Residential",
+      "salary_range": "Competitive",
+      "posted_date": "2026-02-08T05:23:05.739Z"
+    },
+    {
+      "id": "job_1095",
+      "title": "Electrician",
+      "company": "Newmont",
+      "location": "Mount Isa QLD",
+      "role_type": "maintenance",
+      "work_type": "FIFO",
+      "salary_range": "Competitive",
+      "posted_date": "2026-02-12T12:48:51.008Z"
+    },
+    {
+      "id": "job_1096",
+      "title": "Mine Manager",
+      "company": "Rio Tinto",
+      "location": "Darwin NT",
+      "role_type": "management",
+      "work_type": "FIFO",
+      "salary_range": "$120,000 - $180,000",
+      "posted_date": "2026-02-15T01:23:36.887Z"
+    },
+    {
+      "id": "job_1097",
+      "title": "Haul Truck Operator",
+      "company": "Fortescue",
+      "location": "Darwin NT",
+      "role_type": "operations",
+      "work_type": "FIFO",
+      "salary_range": "$120,000 - $180,000",
+      "posted_date": "2026-02-09T14:15:13.130Z"
+    },
+    {
+      "id": "job_1098",
+      "title": "Environmental Officer",
+      "company": "Mineral Resources",
+      "location": "Mount Isa QLD",
+      "role_type": "environment",
+      "work_type": "Residential",
+      "salary_range": "$120,000 - $180,000",
+      "posted_date": "2026-02-19T12:47:55.825Z"
+    },
+    {
+      "id": "job_1099",
+      "title": "Exploration Geologist",
+      "company": "BHP",
+      "location": "Kalgoorlie WA",
+      "role_type": "exploration",
+      "work_type": "FIFO",
+      "salary_range": "Competitive",
+      "posted_date": "2026-02-16T14:39:39.099Z"
+    },
+    {
+      "id": "job_1100",
+      "title": "Project Manager",
+      "company": "IGO Limited",
+      "location": "Perth WA",
+      "role_type": "management",
+      "work_type": "Residential",
+      "salary_range": "$120,000 - $180,000",
+      "posted_date": "2026-02-14T07:07:08.011Z"
+    },
+    {
+      "id": "job_1101",
+      "title": "Project Manager",
+      "company": "Rio Tinto",
+      "location": "Mount Isa QLD",
+      "role_type": "management",
+      "work_type": "Residential",
+      "salary_range": "Competitive",
+      "posted_date": "2026-02-12T20:15:32.814Z"
+    },
+    {
+      "id": "job_1102",
+      "title": "Mine Manager",
+      "company": "Regis Resources",
+      "location": "Newman WA",
+      "role_type": "management",
+      "work_type": "FIFO",
+      "salary_range": "Competitive",
+      "posted_date": "2026-02-12T07:46:40.800Z"
+    },
+    {
+      "id": "job_1103",
+      "title": "Exploration Geologist",
+      "company": "Mineral Resources",
+      "location": "Port Hedland WA",
+      "role_type": "exploration",
+      "work_type": "FIFO",
+      "salary_range": "Competitive",
+      "posted_date": "2026-02-08T09:13:49.276Z"
+    },
+    {
+      "id": "job_1104",
+      "title": "Electrician",
+      "company": "Newmont",
+      "location": "Darwin NT",
+      "role_type": "maintenance",
+      "work_type": "FIFO",
+      "salary_range": "Competitive",
+      "posted_date": "2026-02-09T02:57:50.814Z"
+    },
+    {
+      "id": "job_1105",
+      "title": "Maintenance Fitter",
+      "company": "Mineral Resources",
+      "location": "Kalgoorlie WA",
+      "role_type": "maintenance",
+      "work_type": "FIFO",
+      "salary_range": "$120,000 - $180,000",
+      "posted_date": "2026-02-07T07:16:06.995Z"
+    },
+    {
+      "id": "job_1106",
+      "title": "Mine Manager",
+      "company": "Fortescue",
+      "location": "Darwin NT",
+      "role_type": "management",
+      "work_type": "Residential",
+      "salary_range": "$120,000 - $180,000",
+      "posted_date": "2026-02-06T21:38:04.172Z"
+    },
+    {
+      "id": "job_1107",
+      "title": "Drill and Blast Engineer",
+      "company": "Newmont",
+      "location": "Perth WA",
+      "role_type": "operations",
+      "work_type": "Residential",
+      "salary_range": "Competitive",
+      "posted_date": "2026-02-14T05:29:07.060Z"
+    },
+    {
+      "id": "job_1108",
+      "title": "Mine Manager",
+      "company": "South32",
+      "location": "Karratha WA",
+      "role_type": "management",
+      "work_type": "FIFO",
+      "salary_range": "$120,000 - $180,000",
+      "posted_date": "2026-02-16T07:16:16.508Z"
+    },
+    {
+      "id": "job_1109",
+      "title": "Senior Geologist",
+      "company": "BHP",
+      "location": "Newman WA",
+      "role_type": "exploration",
+      "work_type": "FIFO",
+      "salary_range": "$120,000 - $180,000",
+      "posted_date": "2026-02-10T22:28:24.339Z"
+    },
+    {
+      "id": "job_1110",
+      "title": "Project Manager",
+      "company": "Rio Tinto",
+      "location": "Mount Isa QLD",
+      "role_type": "management",
+      "work_type": "FIFO",
+      "salary_range": "Competitive",
+      "posted_date": "2026-02-18T01:29:08.564Z"
+    },
+    {
+      "id": "job_1111",
+      "title": "Drill and Blast Engineer",
+      "company": "Rio Tinto",
+      "location": "Mackay QLD",
+      "role_type": "operations",
+      "work_type": "Residential",
+      "salary_range": "$120,000 - $180,000",
+      "posted_date": "2026-02-16T22:34:30.073Z"
+    },
+    {
+      "id": "job_1112",
+      "title": "Safety Advisor",
+      "company": "BHP",
+      "location": "Karratha WA",
+      "role_type": "safety",
+      "work_type": "FIFO",
+      "salary_range": "$120,000 - $180,000",
+      "posted_date": "2026-02-17T03:05:39.582Z"
+    },
+    {
+      "id": "job_1113",
+      "title": "Project Manager",
+      "company": "Rio Tinto",
+      "location": "Port Hedland WA",
+      "role_type": "management",
+      "work_type": "FIFO",
+      "salary_range": "$120,000 - $180,000",
+      "posted_date": "2026-02-10T20:29:49.466Z"
+    },
+    {
+      "id": "job_1114",
+      "title": "Senior Geologist",
+      "company": "BHP",
+      "location": "Karratha WA",
+      "role_type": "exploration",
+      "work_type": "FIFO",
+      "salary_range": "Competitive",
+      "posted_date": "2026-02-08T09:24:09.363Z"
+    },
+    {
+      "id": "job_1115",
+      "title": "Process Plant Operator",
+      "company": "Fortescue",
+      "location": "Mackay QLD",
+      "role_type": "processing",
+      "work_type": "FIFO",
+      "salary_range": "$120,000 - $180,000",
+      "posted_date": "2026-02-12T21:27:24.320Z"
+    },
+    {
+      "id": "job_1116",
+      "title": "Maintenance Fitter",
+      "company": "South32",
+      "location": "Mackay QLD",
+      "role_type": "maintenance",
+      "work_type": "Residential",
+      "salary_range": "$120,000 - $180,000",
+      "posted_date": "2026-02-14T04:02:19.199Z"
+    },
+    {
+      "id": "job_1117",
+      "title": "Exploration Geologist",
+      "company": "Newmont",
+      "location": "Mackay QLD",
+      "role_type": "exploration",
+      "work_type": "FIFO",
+      "salary_range": "$120,000 - $180,000",
+      "posted_date": "2026-02-16T02:18:15.482Z"
+    },
+    {
+      "id": "job_1118",
+      "title": "Process Plant Operator",
+      "company": "Mineral Resources",
+      "location": "Darwin NT",
+      "role_type": "processing",
+      "work_type": "FIFO",
+      "salary_range": "Competitive",
+      "posted_date": "2026-02-17T01:09:14.122Z"
+    },
+    {
+      "id": "job_1119",
+      "title": "Exploration Geologist",
+      "company": "Regis Resources",
+      "location": "Karratha WA",
+      "role_type": "exploration",
+      "work_type": "FIFO",
+      "salary_range": "$120,000 - $180,000",
+      "posted_date": "2026-02-07T23:15:12.875Z"
+    },
+    {
+      "id": "job_1120",
+      "title": "Maintenance Fitter",
+      "company": "BHP",
+      "location": "Perth WA",
+      "role_type": "maintenance",
+      "work_type": "FIFO",
+      "salary_range": "$120,000 - $180,000",
+      "posted_date": "2026-02-17T09:16:29.852Z"
+    },
+    {
+      "id": "job_1121",
+      "title": "Environmental Officer",
+      "company": "Northern Star",
+      "location": "Karratha WA",
+      "role_type": "environment",
+      "work_type": "Residential",
+      "salary_range": "$120,000 - $180,000",
+      "posted_date": "2026-02-08T14:38:52.760Z"
+    },
+    {
+      "id": "job_1122",
+      "title": "Senior Geologist",
+      "company": "Evolution Mining",
+      "location": "Darwin NT",
+      "role_type": "exploration",
+      "work_type": "FIFO",
+      "salary_range": "Competitive",
+      "posted_date": "2026-02-16T03:21:31.673Z"
+    },
+    {
+      "id": "job_1123",
+      "title": "Maintenance Fitter",
+      "company": "Northern Star",
+      "location": "Darwin NT",
+      "role_type": "maintenance",
+      "work_type": "FIFO",
+      "salary_range": "Competitive",
+      "posted_date": "2026-02-18T04:35:56.152Z"
+    },
+    {
+      "id": "job_1124",
+      "title": "Electrician",
+      "company": "BHP",
+      "location": "Karratha WA",
+      "role_type": "maintenance",
+      "work_type": "FIFO",
+      "salary_range": "$120,000 - $180,000",
+      "posted_date": "2026-02-10T22:40:13.588Z"
+    },
+    {
+      "id": "job_1125",
+      "title": "Maintenance Fitter",
+      "company": "Gold Road Resources",
+      "location": "Kalgoorlie WA",
+      "role_type": "maintenance",
+      "work_type": "FIFO",
+      "salary_range": "$120,000 - $180,000",
+      "posted_date": "2026-02-11T22:01:38.155Z"
+    },
+    {
+      "id": "job_1126",
+      "title": "Project Manager",
+      "company": "Mineral Resources",
+      "location": "Newman WA",
+      "role_type": "management",
+      "work_type": "FIFO",
+      "salary_range": "$120,000 - $180,000",
+      "posted_date": "2026-02-12T11:29:25.584Z"
+    },
+    {
+      "id": "job_1127",
+      "title": "Mine Manager",
+      "company": "Regis Resources",
+      "location": "Newman WA",
+      "role_type": "management",
+      "work_type": "FIFO",
+      "salary_range": "$120,000 - $180,000",
+      "posted_date": "2026-02-12T16:18:02.027Z"
+    },
+    {
+      "id": "job_1128",
+      "title": "Haul Truck Operator",
+      "company": "Newmont",
+      "location": "Mount Isa QLD",
+      "role_type": "operations",
+      "work_type": "FIFO",
+      "salary_range": "$120,000 - $180,000",
+      "posted_date": "2026-02-15T15:37:21.926Z"
+    },
+    {
+      "id": "job_1129",
+      "title": "Project Manager",
+      "company": "Pilbara Minerals",
+      "location": "Mount Isa QLD",
+      "role_type": "management",
+      "work_type": "FIFO",
+      "salary_range": "$120,000 - $180,000",
+      "posted_date": "2026-02-10T05:25:54.219Z"
+    },
+    {
+      "id": "job_1130",
+      "title": "Metallurgist",
+      "company": "Mineral Resources",
+      "location": "Karratha WA",
+      "role_type": "processing",
+      "work_type": "FIFO",
+      "salary_range": "$120,000 - $180,000",
+      "posted_date": "2026-02-17T18:20:56.348Z"
+    },
+    {
+      "id": "job_1131",
+      "title": "Process Plant Operator",
+      "company": "Rio Tinto",
+      "location": "Port Hedland WA",
+      "role_type": "processing",
+      "work_type": "Residential",
+      "salary_range": "Competitive",
+      "posted_date": "2026-02-17T12:59:04.225Z"
+    },
+    {
+      "id": "job_1132",
+      "title": "Drill and Blast Engineer",
+      "company": "BHP",
+      "location": "Port Hedland WA",
+      "role_type": "operations",
+      "work_type": "Residential",
+      "salary_range": "Competitive",
+      "posted_date": "2026-02-12T10:16:16.270Z"
+    },
+    {
+      "id": "job_1133",
+      "title": "Process Plant Operator",
+      "company": "Gold Road Resources",
+      "location": "Mount Isa QLD",
+      "role_type": "processing",
+      "work_type": "Residential",
+      "salary_range": "$120,000 - $180,000",
+      "posted_date": "2026-02-13T03:42:28.503Z"
+    },
+    {
+      "id": "job_1134",
+      "title": "Environmental Officer",
+      "company": "IGO Limited",
+      "location": "Newman WA",
+      "role_type": "environment",
+      "work_type": "Residential",
+      "salary_range": "$120,000 - $180,000",
+      "posted_date": "2026-02-08T06:28:54.742Z"
+    },
+    {
+      "id": "job_1135",
+      "title": "Senior Geologist",
+      "company": "Pilbara Minerals",
+      "location": "Darwin NT",
+      "role_type": "exploration",
+      "work_type": "FIFO",
+      "salary_range": "$120,000 - $180,000",
+      "posted_date": "2026-02-11T11:56:31.608Z"
+    },
+    {
+      "id": "job_1136",
+      "title": "Haul Truck Operator",
+      "company": "Newmont",
+      "location": "Newman WA",
+      "role_type": "operations",
+      "work_type": "FIFO",
+      "salary_range": "$120,000 - $180,000",
+      "posted_date": "2026-02-19T07:46:35.749Z"
+    },
+    {
+      "id": "job_1137",
+      "title": "Haul Truck Operator",
+      "company": "Newmont",
+      "location": "Darwin NT",
+      "role_type": "operations",
+      "work_type": "FIFO",
+      "salary_range": "Competitive",
+      "posted_date": "2026-02-15T12:09:16.016Z"
+    },
+    {
+      "id": "job_1138",
+      "title": "Haul Truck Operator",
+      "company": "Pilbara Minerals",
+      "location": "Darwin NT",
+      "role_type": "operations",
+      "work_type": "Residential",
+      "salary_range": "$120,000 - $180,000",
+      "posted_date": "2026-02-18T22:42:04.471Z"
+    },
+    {
+      "id": "job_1139",
+      "title": "Electrician",
+      "company": "Pilbara Minerals",
+      "location": "Karratha WA",
+      "role_type": "maintenance",
+      "work_type": "FIFO",
+      "salary_range": "Competitive",
+      "posted_date": "2026-02-13T21:29:23.610Z"
+    },
+    {
+      "id": "job_1140",
+      "title": "Process Plant Operator",
+      "company": "BHP",
+      "location": "Karratha WA",
+      "role_type": "processing",
+      "work_type": "FIFO",
+      "salary_range": "Competitive",
+      "posted_date": "2026-02-09T01:45:49.292Z"
+    },
+    {
+      "id": "job_1141",
+      "title": "Project Manager",
+      "company": "Regis Resources",
+      "location": "Kalgoorlie WA",
+      "role_type": "management",
+      "work_type": "FIFO",
+      "salary_range": "$120,000 - $180,000",
+      "posted_date": "2026-02-17T22:20:39.193Z"
+    },
+    {
+      "id": "job_1142",
+      "title": "Project Manager",
+      "company": "South32",
+      "location": "Newman WA",
+      "role_type": "management",
+      "work_type": "FIFO",
+      "salary_range": "$120,000 - $180,000",
+      "posted_date": "2026-02-06T05:08:15.825Z"
+    },
+    {
+      "id": "job_1143",
+      "title": "Mine Manager",
+      "company": "Fortescue",
+      "location": "Mount Isa QLD",
+      "role_type": "management",
+      "work_type": "Residential",
+      "salary_range": "Competitive",
+      "posted_date": "2026-02-07T11:03:35.941Z"
+    },
+    {
+      "id": "job_1144",
+      "title": "Senior Geologist",
+      "company": "Evolution Mining",
+      "location": "Karratha WA",
+      "role_type": "exploration",
+      "work_type": "Residential",
+      "salary_range": "$120,000 - $180,000",
+      "posted_date": "2026-02-16T21:23:34.872Z"
+    },
+    {
+      "id": "job_1145",
+      "title": "Exploration Geologist",
+      "company": "IGO Limited",
+      "location": "Newman WA",
+      "role_type": "exploration",
+      "work_type": "FIFO",
+      "salary_range": "Competitive",
+      "posted_date": "2026-02-15T15:33:09.435Z"
+    },
+    {
+      "id": "job_1146",
+      "title": "Environmental Officer",
+      "company": "Northern Star",
+      "location": "Kalgoorlie WA",
+      "role_type": "environment",
+      "work_type": "FIFO",
+      "salary_range": "$120,000 - $180,000",
+      "posted_date": "2026-02-08T02:35:41.310Z"
+    },
+    {
+      "id": "job_1147",
+      "title": "Exploration Geologist",
+      "company": "Northern Star",
+      "location": "Karratha WA",
+      "role_type": "exploration",
+      "work_type": "FIFO",
+      "salary_range": "Competitive",
+      "posted_date": "2026-02-11T00:49:09.542Z"
+    },
+    {
+      "id": "job_1148",
+      "title": "Exploration Geologist",
+      "company": "Pilbara Minerals",
+      "location": "Karratha WA",
+      "role_type": "exploration",
+      "work_type": "FIFO",
+      "salary_range": "Competitive",
+      "posted_date": "2026-02-05T18:46:38.259Z"
+    },
+    {
+      "id": "job_1149",
+      "title": "Haul Truck Operator",
+      "company": "BHP",
+      "location": "Port Hedland WA",
+      "role_type": "operations",
+      "work_type": "FIFO",
+      "salary_range": "$120,000 - $180,000",
+      "posted_date": "2026-02-10T10:14:26.996Z"
+    }
+  ]
+}
