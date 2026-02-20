@@ -437,8 +437,8 @@
         </div>
         
         <div class="code-block">
-          <pre><span class="comment"># Search Rio Tinto tenements in Western Australia</span>
-curl "<span class="url">https://tryautropic.com/api/mining/tenements?state=WA&holder=rio&limit=5</span>"
+          <pre><span class="comment"># Search Rio Tinto tenements with GeoJSON polygons</span>
+curl "<span class="url">https://tryautropic.com/api/mining/tenements?state=WA&holder=rio&geometry=true</span>"
 
 <span class="comment"># Get price-sensitive gold announcements</span>
 curl "<span class="url">https://tryautropic.com/api/mining/announcements?commodity=gold&price_sensitive=true</span>"
@@ -464,9 +464,9 @@ curl "<span class="url">https://tryautropic.com/api/mining/prices</span>"</pre>
             <span class="endpoint-method">GET</span>
             <div>
               <div class="endpoint-path">/api/mining/tenements</div>
-              <div class="endpoint-desc">Query tenements by state, holder, status, type</div>
+              <div class="endpoint-desc">Query tenements by state, holder, status, type. Add <code>geometry=true</code> for GeoJSON polygons.</div>
             </div>
-            <a href="/api/mining/tenements?state=WA&limit=3" target="_blank">Try →</a>
+            <a href="/api/mining/tenements?state=WA&limit=3&geometry=true" target="_blank">Try →</a>
           </div>
           
           <div class="endpoint">
@@ -558,6 +558,7 @@ curl "<span class="url">https://tryautropic.com/api/mining/prices</span>"</pre>
               <li>Queensland <span class="count">2,918</span></li>
               <li style="color: var(--muted); font-style: italic;">NSW, VIC, SA — coming soon</li>
             </ul>
+            <p style="font-size: 0.8rem; color: var(--accent); margin-top: 12px;">✓ GeoJSON polygons available</p>
           </div>
           
           <div class="coverage-card">
@@ -567,6 +568,7 @@ curl "<span class="url">https://tryautropic.com/api/mining/prices</span>"</pre>
               <li>Saskatchewan <span class="count">7,595</span></li>
               <li style="color: var(--muted); font-style: italic;">Ontario, Quebec — coming soon</li>
             </ul>
+            <p style="font-size: 0.8rem; color: var(--accent); margin-top: 12px;">✓ GeoJSON polygons available</p>
           </div>
           
           <div class="coverage-card">
