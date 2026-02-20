@@ -983,6 +983,7 @@ app.get('/api/v1/status', (req, res) => {
 // Mining tenement data - unified access across jurisdictions
 const miningWA = require('./lib/mining-wa');
 const miningNT = require('./lib/mining-nt');
+const miningQLD = require('./lib/mining-qld');
 const miningBC = require('./lib/mining-bc');
 const miningSK = require('./lib/mining-sk');
 
@@ -991,6 +992,7 @@ const MINING_CLIENTS = {
   // Australia
   WA: { client: miningWA, country: 'AU', name: 'Western Australia' },
   NT: { client: miningNT, country: 'AU', name: 'Northern Territory' },
+  QLD: { client: miningQLD, country: 'AU', name: 'Queensland' },
   // Canada
   BC: { client: miningBC, country: 'CA', name: 'British Columbia' },
   SK: { client: miningSK, country: 'CA', name: 'Saskatchewan' }
@@ -1021,7 +1023,7 @@ app.get('/api/mining', (req, res) => {
       }
     },
     tenement_jurisdictions: {
-      australia: ['WA', 'NT'],
+      australia: ['WA', 'NT', 'QLD'],
       canada: ['BC', 'SK']
     },
     docs: 'https://tryautropic.com/mining/docs'
@@ -1084,9 +1086,10 @@ app.get('/api/mining/tenements/:id', async (req, res) => {
 app.get('/api/mining/stats', async (req, res) => {
   try {
     // Fetch stats from all jurisdictions in parallel
-    const [waStats, ntStats, bcStats, skStats] = await Promise.all([
+    const [waStats, ntStats, qldStats, bcStats, skStats] = await Promise.all([
       miningWA.getStats().catch(e => ({ stats: { error: e.message } })),
       miningNT.getStats().catch(e => ({ stats: { error: e.message } })),
+      miningQLD.getStats().catch(e => ({ stats: { error: e.message } })),
       miningBC.getStats().catch(e => ({ stats: { error: e.message } })),
       miningSK.getStats().catch(e => ({ stats: { error: e.message } }))
     ]);
@@ -1094,14 +1097,16 @@ app.get('/api/mining/stats', async (req, res) => {
     // Calculate totals
     const auTotal = (waStats.stats?.live || waStats.stats?.total || 0) + 
                     (waStats.stats?.pending || 0) +
-                    (ntStats.stats?.total || 0);
+                    (ntStats.stats?.total || 0) +
+                    (qldStats.stats?.total || 0);
     const caTotal = (bcStats.stats?.total || 0) + (skStats.stats?.total || 0);
     
     res.json({
       jurisdictions: {
         australia: {
           WA: waStats.stats,
-          NT: ntStats.stats
+          NT: ntStats.stats,
+          QLD: qldStats.stats
         },
         canada: {
           BC: bcStats.stats,
@@ -1116,6 +1121,7 @@ app.get('/api/mining/stats', async (req, res) => {
       sources: {
         WA: 'DMIRS (live data)',
         NT: 'NT Geological Survey WFS',
+        QLD: 'GSQ (live data)',
         BC: 'BC Open Maps WFS',
         SK: 'Saskatchewan GIS'
       }
