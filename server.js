@@ -1312,10 +1312,14 @@ app.get('/api/mining/announcements', (req, res) => {
   
   if (req.query.company) {
     const c = req.query.company.toUpperCase();
-    results = results.filter(a => a.company_code === c);
+    results = results.filter(a => a.code === c);
   }
-  if (req.query.category) {
-    results = results.filter(a => a.category === req.query.category);
+  if (req.query.commodity) {
+    const c = req.query.commodity.toLowerCase();
+    results = results.filter(a => a.commodities?.some(com => com.toLowerCase().includes(c)));
+  }
+  if (req.query.price_sensitive === 'true') {
+    results = results.filter(a => a.isPriceSensitive);
   }
   
   const limit = Math.min(parseInt(req.query.limit) || 50, 200);
