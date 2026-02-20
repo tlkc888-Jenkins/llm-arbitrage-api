@@ -639,6 +639,65 @@ curl "<span class="url">https://tryautropic.com/api/mining/prices</span>"</pre>
       </div>
     </section>
     
+    <!-- Waitlist CTA -->
+    <section id="waitlist" style="padding: 60px 0; text-align: center; background: linear-gradient(135deg, var(--surface) 0%, var(--bg) 100%);">
+      <div class="container">
+        <h2 style="margin-bottom: 16px;">Get Early Access</h2>
+        <p class="section-desc" style="margin-bottom: 32px;">
+          Be first to know when new features drop. We're adding JORC parsing, drillhole databases, and AI core analysis.
+        </p>
+        
+        <form id="waitlist-form" style="display: flex; gap: 12px; max-width: 500px; margin: 0 auto; flex-wrap: wrap; justify-content: center;">
+          <input type="email" id="waitlist-email" placeholder="you@company.com" required
+            style="flex: 1; min-width: 250px; padding: 14px 18px; border-radius: 8px; border: 1px solid var(--border); background: var(--surface-2); color: var(--text); font-size: 1rem;">
+          <button type="submit" class="btn" style="padding: 14px 28px;">
+            Join Waitlist
+          </button>
+        </form>
+        
+        <p id="waitlist-msg" style="margin-top: 16px; color: var(--green); display: none;"></p>
+        <p style="margin-top: 24px; color: var(--muted); font-size: 0.85rem;">
+          No spam. Just product updates.
+        </p>
+      </div>
+    </section>
+    
+    <script>
+    document.getElementById('waitlist-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('waitlist-email').value;
+      const msg = document.getElementById('waitlist-msg');
+      const btn = e.target.querySelector('button');
+      
+      btn.disabled = true;
+      btn.textContent = 'Joining...';
+      
+      try {
+        const res = await fetch('/api/mining/waitlist', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, source: 'mining-page' })
+        });
+        
+        if (res.ok) {
+          msg.style.display = 'block';
+          msg.style.color = 'var(--green)';
+          msg.textContent = "You're on the list! We'll be in touch.";
+          e.target.reset();
+        } else {
+          throw new Error('Failed to join');
+        }
+      } catch (err) {
+        msg.style.display = 'block';
+        msg.style.color = 'var(--accent)';
+        msg.textContent = 'Something went wrong. Try tom@autropic.com instead.';
+      }
+      
+      btn.disabled = false;
+      btn.textContent = 'Join Waitlist';
+    });
+    </script>
+
     <section id="roadmap">
       <div class="container">
         <h2>Roadmap</h2>

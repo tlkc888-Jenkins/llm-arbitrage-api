@@ -985,6 +985,24 @@ app.get('/api/v1/status', (req, res) => {
 // === Mining Data API ===
 // Mining tenement data - unified access across jurisdictions
 
+// === Mining API Call Tracking ===
+// Simple request logging (visible in Render logs)
+function trackMiningCall(endpoint, req) {
+  const apiKey = req.headers['x-api-key'] || req.query.key || 'anonymous';
+  const userAgent = req.headers['user-agent'] || 'unknown';
+  const ip = req.headers['x-forwarded-for']?.split(',')[0] || req.ip || 'unknown';
+  
+  // Log to stdout (captured by Render)
+  console.log(JSON.stringify({
+    type: 'mining_api_call',
+    endpoint,
+    api_key: apiKey.slice(0, 8) + '...',
+    user_agent: userAgent.slice(0, 50),
+    ip_prefix: ip.split('.').slice(0, 2).join('.') + '.x.x',
+    timestamp: new Date().toISOString()
+  }));
+}
+
 // Rate limit middleware for mining API
 // Anonymous: 60/min, 500/day | Free key: 100/min, 2000/day | Pro: 1000/min, 50000/day
 const miningRateLimit = rateLimiter.createRateLimiter((key) => {
@@ -1057,6 +1075,7 @@ app.get('/api/mining', (req, res) => {
 
 // Query tenements
 app.get('/api/mining/tenements', async (req, res) => {
+  trackMiningCall('tenements', req);
   try {
     const state = (req.query.state || 'WA').toUpperCase();
     
@@ -1109,6 +1128,7 @@ app.get('/api/mining/tenements/:id', async (req, res) => {
 
 // Mining stats
 app.get('/api/mining/stats', async (req, res) => {
+  trackMiningCall('stats', req);
   try {
     // Fetch stats from all jurisdictions in parallel
     const [waStats, ntStats, qldStats, bcStats, skStats] = await Promise.all([
@@ -1351,6 +1371,82 @@ app.get('/api/mining/announcements/exploration', (req, res) => {
   res.json({
     total: data.exploration_results?.length || 0,
     data: data.exploration_results || []
+  });
+});
+
+// === Mining Waitlist ===
+// Simple file-based storage (survives without Supabase)
+const fs = require('fs');
+const WAITLIST_FILE = process.env.WAITLIST_FILE || '/tmp/mining-waitlist.json';
+
+function loadWaitlist() {
+  try {
+    if (fs.existsSync(WAITLIST_FILE)) {
+      return JSON.parse(fs.readFileSync(WAITLIST_FILE, 'utf8'));
+    }
+  } catch (e) { /* ignore */ }
+  return [];
+}
+
+function saveWaitlist(list) {
+  try {
+    fs.writeFileSync(WAITLIST_FILE, JSON.stringify(list, null, 2));
+  } catch (e) {
+    console.error('Failed to save waitlist:', e.message);
+  }
+}
+
+app.post('/api/mining/waitlist', (req, res) => {
+  try {
+    const { email, source } = req.body;
+    
+    if (!email || !email.includes('@')) {
+      return res.status(400).json({ error: 'Valid email required' });
+    }
+    
+    const waitlist = loadWaitlist();
+    
+    // Check for duplicate
+    if (waitlist.find(e => e.email.toLowerCase() === email.toLowerCase())) {
+      return res.json({ success: true, message: 'Already on the list!' });
+    }
+    
+    // Add to list
+    const entry = {
+      email: email.toLowerCase(),
+      source: source || 'unknown',
+      timestamp: new Date().toISOString(),
+      ip_hash: require('crypto').createHash('md5').update(req.ip || 'unknown').digest('hex').slice(0, 8)
+    };
+    
+    waitlist.push(entry);
+    saveWaitlist(waitlist);
+    
+    console.log(`[WAITLIST] New signup: ${email} from ${source}`);
+    
+    res.json({ success: true, message: 'Added to waitlist', position: waitlist.length });
+  } catch (error) {
+    console.error('Waitlist error:', error);
+    res.status(500).json({ error: 'Failed to join waitlist' });
+  }
+});
+
+app.get('/api/mining/waitlist/count', (req, res) => {
+  const waitlist = loadWaitlist();
+  res.json({ count: waitlist.length });
+});
+
+// Admin: view waitlist (requires admin key)
+app.get('/api/mining/waitlist', (req, res) => {
+  const key = req.headers['x-api-key'] || req.query.key;
+  if (key !== ADMIN_KEY) {
+    return res.status(401).json({ error: 'Admin key required' });
+  }
+  
+  const waitlist = loadWaitlist();
+  res.json({ 
+    count: waitlist.length,
+    signups: waitlist
   });
 });
 
