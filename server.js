@@ -1361,6 +1361,29 @@ const corePhotoAI = new CorePhotoAI();
 
 app.post('/api/mining/core/analyze', async (req, res) => {
   try {
+    // Require Pro tier API key - this endpoint has real costs
+    const apiKey = req.headers['x-api-key'] || req.query.key;
+    if (!apiKey) {
+      return res.status(401).json({ 
+        error: 'API key required',
+        message: 'Core Photo AI requires a Pro tier API key. Get one at tryautropic.com/pro',
+        pricing: '$99/mo Pro tier includes unlimited core analysis'
+      });
+    }
+    
+    // Validate API key and check tier (TODO: implement proper key validation)
+    // For now, any key starting with 'pro_' or the admin key works
+    const isProKey = apiKey.startsWith('pro_') || apiKey === ADMIN_KEY;
+    if (!isProKey) {
+      return res.status(403).json({
+        error: 'Pro tier required',
+        message: 'Core Photo AI is a Pro tier feature. Upgrade at tryautropic.com/pro',
+        your_tier: 'free',
+        required_tier: 'pro',
+        pricing: '$99/mo includes unlimited core analysis'
+      });
+    }
+    
     const { image_url, hole_id, from_m, to_m, project, target_commodity, region } = req.body;
     
     if (!image_url) {
@@ -1421,8 +1444,14 @@ app.get('/api/mining/core', (req, res) => {
       'assessment (prospectivity, sample priority, deposit model affinity)'
     ],
     pricing: {
-      note: 'Currently free during beta. Future pricing TBD.',
-      cost_per_analysis: '$0.00 (beta)'
+      tier: 'Pro ($99/mo)',
+      includes: 'Unlimited core analysis',
+      upgrade: 'https://tryautropic.com/pro'
+    },
+    authentication: {
+      required: true,
+      header: 'X-Api-Key: your_pro_api_key',
+      get_key: 'https://tryautropic.com/pro'
     }
   });
 });
