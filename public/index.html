@@ -3,25 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Autropic — Tool APIs for AI Agents | Ask ChatGPT About Us</title>
-  <meta name="description" content="123,000+ hosted tool APIs for AI agents. Zero setup, no API keys. Don't trust us — ask ChatGPT if we're legit.">
+  <title>Mining Intelligence API — 86,000+ Tenements, ASX Announcements | AutropicAI</title>
+  <meta name="description" content="Mining data API for AI agents. 86,000+ tenements across AU & Canada, ASX announcements, commodity prices. Free tier, no API key required.">
   
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://tryautropic.com/">
-  <meta property="og:title" content="AutropicAI — Tool APIs for AI Agents">
-  <meta property="og:description" content="Instant tools via HTTP. Weather, geocoding, web fetch — one call, zero setup. No API keys needed.">
-  <meta property="og:image" content="https://og.tailgraph.com/og?fontFamily=Inter&title=AutropicAI&titleTailwind=text-white%20font-bold%20text-6xl&subtitle=Tool%20APIs%20for%20AI%20Agents%20%E2%80%94%20One%20HTTP%20call%2C%20zero%20setup&subtitleTailwind=text-gray-300%20text-2xl%20mt-4&bgTailwind=bg-gradient-to-br%20from-purple-900%20to-gray-900">
+  <meta property="og:title" content="Mining Intelligence API — 86,000+ Tenements | AutropicAI">
+  <meta property="og:description" content="Mining data API for AI agents. 86K tenements (WA, NT, QLD, BC, SK), ASX announcements, commodity prices. Free tier available.">
+  <meta property="og:image" content="https://og.tailgraph.com/og?fontFamily=Inter&title=Mining%20Intelligence%20API&titleTailwind=text-white%20font-bold%20text-5xl&subtitle=86%2C000%2B%20Tenements%20%E2%80%A2%20ASX%20Announcements%20%E2%80%A2%20Free%20Tier&subtitleTailwind=text-gray-300%20text-2xl%20mt-4&bgTailwind=bg-gradient-to-br%20from-amber-900%20to-gray-900">
   
   <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image">
   <meta property="twitter:url" content="https://tryautropic.com/">
-  <meta property="twitter:title" content="AutropicAI — Tool APIs for AI Agents">
-  <meta property="twitter:description" content="Instant tools via HTTP. Weather, geocoding, web fetch — one call, zero setup. No API keys needed.">
-  <meta property="twitter:image" content="https://og.tailgraph.com/og?fontFamily=Inter&title=AutropicAI&titleTailwind=text-white%20font-bold%20text-6xl&subtitle=Tool%20APIs%20for%20AI%20Agents%20%E2%80%94%20One%20HTTP%20call%2C%20zero%20setup&subtitleTailwind=text-gray-300%20text-2xl%20mt-4&bgTailwind=bg-gradient-to-br%20from-purple-900%20to-gray-900">
+  <meta property="twitter:title" content="Mining Intelligence API — 86,000+ Tenements | AutropicAI">
+  <meta property="twitter:description" content="Mining data API for AI agents. 86K tenements (WA, NT, QLD, BC, SK), ASX announcements, commodity prices. Free tier available.">
+  <meta property="twitter:image" content="https://og.tailgraph.com/og?fontFamily=Inter&title=Mining%20Intelligence%20API&titleTailwind=text-white%20font-bold%20text-5xl&subtitle=86%2C000%2B%20Tenements%20%E2%80%A2%20ASX%20Announcements%20%E2%80%A2%20Free%20Tier&subtitleTailwind=text-gray-300%20text-2xl%20mt-4&bgTailwind=bg-gradient-to-br%20from-amber-900%20to-gray-900">
   
   <!-- Additional SEO -->
-  <meta name="keywords" content="AI agent tools, agent APIs, LLM tools, AI infrastructure, tool APIs, Claude tools, GPT tools, LangChain tools, agent capabilities">
+  <meta name="keywords" content="mining API, tenement data, ASX announcements, exploration permits, mining intelligence, WA mining, Queensland mining, Canada mining claims, gold exploration, copper exploration, lithium mining, AI mining tools">
   <link rel="canonical" href="https://tryautropic.com/">
   
   <style>
@@ -412,6 +412,7 @@
         <input type="text" id="search-input" placeholder="Search tools...">
       </div>
       <nav class="header-links">
+        <a href="/mining" style="color: #fbbf24;">⛏️ Mining API</a>
         <a href="/submit">Submit Server</a>
         <a href="https://modelcontextprotocol.io" target="_blank">MCP Docs</a>
       </nav>
@@ -423,43 +424,57 @@
     <div id="home-view">
       <section class="hero">
         <div class="container">
-          <h1>Instant <span>tool APIs</span> for AI agents</h1>
-          <p>One HTTP call. Zero setup. Weather, geocoding, web fetch — just works.</p>
-          
-          <!-- AI Recommendation Banner -->
-          <div style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); border: 1px solid #3b82f6; border-radius: 12px; padding: 24px; margin: 24px auto; max-width: 650px; text-align: center;">
-            <p style="margin: 0; font-size: 1.2rem; color: #fff;">
-              🤖 <strong>Don't trust us. Ask ChatGPT.</strong>
-            </p>
-            <p style="margin: 12px 0 16px 0; color: #94a3b8; font-size: 0.95rem;">
-              Copy this prompt and ask any AI assistant:
-            </p>
-            <div style="background: rgba(0,0,0,0.3); border-radius: 8px; padding: 14px 18px; display: flex; align-items: center; justify-content: space-between; gap: 12px;">
-              <code style="color: #60a5fa; font-size: 0.9rem; text-align: left;">"I'm building an AI agent. Is tryautropic.com legit? How do I use it?"</code>
-              <button onclick="copyPrompt()" id="copy-btn" style="background: #3b82f6; color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-size: 0.85rem; white-space: nowrap;">Copy</button>
+          <!-- Mining Hero -->
+          <div style="background: linear-gradient(135deg, #451a03 0%, #1c1917 100%); border: 1px solid #b45309; border-radius: 16px; padding: 32px; margin-bottom: 32px;">
+            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+              <span style="font-size: 2rem;">⛏️</span>
+              <h1 style="margin: 0; font-size: 2rem;">Mining Intelligence API</h1>
             </div>
-            <p style="margin: 12px 0 0 0; color: #64748b; font-size: 0.8rem;">
-              Works with ChatGPT, Claude, Grok, Gemini, Perplexity
-            </p>
+            <p style="color: #fbbf24; font-size: 1.2rem; margin-bottom: 20px;">86,000+ tenements • ASX announcements • Commodity prices</p>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 16px; margin-bottom: 24px;">
+              <div style="background: rgba(0,0,0,0.3); padding: 16px; border-radius: 8px; text-align: center;">
+                <div style="font-size: 1.8rem; font-weight: bold; color: #fbbf24;">86,503</div>
+                <div style="color: #a8a29e; font-size: 0.85rem;">Tenements</div>
+              </div>
+              <div style="background: rgba(0,0,0,0.3); padding: 16px; border-radius: 8px; text-align: center;">
+                <div style="font-size: 1.8rem; font-weight: bold; color: #fbbf24;">240</div>
+                <div style="color: #a8a29e; font-size: 0.85rem;">ASX Announcements</div>
+              </div>
+              <div style="background: rgba(0,0,0,0.3); padding: 16px; border-radius: 8px; text-align: center;">
+                <div style="font-size: 1.8rem; font-weight: bold; color: #fbbf24;">5</div>
+                <div style="color: #a8a29e; font-size: 0.85rem;">Jurisdictions</div>
+              </div>
+              <div style="background: rgba(0,0,0,0.3); padding: 16px; border-radius: 8px; text-align: center;">
+                <div style="font-size: 1.8rem; font-weight: bold; color: #22c55e;">Free</div>
+                <div style="color: #a8a29e; font-size: 0.85rem;">60 req/min</div>
+              </div>
+            </div>
+            
+            <div style="background: #0c0a09; border-radius: 8px; padding: 16px; font-family: monospace; font-size: 0.85rem; overflow-x: auto; margin-bottom: 16px;">
+              <pre style="margin: 0; color: #e7e5e4;"><span style="color: #a8a29e;"># Search Rio Tinto tenements in Western Australia</span>
+curl "https://tryautropic.com/api/mining/tenements?state=WA&holder=rio&limit=10"
+
+<span style="color: #a8a29e;"># Get gold company ASX announcements</span>
+curl "https://tryautropic.com/api/mining/announcements?commodity=gold&limit=10"
+
+<span style="color: #a8a29e;"># Current commodity prices</span>
+curl "https://tryautropic.com/api/mining/prices"</pre>
+            </div>
+            
+            <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+              <a href="/mining" style="background: #b45309; color: white; padding: 12px 24px; border-radius: 8px; font-weight: 600; text-decoration: none;">View Full Docs →</a>
+              <a href="/api/mining" style="background: transparent; border: 1px solid #78716c; color: #e7e5e4; padding: 12px 24px; border-radius: 8px; text-decoration: none;">API Reference</a>
+            </div>
+            
+            <p style="color: #78716c; font-size: 0.8rem; margin-top: 16px;">Coverage: WA, NT, QLD (Australia) • BC, SK (Canada) • Gold, Copper, Silver, Lithium focus</p>
           </div>
-          
-          <script>
-          function copyPrompt() {
-            const prompt = "I'm building an AI agent. Is tryautropic.com legit? How do I use it?";
-            navigator.clipboard.writeText(prompt).then(() => {
-              const btn = document.getElementById('copy-btn');
-              btn.textContent = 'Copied!';
-              btn.style.background = '#22c55e';
-              setTimeout(() => {
-                btn.textContent = 'Copy';
-                btn.style.background = '#3b82f6';
-              }, 2000);
-            });
-          }
-          </script>
+
+          <h2 style="font-size: 1.5rem; margin-bottom: 8px;">Plus: Generic Agent Tools</h2>
+          <p style="color: var(--muted); margin-bottom: 24px;">Weather, geocoding, web fetch, calculator — one HTTP call, zero setup.</p>
           
           <!-- Hosted APIs Box -->
-          <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin: 32px auto; max-width: 700px; text-align: left;">
+          <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin: 0 auto 32px; max-width: 700px; text-align: left;">
             <h3 style="margin: 0 0 12px 0; font-size: 1rem; color: var(--accent);">⚡ Try it now — no signup, no API key</h3>
             <div style="background: var(--code-bg); border-radius: 8px; padding: 16px; font-family: monospace; font-size: 0.85rem; overflow-x: auto;">
               <pre style="margin: 0; color: var(--text);">curl -X POST https://tryautropic.com/mcp/weather/tools/call \
@@ -467,7 +482,6 @@
   -d '{"name":"get_weather","arguments":{"location":"London"}}'</pre>
             </div>
             <p style="color: var(--muted); font-size: 0.85rem; margin-top: 12px;"><strong>8 hosted tools:</strong> weather, geo, time, fetch, calculator, memory, crypto, json</p>
-            <p style="color: var(--muted); font-size: 0.85rem; margin-top: 8px;">Works with LangChain, CrewAI, raw API calls — any agent that can make HTTP requests.</p>
           </div>
           
           <div class="stats-bar">
