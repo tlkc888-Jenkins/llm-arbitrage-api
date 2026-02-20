@@ -1004,6 +1004,7 @@ app.use('/api/mining/jobs', miningRateLimit);
 app.use('/api/mining/equipment', miningRateLimit);
 app.use('/api/mining/prices', miningRateLimit);
 app.use('/api/mining/announcements', miningRateLimit);
+app.use('/api/mining/core', miningRateLimit);
 
 const miningWA = require('./lib/mining-wa');
 const miningNT = require('./lib/mining-nt');
@@ -1350,6 +1351,79 @@ app.get('/api/mining/announcements/exploration', (req, res) => {
   res.json({
     total: data.exploration_results?.length || 0,
     data: data.exploration_results || []
+  });
+});
+
+// === Core Photo AI - Drill Core Visual Assessment ===
+// Disclaimer: Requires Competent Person validation for JORC 2012 compliance
+const { CorePhotoAI } = require('./lib/core-photo-ai');
+const corePhotoAI = new CorePhotoAI();
+
+app.post('/api/mining/core/analyze', async (req, res) => {
+  try {
+    const { image_url, hole_id, from_m, to_m, project, target_commodity, region } = req.body;
+    
+    if (!image_url) {
+      return res.status(400).json({ 
+        error: 'image_url required',
+        example: {
+          image_url: 'https://example.com/core-photo.jpg',
+          hole_id: 'DDH-001',
+          from_m: 45.2,
+          to_m: 46.5,
+          project: 'Example Project',
+          target_commodity: 'Cu-Au',
+          region: 'WA'
+        }
+      });
+    }
+    
+    const result = await corePhotoAI.analyzeCore(image_url, {
+      hole_id,
+      from_m,
+      to_m,
+      project,
+      target_commodity,
+      region
+    });
+    
+    res.json(result);
+  } catch (error) {
+    console.error('Core photo analysis error:', error);
+    res.status(500).json({ error: 'Analysis failed', message: error.message });
+  }
+});
+
+// Core Photo AI - Info endpoint
+app.get('/api/mining/core', (req, res) => {
+  res.json({
+    service: 'Core Photo AI',
+    description: 'AI-assisted drill core visual assessment',
+    disclaimer: 'Preliminary assessment only. Requires Competent Person validation for JORC 2012 / NI 43-101 compliance.',
+    endpoints: {
+      analyze: 'POST /api/mining/core/analyze',
+      compare: 'POST /api/mining/core/compare (coming soon)'
+    },
+    analyze_request: {
+      image_url: 'URL of drill core photo (required)',
+      hole_id: 'Drill hole identifier (optional)',
+      from_m: 'From depth in metres (optional)',
+      to_m: 'To depth in metres (optional)',
+      project: 'Project name (optional)',
+      target_commodity: 'Target commodity e.g. Cu-Au (optional)',
+      region: 'Region/jurisdiction (optional)'
+    },
+    response_includes: [
+      'lithology (rock type, texture, grain size)',
+      'alteration (style, intensity, assemblage)',
+      'mineralization (sulphides, oxides, estimated %)',
+      'structures (veining, fractures, brecciation)',
+      'assessment (prospectivity, sample priority, deposit model affinity)'
+    ],
+    pricing: {
+      note: 'Currently free during beta. Future pricing TBD.',
+      cost_per_analysis: '$0.00 (beta)'
+    }
   });
 });
 
