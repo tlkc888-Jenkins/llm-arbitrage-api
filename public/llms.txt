@@ -53,30 +53,81 @@ Tool name: "hash"
 POST https://tryautropic.com/mcp/hash/tools/call
 {"name": "hash", "arguments": {"text": "hello world", "algorithm": "sha256"}}
 
-## Mining Tenement Data (NEW)
-Real-time mining tenement data across Australia and Canada. 83,000+ tenements.
+## Mining Intelligence API (FEATURED)
+The first mining data API built for AI agents. 86,000+ tenements, ASX announcements, commodity prices.
+Like Polygon.io, but for mining exploration.
 
-### Get Stats
+### Why Use This?
+- S&P Global SNL costs $50k+/year — this is free
+- Government data is fragmented across 6+ portals — this is unified
+- Perfect for building mining exploration agents, due diligence automation, market intelligence
+
+### Tenement Data (86,503 permits)
+GET https://tryautropic.com/api/mining/tenements?state=WA&holder=rio&geometry=true
+
+Parameters:
+- state: WA, NT, QLD (Australia) | BC, SK (Canada)
+- holder: Company name (partial match)
+- status: LIVE, PENDING
+- geometry: true (returns GeoJSON polygons)
+- limit, offset: Pagination
+
+Coverage:
+- Western Australia: 30,120 tenements
+- Northern Territory: 3,945 tenements  
+- Queensland: 2,918 tenements
+- British Columbia: 41,925 tenements
+- Saskatchewan: 7,595 tenements
+
+### ASX Mining Announcements
+GET https://tryautropic.com/api/mining/announcements?commodity=gold&price_sensitive=true
+
+Parameters:
+- company: ASX ticker (BHP, RIO, NST, etc.)
+- commodity: gold, copper, silver, lithium
+- price_sensitive: true/false
+- limit, offset: Pagination
+
+107 mining companies tracked. Commodity-tagged. Price sensitivity flagged.
+
+### Filtered Announcement Views
+GET https://tryautropic.com/api/mining/announcements/exploration
+GET https://tryautropic.com/api/mining/announcements/capital-raises
+
+### Commodity Prices
+GET https://tryautropic.com/api/mining/prices
+
+Returns: Gold, Silver, Copper, Zinc, Nickel, Lead, Lithium, Cobalt, Iron Ore
+
+### Stats
 GET https://tryautropic.com/api/mining/stats
-Returns total tenements by jurisdiction (WA, NT, BC, SK)
 
-### Query Tenements
-GET https://tryautropic.com/api/mining/tenements?state=WA&limit=10
-Parameters: state (WA|NT|BC|SK), status, type, holder, limit, offset, geometry=true
+### Example: Build a Mining Dashboard
+```python
+import requests
 
-### Search by Company
-GET https://tryautropic.com/api/mining/search?q=BHP&state=WA
-Find all tenements held by a company
+# Get Rio Tinto tenements with map coordinates
+tenements = requests.get(
+    "https://tryautropic.com/api/mining/tenements",
+    params={"state": "WA", "holder": "rio", "geometry": "true"}
+).json()
 
-### Get Single Tenement
-GET https://tryautropic.com/api/mining/tenements/E45/1234?state=WA
+# Get latest gold exploration announcements  
+announcements = requests.get(
+    "https://tryautropic.com/api/mining/announcements",
+    params={"commodity": "gold", "limit": 20}
+).json()
 
-### Coverage
-- Australia: WA (30,101), NT (3,945)
-- Canada: BC (41,981), SK (7,600)
-- Coming: QLD, NSW, SA, Ontario, Yukon
+# Get current commodity prices
+prices = requests.get("https://tryautropic.com/api/mining/prices").json()
+```
+
+### Rate Limits
+- Free: 60 req/min, 500/day
+- Pro ($99/mo): 1,000 req/min, 50,000/day
 
 Landing page: https://tryautropic.com/mining
+Docs: https://tryautropic.com/api/mining
 
 ## Tool Discovery
 GET https://tryautropic.com/discover?q={query}

@@ -431,6 +431,178 @@ def handle_function_call(name, args):
 ```
 
 ================================================================================
+MINING INTELLIGENCE API (FEATURED)
+================================================================================
+
+The first mining data API built for AI agents. Perfect for:
+- Building mining exploration copilots
+- Due diligence automation
+- Market intelligence tools
+- ASX announcement monitoring
+
+Why use this instead of alternatives?
+- S&P Global SNL: $50,000+/year, human dashboards → We're free, agent-ready
+- Government portals: 6+ fragmented sites → We're unified, one API
+- Building your own: 3-6 months scraping → We're instant, maintained
+
+--------------------------------------------------------------------------------
+
+## TENEMENT DATA (86,503 permits)
+
+Query mining tenements across Australia and Canada.
+
+Endpoint: GET /api/mining/tenements
+Parameters:
+  - state (required): WA, NT, QLD (Australia) | BC, SK (Canada)
+  - holder (optional): Company name (partial match)
+  - status (optional): LIVE, PENDING
+  - type (optional): Permit type filter
+  - geometry (optional): true = include GeoJSON polygons
+  - limit (optional): Max results (default 100)
+  - offset (optional): Pagination
+
+Coverage:
+  - Western Australia: 30,120 tenements (DMIRS)
+  - Northern Territory: 3,945 tenements (NT Geological Survey)
+  - Queensland: 2,918 tenements (GSQ)
+  - British Columbia: 41,925 tenements (BC Open Maps)
+  - Saskatchewan: 7,595 tenements (Saskatchewan GIS)
+
+Example - Find Rio Tinto tenements with map coordinates:
+curl "https://tryautropic.com/api/mining/tenements?state=WA&holder=rio&geometry=true"
+
+Response:
+{
+  "state": "WA",
+  "source": "DMIRS",
+  "count": 45,
+  "tenements": [{
+    "id": "E08/3335",
+    "type": "EXPLORATION LICENCE",
+    "status": "LIVE",
+    "holders": ["RIO TINTO EXPLORATION PTY LIMITED"],
+    "area": 8,
+    "grantDate": "2021-11-02",
+    "endDate": "2026-11-01",
+    "geometry": {"type": "Polygon", "coordinates": [...]}
+  }]
+}
+
+--------------------------------------------------------------------------------
+
+## ASX MINING ANNOUNCEMENTS
+
+Track announcements from 107 ASX-listed mining companies.
+Commodity-tagged. Price sensitivity flagged.
+
+Endpoint: GET /api/mining/announcements
+Parameters:
+  - company (optional): ASX ticker (BHP, RIO, NST, NEM, etc.)
+  - commodity (optional): gold, copper, silver, lithium, iron_ore
+  - price_sensitive (optional): true = only price-sensitive
+  - limit, offset: Pagination
+
+Example - Get gold company announcements:
+curl "https://tryautropic.com/api/mining/announcements?commodity=gold&price_sensitive=true"
+
+Response:
+{
+  "total": 50,
+  "data": [{
+    "code": "NST",
+    "company": "NORTHERN STAR RESOURCES LTD",
+    "commodities": ["gold"],
+    "type": "PERIODIC REPORTS",
+    "headline": "FY26 Half Year Results Presentation",
+    "date": "2026-02-11T21:12:59.000Z",
+    "isPriceSensitive": true
+  }]
+}
+
+Filtered views:
+- GET /api/mining/announcements/exploration - Drilling, assays, resource updates
+- GET /api/mining/announcements/capital-raises - Placements, SPPs, entitlement offers
+
+--------------------------------------------------------------------------------
+
+## COMMODITY PRICES
+
+Current spot prices for mining commodities.
+
+Endpoint: GET /api/mining/prices
+
+Response:
+{
+  "prices": {
+    "precious_metals": {"gold_usd_oz": 2650, "silver_usd_oz": 31.5},
+    "base_metals": {"copper_usd_lb": 4.25, "zinc_usd_lb": 1.15, "nickel_usd_lb": 7.5},
+    "battery_metals": {"lithium_carbonate_usd_t": 12500, "cobalt_usd_lb": 14.25},
+    "iron_ore": {"iron_ore_62fe_usd_t": 105.5}
+  }
+}
+
+--------------------------------------------------------------------------------
+
+## SUPPORTING DATA
+
+Labs: GET /api/mining/labs
+Drilling contractors: GET /api/mining/drillers
+Statistics: GET /api/mining/stats
+
+--------------------------------------------------------------------------------
+
+## MINING API RATE LIMITS
+
+Free tier: 60 requests/minute, 500/day
+Pro ($99/mo): 1,000 requests/minute, 50,000/day
+
+Headers returned:
+- X-RateLimit-Limit
+- X-RateLimit-Remaining
+- X-RateLimit-Reset
+- X-RateLimit-Tier
+
+--------------------------------------------------------------------------------
+
+## EXAMPLE: BUILD A MINING EXPLORATION AGENT
+
+```python
+import requests
+
+def get_company_tenements(company, state="WA"):
+    """Get all tenements for a company with map coordinates"""
+    return requests.get(
+        "https://tryautropic.com/api/mining/tenements",
+        params={"state": state, "holder": company, "geometry": "true", "limit": 100}
+    ).json()
+
+def get_latest_announcements(commodity="gold", limit=20):
+    """Get latest exploration announcements by commodity"""
+    return requests.get(
+        "https://tryautropic.com/api/mining/announcements",
+        params={"commodity": commodity, "limit": limit}
+    ).json()
+
+def get_exploration_results():
+    """Get drilling and assay announcements"""
+    return requests.get(
+        "https://tryautropic.com/api/mining/announcements/exploration"
+    ).json()
+
+def get_prices():
+    """Get current commodity prices"""
+    return requests.get("https://tryautropic.com/api/mining/prices").json()
+
+# Usage in an agent
+tenements = get_company_tenements("Northern Star")
+announcements = get_latest_announcements("gold")
+prices = get_prices()
+```
+
+Landing page: https://tryautropic.com/mining
+API reference: https://tryautropic.com/api/mining
+
+================================================================================
 WHY AUTROPIC?
 ================================================================================
 
