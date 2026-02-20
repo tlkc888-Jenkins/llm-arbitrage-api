@@ -20,6 +20,9 @@ const ADMIN_KEY = process.env.ADMIN_KEY || 'admin_dev_key';
 // Security monitoring
 const securityMonitor = require('./lib/security-monitor');
 
+// Rate limiting
+const rateLimiter = require('./lib/rate-limiter');
+
 // Middleware
 app.use(securityMonitor.middleware); // Security first
 app.use(express.json());
@@ -981,6 +984,27 @@ app.get('/api/v1/status', (req, res) => {
 
 // === Mining Data API ===
 // Mining tenement data - unified access across jurisdictions
+
+// Rate limit middleware for mining API
+// Anonymous: 60/min, 500/day | Free key: 100/min, 2000/day | Pro: 1000/min, 50000/day
+const miningRateLimit = rateLimiter.createRateLimiter((key) => {
+  // Validate API key and return tier
+  const proData = waitlist.validateProKey(key);
+  if (proData?.valid) return { valid: true, tier: proData.tier || 'free' };
+  return { valid: false };
+});
+
+// Apply rate limiting to all /api/mining/* routes (except info endpoint)
+app.use('/api/mining/tenements', miningRateLimit);
+app.use('/api/mining/stats', miningRateLimit);
+app.use('/api/mining/search', miningRateLimit);
+app.use('/api/mining/labs', miningRateLimit);
+app.use('/api/mining/drillers', miningRateLimit);
+app.use('/api/mining/jobs', miningRateLimit);
+app.use('/api/mining/equipment', miningRateLimit);
+app.use('/api/mining/prices', miningRateLimit);
+app.use('/api/mining/announcements', miningRateLimit);
+
 const miningWA = require('./lib/mining-wa');
 const miningNT = require('./lib/mining-nt');
 const miningQLD = require('./lib/mining-qld');
