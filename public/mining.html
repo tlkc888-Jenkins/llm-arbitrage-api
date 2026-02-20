@@ -3,594 +3,680 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Autropic Mining Intelligence API - One API for Everything Mining</title>
-  <meta name="description" content="Comprehensive mining data API — tenements, labs, drillers, jobs, equipment, prices, and ASX announcements. Built for AI agents and developers.">
-  <link rel="icon" href="/favicon.ico">
+  <title>Mining Intelligence API — 86,000+ Tenements, ASX Announcements | AutropicAI</title>
+  <meta name="description" content="The first structured mining data API built for AI agents. 86,000+ tenements across Australia & Canada, ASX announcements, commodity prices. Free tier available.">
+  
+  <meta property="og:title" content="Mining Intelligence API — Polygon.io for Mining">
+  <meta property="og:description" content="86,000+ tenements. ASX announcements. Commodity prices. One API call, zero setup.">
+  <meta property="og:type" content="website">
+  
   <style>
-    :root {
-      --primary: #1a1a2e;
-      --accent: #e94560;
-      --accent-light: #ff6b6b;
-      --gold: #f4a261;
-      --text: #eee;
-      --text-muted: #aaa;
-      --card-bg: #16213e;
-      --code-bg: #0f0f1a;
-    }
-    
     * { box-sizing: border-box; margin: 0; padding: 0; }
     
+    :root {
+      --bg: #0c0a09;
+      --surface: #1c1917;
+      --surface-2: #292524;
+      --border: #44403c;
+      --text: #fafaf9;
+      --muted: #a8a29e;
+      --accent: #f59e0b;
+      --accent-dim: #b45309;
+      --green: #22c55e;
+      --code-bg: #0c0a09;
+    }
+    
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-      background: var(--primary);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
       color: var(--text);
       line-height: 1.6;
     }
     
-    .container {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 20px;
-    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
     
+    .container { max-width: 1000px; margin: 0 auto; padding: 0 24px; }
+    
+    /* Header */
     header {
-      padding: 20px 0;
-      border-bottom: 1px solid rgba(255,255,255,0.1);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 0;
+      position: sticky;
+      top: 0;
+      background: rgba(12, 10, 9, 0.95);
+      backdrop-filter: blur(8px);
+      z-index: 100;
     }
     
-    .header-inner {
+    header .container {
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
     
     .logo {
-      font-size: 1.5rem;
+      font-size: 1.3rem;
       font-weight: 700;
       color: var(--text);
-      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
     
-    .logo span { color: var(--gold); }
+    .logo-icon { font-size: 1.5rem; }
     
-    .back-link {
-      color: var(--text-muted);
-      text-decoration: none;
+    nav { display: flex; gap: 24px; align-items: center; }
+    nav a { color: var(--muted); font-size: 0.95rem; }
+    nav a:hover { color: var(--text); text-decoration: none; }
+    
+    .btn {
+      background: var(--accent);
+      color: #000;
+      padding: 10px 20px;
+      border-radius: 6px;
+      font-weight: 600;
       font-size: 0.9rem;
+      border: none;
+      cursor: pointer;
     }
     
-    .back-link:hover { color: var(--text); }
+    .btn:hover { background: var(--accent-dim); text-decoration: none; }
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+    .btn-outline:hover { border-color: var(--accent); }
     
+    /* Hero */
     .hero {
       padding: 80px 0 60px;
       text-align: center;
     }
     
-    .hero h1 {
-      font-size: 3rem;
-      margin-bottom: 20px;
-      font-weight: 700;
-    }
-    
-    .hero h1 span { color: var(--gold); }
-    
-    .hero .subtitle {
-      font-size: 1.3rem;
-      color: var(--text-muted);
-      max-width: 700px;
-      margin: 0 auto 30px;
-    }
-    
-    .badge {
+    .hero-badge {
       display: inline-block;
-      background: var(--accent);
-      color: white;
-      padding: 6px 16px;
+      background: var(--surface);
+      border: 1px solid var(--accent-dim);
+      color: var(--accent);
+      padding: 6px 14px;
       border-radius: 20px;
       font-size: 0.85rem;
-      font-weight: 600;
-      margin-bottom: 30px;
+      margin-bottom: 24px;
     }
     
+    .hero h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      line-height: 1.1;
+    }
+    
+    .hero h1 span { color: var(--accent); }
+    
+    .hero .subtitle {
+      font-size: 1.25rem;
+      color: var(--muted);
+      margin-bottom: 40px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    /* Stats */
     .stats {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      grid-template-columns: repeat(4, 1fr);
       gap: 20px;
-      margin: 40px 0;
+      margin-bottom: 40px;
     }
     
     .stat {
-      background: var(--card-bg);
-      padding: 25px;
+      background: var(--surface);
+      border: 1px solid var(--border);
       border-radius: 12px;
+      padding: 24px;
       text-align: center;
     }
     
     .stat-value {
       font-size: 2rem;
       font-weight: 700;
-      color: var(--gold);
+      color: var(--accent);
     }
+    
+    .stat-value.green { color: var(--green); }
     
     .stat-label {
-      color: var(--text-muted);
-      font-size: 0.85rem;
-      margin-top: 5px;
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-top: 4px;
     }
     
-    /* Vision Section */
-    .vision {
-      padding: 60px 0;
-      background: var(--code-bg);
-    }
-    
-    .vision h2 {
-      text-align: center;
-      font-size: 2rem;
-      margin-bottom: 20px;
-    }
-    
-    .vision-text {
-      max-width: 800px;
-      margin: 0 auto;
-      text-align: center;
-      color: var(--text-muted);
-      font-size: 1.1rem;
-      line-height: 1.8;
-    }
-    
-    .vision-text strong {
-      color: var(--text);
-    }
-    
-    /* Data Sources */
-    .data-sources {
-      padding: 60px 0;
-    }
-    
-    .data-sources h2 {
-      text-align: center;
-      font-size: 2rem;
-      margin-bottom: 40px;
-    }
-    
-    .sources-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 25px;
-    }
-    
-    .source-card {
-      background: var(--card-bg);
-      border-radius: 12px;
-      padding: 25px;
-    }
-    
-    .source-card h3 {
-      font-size: 1.2rem;
-      margin-bottom: 10px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    
-    .source-card .icon { font-size: 1.5rem; }
-    
-    .source-card p {
-      color: var(--text-muted);
-      font-size: 0.95rem;
-      margin-bottom: 15px;
-    }
-    
-    .source-card .endpoint {
-      font-family: monospace;
-      font-size: 0.85rem;
-      color: var(--gold);
-      background: rgba(0,0,0,0.3);
-      padding: 8px 12px;
-      border-radius: 6px;
-      display: inline-block;
-    }
-    
-    /* API Demo */
-    .api-demo {
-      padding: 60px 0;
-      background: var(--code-bg);
-    }
-    
-    .api-demo h2 {
-      text-align: center;
-      font-size: 2rem;
-      margin-bottom: 10px;
-    }
-    
-    .api-demo .subtitle {
-      text-align: center;
-      color: var(--text-muted);
-      margin-bottom: 40px;
-    }
-    
-    .code-examples {
-      display: grid;
-      gap: 15px;
-      max-width: 800px;
-      margin: 0 auto;
-    }
-    
+    /* Code Block */
     .code-block {
-      background: var(--primary);
-      border-radius: 8px;
-      overflow: hidden;
-    }
-    
-    .code-header {
-      background: rgba(255,255,255,0.05);
-      padding: 10px 15px;
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    
-    .code-header .method {
-      color: var(--accent-light);
-      font-weight: 600;
-    }
-    
-    .code-content {
-      padding: 15px;
-      font-family: 'Monaco', 'Menlo', monospace;
-      font-size: 0.85rem;
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      text-align: left;
       overflow-x: auto;
-      white-space: pre;
+      margin-bottom: 24px;
     }
     
-    .code-content .url { color: var(--gold); }
-    .code-content .param { color: var(--accent-light); }
-    
-    /* Pricing */
-    .pricing {
-      padding: 60px 0;
+    .code-block pre {
+      font-family: 'SF Mono', Monaco, 'Courier New', monospace;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      margin: 0;
     }
     
-    .pricing h2 {
-      text-align: center;
+    .code-block .comment { color: #6b7280; }
+    .code-block .string { color: #34d399; }
+    .code-block .url { color: var(--accent); }
+    
+    /* Sections */
+    section { padding: 60px 0; }
+    
+    section h2 {
       font-size: 2rem;
+      margin-bottom: 16px;
+    }
+    
+    section .section-desc {
+      color: var(--muted);
+      font-size: 1.1rem;
       margin-bottom: 40px;
     }
     
-    .pricing-grid {
+    /* Endpoint Cards */
+    .endpoints {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 25px;
-      max-width: 900px;
-      margin: 0 auto;
+      gap: 16px;
     }
     
-    .price-card {
-      background: var(--card-bg);
-      border-radius: 12px;
-      padding: 30px;
-      text-align: center;
-    }
-    
-    .price-card.featured {
-      border: 2px solid var(--gold);
-    }
-    
-    .price-card h3 {
-      font-size: 1.3rem;
-      margin-bottom: 10px;
-    }
-    
-    .price-card .price {
-      font-size: 2.5rem;
-      font-weight: 700;
-      color: var(--gold);
-      margin: 15px 0;
-    }
-    
-    .price-card .price span {
-      font-size: 1rem;
-      color: var(--text-muted);
-    }
-    
-    .price-card ul {
-      list-style: none;
-      text-align: left;
-      margin: 20px 0;
-    }
-    
-    .price-card li {
-      padding: 8px 0;
-      color: var(--text-muted);
-      display: flex;
+    .endpoint {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px 24px;
+      display: grid;
+      grid-template-columns: 120px 1fr auto;
       align-items: center;
-      gap: 10px;
+      gap: 20px;
     }
     
-    .price-card li::before {
-      content: "✓";
-      color: var(--gold);
-      font-weight: bold;
-    }
+    .endpoint:hover { border-color: var(--accent-dim); }
     
-    /* CTA */
-    .cta {
-      text-align: center;
-      padding: 80px 0;
-    }
-    
-    .cta h2 {
-      font-size: 2rem;
-      margin-bottom: 15px;
-    }
-    
-    .cta p {
-      color: var(--text-muted);
-      margin-bottom: 30px;
-      font-size: 1.1rem;
-    }
-    
-    .btn {
-      display: inline-block;
-      background: var(--accent);
-      color: white;
-      padding: 14px 32px;
-      border-radius: 8px;
-      text-decoration: none;
+    .endpoint-method {
+      font-family: monospace;
       font-weight: 600;
-      font-size: 1.1rem;
-      transition: background 0.2s;
+      color: var(--green);
+      font-size: 0.85rem;
     }
     
-    .btn:hover { background: var(--accent-light); }
-    
-    .btn-secondary {
-      background: transparent;
-      border: 2px solid var(--text-muted);
+    .endpoint-path {
+      font-family: monospace;
       color: var(--text);
-      margin-left: 15px;
     }
     
-    .btn-secondary:hover {
-      border-color: var(--text);
-      background: transparent;
-    }
-    
-    footer {
-      border-top: 1px solid rgba(255,255,255,0.1);
-      padding: 40px 0;
-      text-align: center;
-      color: var(--text-muted);
+    .endpoint-desc {
+      color: var(--muted);
       font-size: 0.9rem;
     }
     
-    footer a {
-      color: var(--text-muted);
-      text-decoration: none;
+    /* Data Coverage */
+    .coverage-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
     }
     
+    .coverage-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px;
+    }
+    
+    .coverage-card h3 {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+      font-size: 1.2rem;
+    }
+    
+    .coverage-card h3 .icon { font-size: 1.4rem; }
+    
+    .coverage-list {
+      list-style: none;
+    }
+    
+    .coverage-list li {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      color: var(--muted);
+    }
+    
+    .coverage-list li:last-child { border-bottom: none; }
+    .coverage-list .count { color: var(--text); font-weight: 600; }
+    
+    /* Pricing */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    
+    .pricing-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 32px;
+      text-align: center;
+    }
+    
+    .pricing-card.featured {
+      border-color: var(--accent);
+      position: relative;
+    }
+    
+    .pricing-card.featured::before {
+      content: 'Most Popular';
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--accent);
+      color: #000;
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    
+    .pricing-card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 8px;
+    }
+    
+    .pricing-card .price {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin: 16px 0;
+    }
+    
+    .pricing-card .price span {
+      font-size: 1rem;
+      color: var(--muted);
+      font-weight: 400;
+    }
+    
+    .pricing-card ul {
+      list-style: none;
+      text-align: left;
+      margin: 24px 0;
+    }
+    
+    .pricing-card li {
+      padding: 8px 0;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .pricing-card li::before {
+      content: '✓';
+      color: var(--green);
+      font-weight: bold;
+    }
+    
+    /* Roadmap */
+    .roadmap-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    
+    .roadmap-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px;
+    }
+    
+    .roadmap-card h3 {
+      color: var(--accent);
+      font-size: 0.9rem;
+      margin-bottom: 12px;
+    }
+    
+    .roadmap-card h4 {
+      font-size: 1.1rem;
+      margin-bottom: 12px;
+    }
+    
+    .roadmap-card p {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+    
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 40px 0;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+    
+    footer a { color: var(--muted); margin: 0 12px; }
     footer a:hover { color: var(--text); }
     
-    @media (max-width: 600px) {
+    /* Responsive */
+    @media (max-width: 768px) {
       .hero h1 { font-size: 2rem; }
-      .hero .subtitle { font-size: 1.1rem; }
-      .stat-value { font-size: 1.6rem; }
-      .btn-secondary { display: block; margin: 15px auto 0; }
+      .stats { grid-template-columns: repeat(2, 1fr); }
+      .coverage-grid { grid-template-columns: 1fr; }
+      .pricing-grid { grid-template-columns: 1fr; }
+      .roadmap-grid { grid-template-columns: 1fr; }
+      .endpoint { grid-template-columns: 1fr; gap: 8px; }
+      nav { display: none; }
     }
   </style>
 </head>
 <body>
   <header>
-    <div class="container header-inner">
-      <a href="/mining" class="logo">Autropic <span>Mining</span></a>
-      <a href="/" class="back-link">← tryAutropic.com</a>
+    <div class="container">
+      <a href="/" class="logo">
+        <span class="logo-icon">⛏️</span>
+        Mining Intelligence API
+      </a>
+      <nav>
+        <a href="#endpoints">Endpoints</a>
+        <a href="#coverage">Coverage</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#roadmap">Roadmap</a>
+        <a href="/api/mining" class="btn btn-outline">API Reference</a>
+      </nav>
     </div>
   </header>
   
-  <section class="hero">
-    <div class="container">
-      <span class="badge">🚀 Free Tier Available</span>
-      <h1>Mining <span>Intelligence</span> API</h1>
-      <p class="subtitle">
-        One API for everything mining — tenements, assay labs, drilling contractors, 
-        jobs, equipment, commodity prices, and ASX announcements.
-      </p>
-      
-      <div class="stats">
-        <div class="stat">
-          <div class="stat-value">83K+</div>
-          <div class="stat-label">Tenements</div>
-        </div>
-        <div class="stat">
-          <div class="stat-value">13</div>
-          <div class="stat-label">Assay Labs</div>
-        </div>
-        <div class="stat">
-          <div class="stat-value">10</div>
-          <div class="stat-label">Drillers</div>
-        </div>
-        <div class="stat">
-          <div class="stat-value">150+</div>
-          <div class="stat-label">Jobs</div>
-        </div>
-        <div class="stat">
-          <div class="stat-value">40+</div>
-          <div class="stat-label">ASX Companies</div>
-        </div>
-      </div>
-    </div>
-  </section>
-  
-  <section class="vision">
-    <div class="container">
-      <h2>Built for the Agent Economy</h2>
-      <p class="vision-text">
-        Mining data is scattered across government portals, company websites, job boards, 
-        and financial feeds. <strong>We're consolidating it into one clean API</strong> that 
-        AI agents and developers can query instantly.
-        <br><br>
-        Whether you're building investment analysis tools, supply chain automation, 
-        or autonomous research agents — get the mining data you need in one place.
-      </p>
-    </div>
-  </section>
-  
-  <section class="data-sources">
-    <div class="container">
-      <h2>Data Endpoints</h2>
-      <div class="sources-grid">
-        <div class="source-card">
-          <h3><span class="icon">🗺️</span> Tenements</h3>
-          <p>83,000+ mining claims across Australia (WA, NT) and Canada (BC, SK). Real-time from government sources.</p>
-          <span class="endpoint">/api/mining/tenements</span>
-        </div>
-        <div class="source-card">
-          <h3><span class="icon">🔬</span> Assay Labs</h3>
-          <p>13 NATA-accredited labs with services, commodities, locations, and typical turnaround times.</p>
-          <span class="endpoint">/api/mining/labs</span>
-        </div>
-        <div class="source-card">
-          <h3><span class="icon">⛏️</span> Drilling Contractors</h3>
-          <p>10 major drilling companies with rig counts, regions, drill types, and client lists.</p>
-          <span class="endpoint">/api/mining/drillers</span>
-        </div>
-        <div class="source-card">
-          <h3><span class="icon">👷</span> Mining Jobs</h3>
-          <p>150+ job listings with FIFO/residential, role types, salary ranges, and company info.</p>
-          <span class="endpoint">/api/mining/jobs</span>
-        </div>
-        <div class="source-card">
-          <h3><span class="icon">🚜</span> Equipment</h3>
-          <p>Heavy mining equipment listings — excavators, haul trucks, drills with specs and pricing.</p>
-          <span class="endpoint">/api/mining/equipment</span>
-        </div>
-        <div class="source-card">
-          <h3><span class="icon">📈</span> Commodity Prices</h3>
-          <p>Gold, copper, lithium, iron ore, battery metals — updated daily from market sources.</p>
-          <span class="endpoint">/api/mining/prices</span>
-        </div>
-        <div class="source-card">
-          <h3><span class="icon">📰</span> ASX Announcements</h3>
-          <p>Capital raises, exploration results, and material announcements from 40+ ASX miners.</p>
-          <span class="endpoint">/api/mining/announcements</span>
-        </div>
-        <div class="source-card">
-          <h3><span class="icon">🔮</span> Coming Soon</h3>
-          <p>Satellite activity signals, lab turnaround tracking, hiring velocity, capital raise patterns.</p>
-          <span class="endpoint">Intelligence tier</span>
-        </div>
-      </div>
-    </div>
-  </section>
-  
-  <section class="api-demo">
-    <div class="container">
-      <h2>Simple REST API</h2>
-      <p class="subtitle">Clean JSON responses. No auth required for free tier.</p>
-      
-      <div class="code-examples">
-        <div class="code-block">
-          <div class="code-header">
-            <span>Find labs near Perth with fire assay</span>
-            <span class="method">GET</span>
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="hero-badge">🚀 Now Live — 86,000+ Tenements</div>
+        <h1>The <span>Mining Data API</span><br>Built for AI Agents</h1>
+        <p class="subtitle">
+          Tenements, ASX announcements, commodity prices — one API, zero setup.
+          Like Polygon.io, but for mining exploration.
+        </p>
+        
+        <div class="stats">
+          <div class="stat">
+            <div class="stat-value">86,503</div>
+            <div class="stat-label">Tenements</div>
           </div>
-          <div class="code-content">curl "<span class="url">https://tryautropic.com/api/mining/labs</span><span class="param">?region=perth&service=fire+assay</span>"</div>
+          <div class="stat">
+            <div class="stat-value">240</div>
+            <div class="stat-label">ASX Announcements</div>
+          </div>
+          <div class="stat">
+            <div class="stat-value">5</div>
+            <div class="stat-label">Jurisdictions</div>
+          </div>
+          <div class="stat">
+            <div class="stat-value green">Free</div>
+            <div class="stat-label">60 req/min</div>
+          </div>
         </div>
         
         <div class="code-block">
-          <div class="code-header">
-            <span>Get FIFO mining jobs</span>
-            <span class="method">GET</span>
-          </div>
-          <div class="code-content">curl "<span class="url">https://tryautropic.com/api/mining/jobs</span><span class="param">?work_type=FIFO&limit=20</span>"</div>
+          <pre><span class="comment"># Search Rio Tinto tenements in Western Australia</span>
+curl "<span class="url">https://tryautropic.com/api/mining/tenements?state=WA&holder=rio&limit=5</span>"
+
+<span class="comment"># Get price-sensitive gold announcements</span>
+curl "<span class="url">https://tryautropic.com/api/mining/announcements?commodity=gold&price_sensitive=true</span>"
+
+<span class="comment"># Current commodity prices</span>
+curl "<span class="url">https://tryautropic.com/api/mining/prices</span>"</pre>
         </div>
         
-        <div class="code-block">
-          <div class="code-header">
-            <span>Diamond drilling contractors in WA</span>
-            <span class="method">GET</span>
-          </div>
-          <div class="code-content">curl "<span class="url">https://tryautropic.com/api/mining/drillers</span><span class="param">?region=WA&drill_type=diamond</span>"</div>
-        </div>
-        
-        <div class="code-block">
-          <div class="code-header">
-            <span>Recent ASX capital raises</span>
-            <span class="method">GET</span>
-          </div>
-          <div class="code-content">curl "<span class="url">https://tryautropic.com/api/mining/announcements/capital-raises</span>"</div>
-        </div>
-        
-        <div class="code-block">
-          <div class="code-header">
-            <span>Current commodity prices</span>
-            <span class="method">GET</span>
-          </div>
-          <div class="code-content">curl "<span class="url">https://tryautropic.com/api/mining/prices</span>"</div>
+        <div style="display: flex; gap: 16px; justify-content: center;">
+          <a href="/api/mining" class="btn">API Reference →</a>
+          <a href="https://github.com/tlkc888-Jenkins/mining-intelligence-mcp" class="btn btn-outline">MCP Server</a>
         </div>
       </div>
-    </div>
-  </section>
-  
-  <section class="pricing">
-    <div class="container">
-      <h2>Pricing</h2>
-      <div class="pricing-grid">
-        <div class="price-card">
-          <h3>Free</h3>
-          <div class="price">$0<span>/month</span></div>
-          <ul>
-            <li>100 queries/day</li>
-            <li>All data endpoints</li>
-            <li>Rate limited by IP</li>
-            <li>Community support</li>
-          </ul>
-        </div>
-        <div class="price-card featured">
-          <h3>Mining Pro</h3>
-          <div class="price">$99<span>/month</span></div>
-          <ul>
-            <li>10,000 queries/day</li>
-            <li>All data endpoints</li>
-            <li>API key for tracking</li>
-            <li>Email support</li>
-          </ul>
-        </div>
-        <div class="price-card">
-          <h3>Intelligence</h3>
-          <div class="price">$499<span>/month</span></div>
-          <ul>
-            <li>100,000 queries/day</li>
-            <li>All data + signals</li>
-            <li>Anomaly detection</li>
-            <li>Priority support</li>
-          </ul>
+    </section>
+    
+    <section id="endpoints" style="background: var(--surface);">
+      <div class="container">
+        <h2>API Endpoints</h2>
+        <p class="section-desc">RESTful JSON API. No authentication required for free tier.</p>
+        
+        <div class="endpoints">
+          <div class="endpoint">
+            <span class="endpoint-method">GET</span>
+            <div>
+              <div class="endpoint-path">/api/mining/tenements</div>
+              <div class="endpoint-desc">Query tenements by state, holder, status, type</div>
+            </div>
+            <a href="/api/mining/tenements?state=WA&limit=3" target="_blank">Try →</a>
+          </div>
+          
+          <div class="endpoint">
+            <span class="endpoint-method">GET</span>
+            <div>
+              <div class="endpoint-path">/api/mining/tenements/:id</div>
+              <div class="endpoint-desc">Get single tenement by permit ID</div>
+            </div>
+            <span></span>
+          </div>
+          
+          <div class="endpoint">
+            <span class="endpoint-method">GET</span>
+            <div>
+              <div class="endpoint-path">/api/mining/announcements</div>
+              <div class="endpoint-desc">ASX announcements filtered by company, commodity, price_sensitive</div>
+            </div>
+            <a href="/api/mining/announcements?commodity=gold&limit=5" target="_blank">Try →</a>
+          </div>
+          
+          <div class="endpoint">
+            <span class="endpoint-method">GET</span>
+            <div>
+              <div class="endpoint-path">/api/mining/announcements/exploration</div>
+              <div class="endpoint-desc">Drilling results, assays, resource updates</div>
+            </div>
+            <a href="/api/mining/announcements/exploration" target="_blank">Try →</a>
+          </div>
+          
+          <div class="endpoint">
+            <span class="endpoint-method">GET</span>
+            <div>
+              <div class="endpoint-path">/api/mining/announcements/capital-raises</div>
+              <div class="endpoint-desc">Placements, SPPs, entitlement offers</div>
+            </div>
+            <a href="/api/mining/announcements/capital-raises" target="_blank">Try →</a>
+          </div>
+          
+          <div class="endpoint">
+            <span class="endpoint-method">GET</span>
+            <div>
+              <div class="endpoint-path">/api/mining/prices</div>
+              <div class="endpoint-desc">Commodity spot prices (Au, Cu, Ag, Li, Fe, etc.)</div>
+            </div>
+            <a href="/api/mining/prices" target="_blank">Try →</a>
+          </div>
+          
+          <div class="endpoint">
+            <span class="endpoint-method">GET</span>
+            <div>
+              <div class="endpoint-path">/api/mining/stats</div>
+              <div class="endpoint-desc">Coverage statistics by jurisdiction</div>
+            </div>
+            <a href="/api/mining/stats" target="_blank">Try →</a>
+          </div>
+          
+          <div class="endpoint">
+            <span class="endpoint-method">GET</span>
+            <div>
+              <div class="endpoint-path">/api/mining/labs</div>
+              <div class="endpoint-desc">Assay laboratory directory</div>
+            </div>
+            <a href="/api/mining/labs" target="_blank">Try →</a>
+          </div>
+          
+          <div class="endpoint">
+            <span class="endpoint-method">GET</span>
+            <div>
+              <div class="endpoint-path">/api/mining/drillers</div>
+              <div class="endpoint-desc">Drilling contractor directory</div>
+            </div>
+            <a href="/api/mining/drillers" target="_blank">Try →</a>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
-  
-  <section class="cta">
-    <div class="container">
-      <h2>Start Building Today</h2>
-      <p>Free tier available. No credit card required.</p>
-      <a href="/api/mining" class="btn">View API Docs</a>
-      <a href="/api/mining/labs" class="btn btn-secondary">Try It Live</a>
-    </div>
-  </section>
+    </section>
+    
+    <section id="coverage">
+      <div class="container">
+        <h2>Data Coverage</h2>
+        <p class="section-desc">Live data from government geological surveys. Updated continuously.</p>
+        
+        <div class="coverage-grid">
+          <div class="coverage-card">
+            <h3><span class="icon">🇦🇺</span> Australia</h3>
+            <ul class="coverage-list">
+              <li>Western Australia <span class="count">30,120</span></li>
+              <li>Northern Territory <span class="count">3,945</span></li>
+              <li>Queensland <span class="count">2,918</span></li>
+              <li style="color: var(--muted); font-style: italic;">NSW, VIC, SA — coming soon</li>
+            </ul>
+          </div>
+          
+          <div class="coverage-card">
+            <h3><span class="icon">🇨🇦</span> Canada</h3>
+            <ul class="coverage-list">
+              <li>British Columbia <span class="count">41,925</span></li>
+              <li>Saskatchewan <span class="count">7,595</span></li>
+              <li style="color: var(--muted); font-style: italic;">Ontario, Quebec — coming soon</li>
+            </ul>
+          </div>
+          
+          <div class="coverage-card">
+            <h3><span class="icon">📊</span> ASX Announcements</h3>
+            <ul class="coverage-list">
+              <li>Mining companies tracked <span class="count">107</span></li>
+              <li>Total announcements <span class="count">240</span></li>
+              <li>Exploration results <span class="count">39</span></li>
+              <li>Capital raises <span class="count">63</span></li>
+            </ul>
+          </div>
+          
+          <div class="coverage-card">
+            <h3><span class="icon">💰</span> Commodities</h3>
+            <ul class="coverage-list">
+              <li>Precious metals <span class="count">Au, Ag</span></li>
+              <li>Base metals <span class="count">Cu, Zn, Ni, Pb</span></li>
+              <li>Battery metals <span class="count">Li, Co</span></li>
+              <li>Bulk <span class="count">Fe 62%</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section id="pricing" style="background: var(--surface);">
+      <div class="container">
+        <h2>Pricing</h2>
+        <p class="section-desc">Free tier that's actually useful. Scale when you need to.</p>
+        
+        <div class="pricing-grid">
+          <div class="pricing-card">
+            <h3>Free</h3>
+            <div class="price">$0</div>
+            <ul>
+              <li>60 requests/minute</li>
+              <li>500 requests/day</li>
+              <li>All endpoints</li>
+              <li>No API key required</li>
+            </ul>
+            <a href="/api/mining" class="btn btn-outline" style="width: 100%;">Start Free</a>
+          </div>
+          
+          <div class="pricing-card featured">
+            <h3>Pro</h3>
+            <div class="price">$99<span>/mo</span></div>
+            <ul>
+              <li>1,000 requests/minute</li>
+              <li>50,000 requests/day</li>
+              <li>Priority support</li>
+              <li>Webhook alerts</li>
+            </ul>
+            <a href="/pro" class="btn" style="width: 100%;">Upgrade</a>
+          </div>
+          
+          <div class="pricing-card">
+            <h3>Enterprise</h3>
+            <div class="price">Custom</div>
+            <ul>
+              <li>Unlimited requests</li>
+              <li>Dedicated support</li>
+              <li>Custom integrations</li>
+              <li>SLA guarantees</li>
+            </ul>
+            <a href="mailto:tom@autropic.com" class="btn btn-outline" style="width: 100%;">Contact</a>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section id="roadmap">
+      <div class="container">
+        <h2>Roadmap</h2>
+        <p class="section-desc">Building the complete mining intelligence stack.</p>
+        
+        <div class="roadmap-grid">
+          <div class="roadmap-card">
+            <h3>Q1 2026</h3>
+            <h4>Deep Intelligence</h4>
+            <p>JORC PDF parsing, drillhole database, more AU/CA jurisdictions</p>
+          </div>
+          
+          <div class="roadmap-card">
+            <h3>Q2 2026</h3>
+            <h4>Agent Tools</h4>
+            <p>Target ranking, peer comparison, alert webhooks</p>
+          </div>
+          
+          <div class="roadmap-card">
+            <h3>Q3 2026</h3>
+            <h4>Premium Intelligence</h4>
+            <p>Geophysics integration, resource estimation, deposit classifiers</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
   
   <footer>
     <div class="container">
-      <p><strong>Autropic Mining Intelligence</strong> — A <a href="/">tryAutropic.com</a> product</p>
-      <p style="margin-top: 10px;">
-        <a href="mailto:tom@autropic.com">Contact</a> · 
-        <a href="/terms">Terms</a> · 
-        <a href="/privacy">Privacy</a>
+      <p style="margin-bottom: 16px;">
+        <strong>Mining Intelligence API</strong> — Built by <a href="https://autropic.com">Autropic</a>
       </p>
-      <p style="margin-top: 20px;">© 2026 Autropic Pty Ltd. ABN 90 691 505 718</p>
+      <p>
+        <a href="/api/mining">API Reference</a>
+        <a href="https://github.com/tlkc888-Jenkins/mining-intelligence-mcp">GitHub</a>
+        <a href="/terms">Terms</a>
+        <a href="/privacy">Privacy</a>
+        <a href="mailto:tom@autropic.com">Contact</a>
+      </p>
     </div>
   </footer>
 </body>
